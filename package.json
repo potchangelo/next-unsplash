@@ -11,7 +11,8 @@
     "bulma": "^0.9.0",
     "next": "9.4.4",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "swr": "^0.2.3"
   },
   "devDependencies": {
     "sass": "^1.26.10"

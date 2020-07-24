@@ -1,26 +1,42 @@
 import Head from 'next/head';
 import { useState, useEffect, useCallback } from "react";
+import useSWR from 'swr';
+
+async function fetcher(url) {
+    const res = await fetch(url);
+    const resJson = await res.json();
+    return resJson;
+}
 
 function PhotosUid(props) {
     const { uid = null } = props;
-    const [photo, setPhoto] = useState(null);
+    // const [photo, setPhoto] = useState(null);
 
-    const getPhoto = useCallback(async (beforeId) => {
-        try {
-            const res = await fetch(`http://localhost:8080/photos/${uid}`);
-            const resJson = await res.json();
-            setPhoto(resJson);
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }, []);
+    // const getPhoto = useCallback(async (photoUid) => {
+    //     if (!photoUid) return;
+    //     try {
+    //         const res = await fetch(`http://localhost:8080/photos/${photoUid}`)
+    //         const resJson = await res.json();
+    //         setPhoto(resJson);
+    //     }
+    //     catch (error) {
+    //         console.log(error);
+    //     }
+    // }, []);
 
-    useEffect(() => { getPhoto(); }, [getPhoto]);
+    // useEffect(() => { getPhoto(uid); }, [getPhoto, uid]);
 
-    let headTitle = 'Photo - Unsplash';
+    const { 
+        data: photo, error 
+    } = useSWR(!!uid ? `http://localhost:8080/photos/${uid}` : null, fetcher, {
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false
+    });
+
+    let headTitle = `${uid} - Unsplash-cloned`;
     let userElement = null;
     let photoElement = null;
+    
     if (!!photo) {
         const {
             width, height, description, 
@@ -28,7 +44,6 @@ function PhotosUid(props) {
             user: { username, displayName }
         } = photo;
 
-        headTitle = `${uid} - Unsplash`;
         userElement = (
             <div className="user">
                 <h2 className="title">{displayName}</h2>
@@ -46,7 +61,6 @@ function PhotosUid(props) {
         <section className="section">
             <Head>
                 <title>{headTitle}</title>
-                <link rel="icon" href="/favicon.ico" />
             </Head>
             <div className="container">
                 {userElement}
@@ -59,7 +73,7 @@ function PhotosUid(props) {
 async function getStaticPaths() {
     let photoArray = [];
     try {
-        const res = await fetch('http://localhost:8080/photos?beforeId=6');
+        const res = await fetch('http://localhost:8080/photos?beforeId=30');
         photoArray = await res.json();
     }
     catch (error) {
