@@ -1,41 +1,19 @@
 import Head from 'next/head';
-import { useState, useEffect, useCallback } from "react";
-import useSWR from 'swr';
-
-async function fetcher(url) {
-    const res = await fetch(url);
-    const resJson = await res.json();
-    return resJson;
-}
+import { useQuery } from 'react-query';
+import { getPhotos, getPhoto } from '../../api';
 
 function PhotosUid(props) {
-    const { uid = null } = props;
-    // const [photo, setPhoto] = useState(null);
+    // - Props, React Query
+    const { cachePhoto } = props;
+    const { data: fetchedPhoto } = useQuery(
+        ['photo', !!cachePhoto ? cachePhoto.uid : null], 
+        getPhoto
+    );
+    const photo = fetchedPhoto || cachePhoto;
 
-    // const getPhoto = useCallback(async (photoUid) => {
-    //     if (!photoUid) return;
-    //     try {
-    //         const res = await fetch(`http://localhost:8080/photos/${photoUid}`)
-    //         const resJson = await res.json();
-    //         setPhoto(resJson);
-    //     }
-    //     catch (error) {
-    //         console.log(error);
-    //     }
-    // }, []);
-
-    // useEffect(() => { getPhoto(uid); }, [getPhoto, uid]);
-
-    const { 
-        data: photo, error 
-    } = useSWR(!!uid ? `http://localhost:8080/photos/${uid}` : null, fetcher, {
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false
-    });
-
-    let headTitle = `${uid} - Unsplash-cloned`;
-    let userElement = null;
-    let photoElement = null;
+    // - Elements
+    let headTitle = `Photo | Unsplash-cloned`;
+    let userElement = null, photoElement = null;
     
     if (!!photo) {
         const {
@@ -44,6 +22,7 @@ function PhotosUid(props) {
             user: { username, displayName }
         } = photo;
 
+        headTitle = `Photo by ${displayName} | Unsplash-cloned`;
         userElement = (
             <div className="user">
                 <h2 className="title">{displayName}</h2>
@@ -73,11 +52,10 @@ function PhotosUid(props) {
 async function getStaticPaths() {
     let photoArray = [];
     try {
-        const res = await fetch('http://localhost:8080/photos?beforeId=30');
-        photoArray = await res.json();
+        photoArray = await getPhotos(null, 30);
     }
     catch (error) {
-        console.log(error);
+        console.error(error);
     }
 
     const paths = photoArray.map(photo => {
@@ -89,7 +67,16 @@ async function getStaticPaths() {
 
 async function getStaticProps(context) {
     const { uid } = context.params;
-    return { props: { uid } };
+
+    let cachePhoto = null;
+    try {
+        cachePhoto = await getPhoto(null, uid);
+    }
+    catch (error) {
+        console.error(error);
+    }
+
+    return { props: { cachePhoto } };
 }
 
 export default PhotosUid;

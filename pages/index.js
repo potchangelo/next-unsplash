@@ -1,125 +1,59 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState, useEffect, useCallback } from 'react';
-import useSWR, { mutate } from 'swr';
-import { useQuery, usePaginatedQuery, useInfiniteQuery } from 'react-query';
+import { useEffect, useCallback } from 'react';
+import { useInfiniteQuery } from 'react-query';
+import { getPhotos } from '../api';
 
-// async function fetcher(url) {
-//     const res = await fetch(url);
-//     const resJson = await res.json();
-//     return resJson;
-// }
-
-// async function fetchPhotos() {
-//     const res = await fetch('http://localhost:8080/photos');
-//     return await res.json();
-// }
-
-// async function fetchPhotos(key, beforeId) {
-//     let url = 'http://localhost:8080/photos';
-//     if (!!beforeId) url += `?beforeId=${beforeId}`;
-//     const res = await fetch(url);
-//     return await res.json();
-// }
-
-async function fetchPhotos(key, beforeId = null) {
-    let url = 'http://localhost:8080/photos';
-    if (!!beforeId) url += `?beforeId=${beforeId}`;
-    console.log(url)
-    const res = await fetch(url);
-    return await res.json();
-}
-
-function Home({query}) {
-    // SWR
-    // const [asd, setAsd] = useState('loading');
-
-    // const srwres = useSWR('http://localhost:8080/photos', fetcher, {
-    //     revalidateOnFocus: false,
-    //     revalidateOnReconnect: false,
-    //     onSuccess: (data, key, config) => {
-    //         // console.log('on success ' + data.length)
-    //         // if (data.length >= 12) setAsd('loadable')
-    //     }
-    // });
-
-    // console.log(srwres);
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setAsd('loading')
-    //         mutate('http://localhost:8080/photos', async (photoArray) => {
-    //             const newPhotoArray = await fetcher('http://localhost:8080/photos?beforeId=30')
-                
-    //             return [...photoArray, ...newPhotoArray]
-    //         }, false)
-    //     }, 2000)
-    // }, []);
-
-    // console.log(photoArray.length)
-
-    // --- Normal react-query fetch
-    // const { data: photoArray = [], isLoading, isSuccess, isStale, isFetching } = useQuery('photos', fetchPhotos)
-
-    // --- Pagination react-query fetch
-    // const router = useRouter();
-    // const { 
-    //     resolvedData, latestData, 
-    //     isLoading, isSuccess, isStale, isFetching 
-    // } = usePaginatedQuery(['photos', router.query.beforeId], fetchPhotos);
-    // console.log(resolvedData);
-    // const photoArray = resolvedData;
-
-    // Infinite react-query fetch
+function Home() {
+    // - React Query
     const { 
         data: photoGroupArray = [], 
-        fetchMore, canFetchMore, isFetching, isFetchingMore
-    } = useInfiniteQuery('photos', fetchPhotos, {
+        fetchMore, 
+        canFetchMore, isFetching, isFetchingMore
+    } = useInfiniteQuery('photos', getPhotos, {
         getFetchMore: (lastGroup, allGroups) => {
-            console.log(lastGroup)
             if (lastGroup.length < 12) return false;
             return lastGroup[lastGroup.length - 1].id;
         }
     });
     const photoArray = photoGroupArray.flat();
 
+    // - Callback
     const onScroll = useCallback(() => {
+        // Position
         const scrollBottom = window.scrollY + window.innerHeight;
         const docBottom = document.body.offsetHeight;
-        if (canFetchMore && !isFetchingMore && scrollBottom > docBottom - 700) {
-            console.log('fetch more')
-            fetchMore();
-        }
+
+        // Condition
+        const canFetch = canFetchMore && !isFetching && !isFetchingMore;
+        const isScrollReached = scrollBottom > docBottom - 700;
+
+        // Fetch
+        if (canFetch && isScrollReached) fetchMore();
     }, [canFetchMore, isFetching, isFetchingMore])
 
-    // function onScroll() {
-        
-    // }
-
+    // - Effects
     useEffect(() => {
         window.addEventListener('scroll', onScroll);
         return () => window.removeEventListener('scroll', onScroll);
     }, [onScroll]);
     
-    let photoElements = null;
-    if (!!photoArray) {
-        photoElements = photoArray.map(photo => {
-            const {
-                uid, width, height, description, 
-                photoUrl: { urlLarge }
-            } = photo;
-            return (
-                <div key={uid} className="column is-6-mobile is-4-tablet">
-                    <Link href="/photos/[uid]" as={`/photos/${uid}`}>
-                        <a>
-                            <img src={urlLarge} alt={description} width={width} height={height} />
-                        </a>
-                    </Link>
-                </div>
-            );
-        });
-    }
+    // - Elements
+    let photoElements = photoArray.map(photo => {
+        const {
+            uid, width, height, description, 
+            photoUrl: { urlSmall }
+        } = photo;
+        return (
+            <div key={uid} className="column is-6-mobile is-4-tablet">
+                <Link href="/photos/[uid]" as={`/photos/${uid}`}>
+                    <a>
+                        <img src={urlSmall} alt={description} />
+                    </a>
+                </Link>
+            </div>
+        );
+    });
 
     return (
         <section className="section">
@@ -127,8 +61,7 @@ function Home({query}) {
                 <title>Unsplash-cloned</title>
             </Head>
             <div className="container">
-                <h2 className="title">Unsplash</h2>
-                <Link href="/?beforeId=30"><a>Next page</a></Link>
+                <h2 className="title">Unsplash-cloned</h2>
                 <div className="columns is-multiline is-mobile">
                     {photoElements}
                 </div>
