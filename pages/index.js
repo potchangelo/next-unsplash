@@ -74,7 +74,7 @@ function Home({query}) {
     // Infinite react-query fetch
     const { 
         data: photoGroupArray = [], 
-        fetchMore, canFetchMore 
+        fetchMore, canFetchMore, isFetching, isFetchingMore
     } = useInfiniteQuery('photos', fetchPhotos, {
         getFetchMore: (lastGroup, allGroups) => {
             console.log(lastGroup)
@@ -84,11 +84,23 @@ function Home({query}) {
     });
     const photoArray = photoGroupArray.flat();
 
-    useEffect(() => {
-        setTimeout(() => {
+    const onScroll = useCallback(() => {
+        const scrollBottom = window.scrollY + window.innerHeight;
+        const docBottom = document.body.offsetHeight;
+        if (canFetchMore && !isFetchingMore && scrollBottom > docBottom - 700) {
+            console.log('fetch more')
             fetchMore();
-        }, 2000)
-    }, []);
+        }
+    }, [canFetchMore, isFetching, isFetchingMore])
+
+    // function onScroll() {
+        
+    // }
+
+    useEffect(() => {
+        window.addEventListener('scroll', onScroll);
+        return () => window.removeEventListener('scroll', onScroll);
+    }, [onScroll]);
     
     let photoElements = null;
     if (!!photoArray) {
