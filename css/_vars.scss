@@ -26,8 +26,9 @@ $input-icon-color: $grey;
 $custom-navbar-height: 66px;
 
 // -- Z index
+$custom-z-index-photo-item: 10;
 $custom-z-index-navbar: 1000;
-$custom-z-index-modal: 1000;
+$custom-z-index-modal: 10000;
 
 // Mixin
 @mixin within($min, $max) {

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useEffect, useCallback } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { getPhotos } from '../api';
-import { Navbar } from '../components';
+import { Navbar, PhotoItem } from '../components';
 
 function Home() {
     // - React Query
@@ -41,17 +41,9 @@ function Home() {
     
     // - Elements
     let photoElements = photoArray.map(photo => {
-        const {
-            uid, width, height, description, 
-            photoUrl: { urlSmall }
-        } = photo;
         return (
-            <div key={uid} className="column is-6-mobile is-4-tablet">
-                <Link href="/photos/[uid]" as={`/photos/${uid}`}>
-                    <a>
-                        <img src={urlSmall} alt={description} />
-                    </a>
-                </Link>
+            <div key={photo.uid} className="column is-6-mobile is-4-tablet">
+                <PhotoItem photo={photo} />
             </div>
         );
     });
