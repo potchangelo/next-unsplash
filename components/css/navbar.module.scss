@@ -1,0 +1,64 @@
+@import "../../css/vars";
+
+// - Navbar
+
+.main {
+    background-color: $white;
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.125);
+    display: flex;
+    height: $custom-navbar-height;
+    position: sticky;
+    top: 0px;
+    z-index: $custom-z-index-navbar;
+}
+
+.item {
+    flex-shrink: 1;
+}
+
+.item_expand {
+    flex-grow: 1;
+}
+
+// - Brand
+
+.brand {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 12px 12px 12px 16px;
+}
+
+.brand_logo {
+    height: 44px;
+}
+
+.brand_text {
+    padding-left: 10px;
+}
+
+// - Search
+
+.search_outer {
+    height: 100%;
+    padding: 12px 20px;
+}
+
+.search_inner {
+    max-width: 600px;
+}
+
+// - Links
+
+.link {
+    color: $grey;
+    font-weight: $weight-bold;
+    display: inline-flex;
+    height: 100%;
+    padding: 12px;
+    align-items: center;
+
+    &:last-child {
+        padding-right: 16px;
+    }
+}

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useEffect, useCallback } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { getPhotos } from '../api';
+import { Navbar } from '../components';
 
 function Home() {
     // - React Query
@@ -56,17 +57,19 @@ function Home() {
     });
 
     return (
-        <section className="section">
+        <>
             <Head>
                 <title>Unsplash-cloned</title>
             </Head>
-            <div className="container">
-                <h2 className="title">Unsplash-cloned</h2>
-                <div className="columns is-multiline is-mobile">
-                    {photoElements}
+            <Navbar />
+            <section className="section">
+                <div className="container">
+                    <div className="columns is-multiline is-mobile">
+                        {photoElements}
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 }
 
