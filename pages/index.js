@@ -1,12 +1,15 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useEffect, useCallback } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useCallback, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
-import { getPhotos } from '../api';
-import { Navbar, PhotoItem } from '../components';
+import { getPhotos, getPhoto } from '../api';
+import { Modal } from '../layouts/';
+import { Navbar, PhotoItem, PhotoPost } from '../components';
 
 function Home() {
-    // - React Query
+    // - Data
+    const [photo, setPhoto] = useState(null);
     const { 
         data: photoGroupArray = [], 
         fetchMore, 
@@ -18,6 +21,7 @@ function Home() {
         }
     });
     const photoArray = photoGroupArray.flat();
+    const router = useRouter();
 
     // - Callback
     const onScroll = useCallback(() => {
@@ -31,13 +35,35 @@ function Home() {
 
         // Fetch
         if (canFetch && isScrollReached) fetchMore();
-    }, [canFetchMore, isFetching, isFetchingMore])
+    }, [canFetchMore, isFetching, isFetchingMore]);
+
+    const loadPhoto = useCallback(async (uid) => {
+        console.log(uid)
+		try {
+            const resJson = await getPhoto(null, uid);
+		    setPhoto(resJson);
+        }
+        catch (error) {
+            console.log(error);
+            setPhoto(null);
+        }
+	}, []);
 
     // - Effects
     useEffect(() => {
         window.addEventListener('scroll', onScroll);
         return () => window.removeEventListener('scroll', onScroll);
     }, [onScroll]);
+
+    useEffect(() => {
+        const { photoUid } = router.query;
+		if (!!photoUid) {
+			loadPhoto(photoUid);
+		}
+		else {
+			setPhoto(null);
+		}
+    }, [router.query, loadPhoto])
     
     // - Elements
     let photoElements = photoArray.map(photo => {
@@ -47,6 +73,11 @@ function Home() {
             </div>
         );
     });
+
+    let photoModal = null;
+	if (!!photo) {
+        photoModal = <Modal><PhotoPost photo={photo} /></Modal>;
+	}
 
     return (
         <>
@@ -61,6 +92,7 @@ function Home() {
                     </div>
                 </div>
             </section>
+            {photoModal}
         </>
     );
 }

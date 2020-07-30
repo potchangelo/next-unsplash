@@ -14,7 +14,7 @@ function PhotoItem({ photo }) {
 
     return (
         <figure className={style.figure}>
-            <Link href="/photos/[uid]" as={`/photos/${uid}`}>
+            <Link href={`/?photoUid=${uid}`} as={`/photos/${uid}`} shallow={true} scroll={false}>
                 <a className={style.link}>
                     <img src={photoUrl.urlSmall} alt={description} />
                 </a>
