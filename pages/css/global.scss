@@ -1,45 +1,21 @@
 @import "../../css/vars";
 @import "~bulma/bulma.sass";
 
+html.disable-scroll {
+    overflow: hidden;
+}
+
 #modal-portal {
     display: none;
     position: fixed;
-    inset: 0px;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
     z-index: -10;
 }
 
 #modal-portal.appeared {
     display: block;
-    z-index: 10000;
-}
-
-.modal-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    z-index: 10001;
-}
-
-.modal-bg {
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    z-index: 10002;
-}
-
-.modal-content {
-    background-color: white;
-    width: 100%;
-    max-width: 1000px;
-    min-height: 200px;
-    margin: 60px;
-    z-index: 10003;
+    z-index: $custom-z-index-modal;
 }
