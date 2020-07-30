@@ -4,19 +4,19 @@ import Link from 'next/link';
 function PhotoItem({ photo }) {
     const {
         uid, width, height, description, 
-        user, photoUrl
+        user, url
     } = photo;
 
     let userAvatarUrl = 'https://via.placeholder.com/64';
-    if (!!user.avatar) {
-        userAvatarUrl = user.avatar.urlSmall;
+    if (!!user.avatarUrl) {
+        userAvatarUrl = user.avatarUrl.small;
     }
 
     return (
         <figure className={style.figure}>
             <Link href={`/?photoUid=${uid}`} as={`/photos/${uid}`} shallow={true} scroll={false}>
                 <a className={style.link}>
-                    <img src={photoUrl.urlSmall} alt={description} />
+                    <img src={url.small} alt={description} />
                 </a>
             </Link>
             <div className={style.overlay}>

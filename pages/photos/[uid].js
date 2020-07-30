@@ -18,7 +18,7 @@ function PhotosUid(props) {
     if (!!photo) {
         const {
             width, height, description, 
-            photoUrl: { urlLarge },
+            url,
             user: { username, displayName }
         } = photo;
 
@@ -31,7 +31,7 @@ function PhotosUid(props) {
         );
         photoElement = (
             <div className="photo">
-                <img src={urlLarge} width={width} height={height} alt={description} />
+                <img src={url.large} width={width} height={height} alt={description} />
             </div>
         );
     }

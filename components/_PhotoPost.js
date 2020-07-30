@@ -7,7 +7,7 @@ function PhotoPost({ photo }) {
     if (!!photo) {
         const {
             width, height, description, 
-            photoUrl, user
+            url, user
         } = photo;
 
         userElement = (
@@ -18,7 +18,7 @@ function PhotoPost({ photo }) {
         );
         photoElement = (
             <div className="photo">
-                <img src={photoUrl.urlLarge} width={width} height={height} alt={description} />
+                <img src={url.large} width={width} height={height} alt={description} />
             </div>
         );
     }
