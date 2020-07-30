@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useCallback, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';

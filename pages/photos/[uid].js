@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { useQuery } from 'react-query';
 import { getPhotos, getPhoto } from '../../api';
+import { Navbar, PhotoPost } from '../../components';
 
-function PhotosUid(props) {
-    // - Props, React Query
-    const { cachePhoto } = props;
+function PhotosUid({ cachePhoto }) {
+    // - Data
     const { data: fetchedPhoto } = useQuery(
         ['photo', !!cachePhoto ? cachePhoto.uid : null], 
         getPhoto
@@ -13,46 +13,29 @@ function PhotosUid(props) {
 
     // - Elements
     let headTitle = `Photo | Unsplash-cloned`;
-    let userElement = null, photoElement = null;
-    
     if (!!photo) {
-        const {
-            width, height, description, 
-            url,
-            user: { username, displayName }
-        } = photo;
-
-        headTitle = `Photo by ${displayName} | Unsplash-cloned`;
-        userElement = (
-            <div className="user">
-                <h2 className="title">{displayName}</h2>
-                <h4 className="title">@{username}</h4>
-            </div>
-        );
-        photoElement = (
-            <div className="photo">
-                <img src={url.large} width={width} height={height} alt={description} />
-            </div>
-        );
+        headTitle = `Photo by ${photo.user.displayName} | Unsplash-cloned`;
     }
 
     return (
-        <section className="section">
+        <>
             <Head>
                 <title>{headTitle}</title>
             </Head>
-            <div className="container">
-                {userElement}
-                {photoElement}
-            </div>
-        </section>
+            <Navbar />
+            <section className="section">
+                <div className="container">
+                    <PhotoPost photo={photo} />
+                </div>
+            </section>
+        </>
     );
 }
 
 async function getStaticPaths() {
     let photoArray = [];
     try {
-        photoArray = await getPhotos(null, 30);
+        photoArray = await getPhotos(null);
     }
     catch (error) {
         console.error(error);
