@@ -1,0 +1,17 @@
+@import "../../css/vars";
+
+.main {
+    display: flex;
+    justify-content: center;
+}
+
+.item {
+    width: max-content;
+}
+
+.item img {
+    display: block;
+    max-height: 80vh;
+    width: auto;
+    
+}

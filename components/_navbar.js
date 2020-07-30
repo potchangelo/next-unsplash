@@ -8,8 +8,8 @@ function Navbar() {
             <div className={style.item}>
                 <Link href="/">
                     <a className={style.brand}>
-                        <img className={style.brand_logo} src="/logo-light-64.png" alt="Logo" />
-                        <div className={style.brand_text}>
+                        <img src="/logo-light-64.png" width="44" height="44" alt="Logo" />
+                        <div>
                             <h1 className="title is-5">Unsplash-cloned</h1>
                             <h3 className="subtitle is-7 has-text-weight-bold">by Zinglecode</h3>
                         </div>
