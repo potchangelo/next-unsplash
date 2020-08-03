@@ -6,12 +6,34 @@
 }
 
 .item {
-    width: max-content;
+    width: 100%;
+    min-width: 320px;
+    position: relative;
+    cursor: zoom-in;
+}
+
+.item_zoomed {
+    cursor: zoom-out;
 }
 
 .item img {
     display: block;
-    max-height: 80vh;
-    width: auto;
-    
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.zoom_icon {
+    opacity: 0;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transition: opacity 0.15s ease-in-out;
+    pointer-events: none;
+}
+
+.item:hover .zoom_icon {
+    opacity: 1;
 }
