@@ -75,7 +75,7 @@ function Home() {
 
     let photoModal = null;
 	if (!!photo) {
-        photoModal = <Modal><PhotoPost photo={photo} /></Modal>;
+        photoModal = <Modal><PhotoPost photo={photo} isModal={true} /></Modal>;
 	}
 
     return (

@@ -1,13 +1,41 @@
 @import "../../css/vars";
 
-.main {
+.modal {
     background-color: white;
     border-radius: 4px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,.15);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
     width: 100%;
     max-width: 1152px;
     min-height: 200px;
     margin: 32px auto 96px;
+}
+
+.close {
+    color: $grey-lighter;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    cursor: pointer;
+
+    &:hover {
+        color: $white;
+    }
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.dl_more {
+    border-left: 1px solid rgba($white, 0.6) !important;
+    z-index: 9;
+}
+
+.content {
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .info {

@@ -23,10 +23,8 @@ function PhotosUid({ cachePhoto }) {
                 <title>{headTitle}</title>
             </Head>
             <Navbar />
-            <section className="section">
-                <div className="container">
-                    <PhotoPost photo={photo} />
-                </div>
+            <section>
+                <PhotoPost photo={photo} />
             </section>
         </>
     );
