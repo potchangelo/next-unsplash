@@ -1,5 +1,6 @@
 import style from './css/photo_item.module.scss';
 import Link from 'next/link';
+import User from './_User';
 
 function PhotoItem({ photo }) {
     const {
@@ -22,18 +23,7 @@ function PhotoItem({ photo }) {
             <div className={style.overlay}>
                 <div className={style.menu} />
                 <div className={style.menu}>
-                    <div className={style.user}>
-                        <Link href={`@${user.username}`}>
-                            <a>
-                                <img className={style.user_avatar} src={userAvatarUrl} alt={user.displayName} />
-                            </a>
-                        </Link>
-                        <div className={style.user_text}>
-                            <Link href={`@${user.username}`}>
-                                <a className={`has-text-white`}>{user.displayName}</a>
-                            </Link>
-                        </div>
-                    </div>
+                    <User user={user} textColor={'white'} hideUsername={true} />
                 </div>
             </div>
         </figure>
