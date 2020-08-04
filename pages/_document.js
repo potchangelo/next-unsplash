@@ -12,7 +12,7 @@ class MyDocument extends Document {
                 <Head/>
                 <body>
                     <Main />
-                    <div id="modal-portal"/>
+                    <div id="modal_portal"/>
                     <NextScript />
                 </body>
             </Html>

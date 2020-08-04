@@ -1,7 +1,7 @@
 import style from './css/photo_post.module.scss';
 import { ChevronDown, X } from 'react-feather';
 import User from './_User';
-import Photo from './_Photo';
+import PhotoPostFigure from './_PhotoPostFigure';
 import { ModalGuard } from '../layouts';
 
 function PhotoPost({ photo, isModal }) {
@@ -40,7 +40,7 @@ function PhotoPost({ photo, isModal }) {
                         </div>
                     </div>
                     <div className={style.content}>
-                        <Photo photo={photo} />
+                        <PhotoPostFigure photo={photo} />
                     </div>
                     <div className={style.info}>
                         <p>{photo.description}</p>

@@ -1,6 +1,8 @@
+import style from './css/modal.module.scss';
+
 function ModalGuard({ children }) {
     return (
-        <div style={{cursor: 'default'}} onClick={e => e.stopPropagation()}>
+        <div className={style.guard} onClick={e => e.stopPropagation()}>
             {children}
         </div>
     );

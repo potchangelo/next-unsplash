@@ -4,9 +4,9 @@ import ModalContent from './_ModalContent';
 
 function Modal({ children }) {
     // Create
-    const portal = document.querySelector('#modal-portal');
+    const portal = document.querySelector('#modal_portal');
     const container = document.createElement('div');
-    container.classList.add('modal-container');
+    container.classList.add('modal_container');
 
     // Add / Remove
     const addToPortal = useCallback(() => {
@@ -14,14 +14,14 @@ function Modal({ children }) {
         if (portal.contains(container)) return;
         portal.appendChild(container);
         portal.classList.add('appeared');
-        document.documentElement.classList.add('disable-scroll');
+        document.documentElement.classList.add('disable_scroll');
     }, [portal, container]);
 
     const removeFromPortal = useCallback(() => {
         if (!portal) return;
         portal.removeChild(container);
         portal.classList.remove('appeared');
-        document.documentElement.classList.remove('disable-scroll');
+        document.documentElement.classList.remove('disable_scroll');
     }, [portal, container]);
 
     // Initialize

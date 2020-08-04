@@ -1,10 +1,10 @@
-import style from './css/modal_content.module.scss';
+import style from './css/modal.module.scss';
 import { useRouter } from 'next/router';
 
 function ModalContent({ children }) {
     const router = useRouter();
     return (
-        <div className={style.main} onClick={_ => router.back()}>
+        <div className={style.content} onClick={_ => router.back()}>
             {children}
         </div>
     );

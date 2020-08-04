@@ -1,6 +1,6 @@
 @import "../../css/vars";
 
-.main {
+.content {
     background-color: rgba($black, 0.6);
     position: fixed;
     top: 0px;
@@ -11,4 +11,8 @@
     overflow-x: hidden;
     overflow-y: auto;
     cursor: zoom-out;
+}
+
+.guard {
+    cursor: default;
 }
