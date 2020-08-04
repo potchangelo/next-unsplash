@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useCallback, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { getPhotos, getPhoto } from '../api';
-import { Modal } from '../layouts/';
+import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts/';
 import { Navbar, PhotoItem, PhotoPost } from '../components';
 
 function Home() {
@@ -67,9 +67,9 @@ function Home() {
     // - Elements
     let photoElements = photoArray.map(photo => {
         return (
-            <div key={photo.uid} className="column is-6-mobile is-4-tablet">
+            <MasonryItem key={photo.uid}>
                 <PhotoItem photo={photo} />
-            </div>
+            </MasonryItem>
         );
     });
 
@@ -84,13 +84,11 @@ function Home() {
                 <title>Unsplash-cloned</title>
             </Head>
             <Navbar />
-            <section className="section">
-                <div className="container">
-                    <div className="columns is-multiline is-mobile">
-                        {photoElements}
-                    </div>
-                </div>
-            </section>
+            <PhotosSection>
+                <Masonry>
+                    {photoElements}
+                </Masonry>
+            </PhotosSection>
             {photoModal}
         </>
     );

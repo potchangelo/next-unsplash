@@ -8,6 +8,8 @@ function PhotoItem({ photo }) {
         user, url
     } = photo;
 
+    const paddingBottom = `${height / width * 100}%`;
+
     let userAvatarUrl = 'https://via.placeholder.com/64';
     if (!!user.avatarUrl) {
         userAvatarUrl = user.avatarUrl.small;
@@ -15,6 +17,7 @@ function PhotoItem({ photo }) {
 
     return (
         <figure className={style.figure}>
+            <div style={{ paddingBottom }} />
             <Link href={`/?photoUid=${uid}`} as={`/photos/${uid}`} shallow={true} scroll={false}>
                 <a className={style.link}>
                     <img src={url.small} alt={description} />
