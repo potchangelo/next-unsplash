@@ -20,7 +20,7 @@ function Navbar() {
                 <div className={style.search_outer}>
                     <div className={`field ${style.search_inner}`}>
                         <div className="control has-icons-left">
-                            <input className="input is-rounded" type="text" placeholder="Search photos (coming soon...)" />
+                            <input className="input" type="text" placeholder="Search photos (coming soon...)" />
                             <span className="icon is-left">
                                 <Search size={18} />
                             </span>

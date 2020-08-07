@@ -12,3 +12,10 @@ export async function getPhoto(key, uid) {
     const res = await fetch(url);
     return await res.json();
 }
+
+export async function getRandomPhoto(key) {
+    const url = `http://localhost:8080/photos/random`;
+    console.log(url)
+    const res = await fetch(url);
+    return await res.json();
+}
