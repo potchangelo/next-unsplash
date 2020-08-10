@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-3436,-602)">
+        <g id="safari-pinned-tab" transform="matrix(0.133305,0,0,0.166667,3156.28,602)">
+            <rect x="2098.33" y="0" width="120.026" height="96" style="fill:none;"/>
+            <clipPath id="_clip1">
+                <rect x="2098.33" y="0" width="120.026" height="96"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <g transform="matrix(0.75016,0,0,0.6,752.401,-6.25278e-13)">
+                    <rect x="1794.19" y="0" width="160" height="160" style="fill:rgb(26,26,26);"/>
+                </g>
+                <g transform="matrix(0.261874,0,0,0.209455,2203.36,52.5982)">
+                    <path d="M0,-121.953C0,-132.999 -8.954,-141.953 -20,-141.953L-231.75,-141.953C-242.796,-141.953 -251.75,-132.999 -251.75,-121.953C-251.75,-110.907 -242.796,-101.953 -231.75,-101.953L-68.466,-101.953C-68.466,-101.953 -147.807,-22.465 -154.177,-16.096C-161.987,-8.285 -161.987,4.379 -154.176,12.19C-146.365,20 -133.703,20 -125.893,12.19C-118.082,4.379 -11.897,-101.953 -11.897,-101.953L-7.486,-106.365C-3.199,-110.652 0,-115.646 0,-121.953" style="fill:white;fill-rule:nonzero;"/>
+                </g>
+                <g transform="matrix(0.261874,0,0,0.209455,2174.03,47.5909)">
+                    <path d="M0,81.953L-163.284,81.953C-163.284,81.953 -83.943,2.465 -77.573,-3.904C-69.763,-11.715 -69.763,-24.379 -77.574,-32.19C-85.385,-40 -98.047,-40 -105.857,-32.19C-113.668,-24.379 -219.853,81.953 -219.853,81.953L-224.264,86.365C-228.883,90.984 -231.75,95.646 -231.75,101.953C-231.75,112.999 -222.796,121.953 -211.75,121.953L0,121.953C11.046,121.953 20,112.999 20,101.953C20,90.907 11.046,81.953 0,81.953" style="fill:white;fill-rule:nonzero;"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

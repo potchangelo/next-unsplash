@@ -1,14 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&display=swap');
 
 @import "~bulma/sass/utilities/initial-variables";
-
-// - Font
-$family-sans-serif: "Source Sans Pro", sans-serif;
-$weight-light: 400;
-$weight-medium: 600;
-$weight-semibold: 600;
-$weight-bold: 600;
-
 @import "~bulma/sass/utilities/functions";
 @import "~bulma/sass/utilities/derived-variables";
 @import "~bulma/sass/utilities/animations.sass";

@@ -1,5 +1,6 @@
 import style from './css/home.module.scss';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useCallback, useState } from 'react';
 import { useInfiniteQuery, useQuery } from 'react-query';
@@ -7,7 +8,6 @@ import { Search } from 'react-feather';
 import { getPhotos, getPhoto, getRandomPhoto } from '../api';
 import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts/';
 import { Navbar, PhotoItem, PhotoPost } from '../components';
-import Link from 'next/link';
 
 function Home() {
     // - Data
@@ -86,7 +86,7 @@ function Home() {
                     <a className="has-text-white">Random photo</a>
                 </Link>
                 <span className="has-text-grey-light"> by </span>
-                <Link href="/user">
+                <Link href={`/@${user.username}`}>
                     <a className="has-text-white">{user.displayName}</a>
                 </Link>
             </p>
@@ -101,15 +101,24 @@ function Home() {
         );
     });
 
-    let photoModal = null;
+    let headTitle = 'Unsplash-Cloned', photoModal = null;
+    const headDescription = 'Unsplash-Cloned built from Next.js by Zinglecode (for educational purpose only)'
 	if (!!photo) {
+        headTitle = `Photo by ${photo.user.displayName} | Unsplash-Cloned`;
         photoModal = <Modal><PhotoPost photo={photo} isModal={true} /></Modal>;
 	}
 
     return (
         <>
             <Head>
-                <title>Unsplash-cloned</title>
+                <meta name="description" content={headDescription} />
+                <meta property="og:title" content={headTitle} />
+                <meta property="og:description" content={headDescription} />
+                <meta property="og:url" content="http://localhost:3000/" />
+                <meta name="twitter:title" content={headTitle} />
+                <meta name="twitter:description" content={headDescription} />
+                <meta name="twitter:url" content="http://localhost:3000/" />
+                <title>{headTitle}</title>
             </Head>
             <Navbar />
             <section className={`hero is-dark is-large ${style.hero}`}>
@@ -117,7 +126,7 @@ function Home() {
                 <div className={style.hero_main}>
                     <div className={style.hero_body}>
                         <div className={`content ${style.hero_content}`}>
-                            <h1 className="title is-1">Unsplash-Cloned</h1>
+                            <h1 className="title is-1 has-text-weight-bold">Unsplash-Cloned</h1>
                             <p className="is-size-5">Built by Next.js, for educational purpose only</p>
                             <div className="control has-icons-left">
                                 <input className="input is-medium" type="text" placeholder="Search photos (coming soon...)" />
