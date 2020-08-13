@@ -25,10 +25,7 @@ function Photo({ photo }) {
     }
 
     // Elements
-    let zoomSvg = <Maximize2 size={24} />;
-    if (isZoomed) {
-        zoomSvg = <Minimize2 size={24} />;
-    }
+    const zoomSvg = isZoomed ? <Minimize2 size={24} /> : <Maximize2 size={24} />;
 
     return (
         <div className={style.figure_cover}>

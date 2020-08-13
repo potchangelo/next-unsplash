@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { getPhotos, getPhoto } from '../../api';
 import { Navbar, PhotoPost } from '../../components';
 
-function PhotosUid({ cachePhoto }) {
+export default function({ cachePhoto }) {
     // - Data
     const { data: fetchedPhoto } = useQuery(
         ['photo', !!cachePhoto ? cachePhoto.uid : null], 
@@ -45,7 +45,7 @@ function PhotosUid({ cachePhoto }) {
     );
 }
 
-async function getStaticPaths() {
+export async function getStaticPaths() {
     let photoArray = [];
     try {
         photoArray = await getPhotos(null);
@@ -61,7 +61,7 @@ async function getStaticPaths() {
     return { paths, fallback: true };
 }
 
-async function getStaticProps(context) {
+export async function getStaticProps(context) {
     const { uid } = context.params;
 
     let cachePhoto = null;
@@ -74,6 +74,3 @@ async function getStaticProps(context) {
 
     return { props: { cachePhoto } };
 }
-
-export default PhotosUid;
-export { getStaticPaths, getStaticProps };

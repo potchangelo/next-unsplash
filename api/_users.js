@@ -1,5 +1,8 @@
-export async function getUser(key, username) {
-    const url = `http://localhost:8080/users/${username}`;
+export async function getUser(key, username, includedLatestPhotos = true) {
+    let url = `http://localhost:8080/users/${username}`;
+    if (!!includedLatestPhotos) {
+        url += `?latestPhotos=1`;
+    }
     console.log(url);
     const res = await fetch(url);
     return await res.json();

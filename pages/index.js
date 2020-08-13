@@ -9,7 +9,7 @@ import { getPhotos, getPhoto, getRandomPhoto } from '../api';
 import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts/';
 import { Navbar, PhotoItem, PhotoPost } from '../components';
 
-function Home() {
+export default function() {
     // - Data
     const [photo, setPhoto] = useState(null);
 
@@ -86,7 +86,7 @@ function Home() {
                     <a className="has-text-white">Random photo</a>
                 </Link>
                 <span className="has-text-grey-light"> by </span>
-                <Link href={`/@${user.username}`}>
+                <Link href={'/[...atUsername]'} as={`/@${user.username}`}>
                     <a className="has-text-white">{user.displayName}</a>
                 </Link>
             </p>
@@ -155,5 +155,3 @@ function Home() {
         </>
     );
 }
-
-export default Home;

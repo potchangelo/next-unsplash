@@ -1,7 +1,7 @@
 import style from './css/photo_post.module.scss';
 import { ChevronDown, X } from 'react-feather';
-import User from './_User';
 import PhotoPostFigure from './_PhotoPostFigure';
+import User from './_User';
 import { ModalGuard } from '../layouts';
 
 function PhotoPost({ photo, isModal }) {

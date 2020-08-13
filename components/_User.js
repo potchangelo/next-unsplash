@@ -7,23 +7,22 @@ function User({ user, textColor, hideUsername }) {
     const { displayName, username, avatarUrl } = user;
 
     // Attributes
-    let userAvatarUrl = 'https://via.placeholder.com/64';
+    const userAvatarUrl = avatarUrl?.small ?? 'https://via.placeholder.com/64';
     let textColorClass = 'has-text-black-ter';
-    if (!!avatarUrl) {
-        userAvatarUrl = avatarUrl.small;
-    }
     if (textColor === 'white') {
         textColorClass = 'has-text-white';
     }
 
     // Elements
-    let usernameText = <h6 className={`subtitle is-7 ${textColorClass}`}>@{username}</h6>;
+    let usernameText = (
+        <h6 className={`subtitle is-7 ${textColorClass}`}>@{username}</h6>
+    );
     if (!!hideUsername) {
         usernameText = null;
     }
 
     return (
-        <Link href={`/@${username}`}>
+        <Link href={'/[...atUsername]'} as={`/@${username}`}>
             <a className={style.main}>
                 <img className={style.avatar} src={userAvatarUrl} />
                 <div>
