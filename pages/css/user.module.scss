@@ -8,7 +8,9 @@
 }
 
 .avatar {
+    border: 1px solid $grey-light;
     border-radius: 50%;
     width: 160px;
     height: 160px;
+    padding: 4px;
 }

@@ -29,7 +29,7 @@ function PhotoPost({ photo, isModal }) {
                     <div className={style.topbar}>
                         <User user={photo.user} />
                         <div className="buttons has-addons">
-                            <a className="button is-success has-text-weight-bold" href={`/photos/${photo.uid}`}>
+                            <a className="button is-success has-text-weight-bold" href={`https://unsplash.com/photos/HF14p-du_0Q/download?force=true`} download>
                                 Download free
                             </a>
                             <button className={`button is-success ${style.dl_more}`} type="button">

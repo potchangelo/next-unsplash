@@ -2,8 +2,8 @@ import style from './css/user.module.scss';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useCallback, useState } from 'react';
-import { useQuery } from 'react-query';
-import { getUser, getRandomUsers, getPhoto } from '../api';
+import { useQuery, useInfiniteQuery } from 'react-query';
+import { getUser, getUserPhotos, getRandomUsers, getPhoto } from '../api';
 import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts';
 import { Navbar, PhotoItem, PhotoPost } from '../components';
 
@@ -17,9 +17,37 @@ export default function({ cacheUser }) {
     );
     const user = fetchedUser || cacheUser;
 
+    const { 
+        data: photoGroupArray = [], 
+        fetchMore, 
+        canFetchMore, isFetching, isFetchingMore
+    } = useInfiniteQuery(
+        ['user-photos', !!cacheUser ? cacheUser.username : null], 
+        getUserPhotos, 
+        {
+            getFetchMore: (lastGroup, allGroups) => {
+                if (lastGroup.length < 12) return false;
+                return lastGroup[lastGroup.length - 1].id;
+        }
+    });
+    const photoArray = photoGroupArray.flat() || cacheUser.photos;
+
     const router = useRouter();
 
     // - Callback
+    const onScroll = useCallback(() => {
+        // Position
+        const scrollBottom = window.scrollY + window.innerHeight;
+        const docBottom = document.body.offsetHeight;
+
+        // Condition
+        const canFetch = canFetchMore && !isFetching && !isFetchingMore;
+        const isScrollReached = scrollBottom > docBottom - 700;
+
+        // Fetch
+        if (canFetch && isScrollReached) fetchMore();
+    }, [canFetchMore, isFetching, isFetchingMore]);
+
     const loadPhoto = useCallback(async (uid) => {
 		try {
             const resJson = await getPhoto(null, uid);
@@ -32,6 +60,11 @@ export default function({ cacheUser }) {
     }, []);
     
     // - Effects
+    useEffect(() => {
+        window.addEventListener('scroll', onScroll);
+        return () => window.removeEventListener('scroll', onScroll);
+    }, [onScroll]);
+
     useEffect(() => {
         const { photoUid } = router.query;
 		if (!!photoUid) {
@@ -63,22 +96,21 @@ export default function({ cacheUser }) {
                         <img className={style.avatar} src={userAvatarUrl} />
                     </div>
                     <div className="column">
-                        <h2 className="title is-2 has-text-weight-bold">{user.displayName}</h2>
+                        <h2 className="title is-2 has-text-weight-bold mt-4">{user.displayName}</h2>
                         <p>{user.biography}</p>
                     </div>
                 </div>
             </div>
         );
-
-        if (!!user.photos) {
-            photoElements = user.photos.map(photo => {
-                return (
-                    <MasonryItem key={photo.uid}>
-                        <PhotoItem photo={photo} user={user} basedPage={`/[...atUsername]`} />
-                    </MasonryItem>
-                );
-            });
-        }
+    }
+    if (!!photoArray) {
+        photoElements = photoArray.map(photo => {
+            return (
+                <MasonryItem key={photo.uid}>
+                    <PhotoItem photo={photo} user={user} basedPage={`/[...atUsername]`} />
+                </MasonryItem>
+            );
+        });
     }
 
     let photoModal = null;
