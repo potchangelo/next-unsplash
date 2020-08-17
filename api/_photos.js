@@ -1,4 +1,4 @@
-export async function getPhotos(key, beforeId) {
+async function getPhotos(key, beforeId) {
     let url = 'http://localhost:8080/photos';
     if (!!beforeId) url += `?beforeId=${beforeId}`;
     console.log(url)
@@ -6,16 +6,18 @@ export async function getPhotos(key, beforeId) {
     return await res.json();
 }
 
-export async function getPhoto(key, uid) {
+async function getPhoto(key, uid) {
     const url = `http://localhost:8080/photos/${uid}`;
     console.log(url)
     const res = await fetch(url);
     return await res.json();
 }
 
-export async function getRandomPhoto(key) {
+async function getRandomPhoto(key) {
     const url = `http://localhost:8080/photos/random`;
     console.log(url)
     const res = await fetch(url);
     return await res.json();
 }
+
+export { getPhotos, getPhoto, getRandomPhoto };
