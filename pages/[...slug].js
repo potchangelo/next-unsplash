@@ -7,7 +7,7 @@ import { getUser, getUserPhotos, getRandomUsers, getPhoto } from '../api';
 import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts';
 import { Navbar, PhotoItem, PhotoPost } from '../components';
 
-export default function({ cacheUser }) {
+export default function UserPage({ cacheUser }) {
     // - Data
     const [photo, setPhoto] = useState(null);
 
@@ -107,7 +107,7 @@ export default function({ cacheUser }) {
         photoElements = photoArray.map(photo => {
             return (
                 <MasonryItem key={photo.uid}>
-                    <PhotoItem photo={photo} user={user} basedPage={`/[...atUsername]`} />
+                    <PhotoItem photo={photo} user={user} basedPage={`/[...slug]`} />
                 </MasonryItem>
             );
         });
@@ -156,15 +156,15 @@ export async function getStaticPaths() {
     }
 
     const paths = userArray.map(user => {
-        return { params: { atUsername: [`@${user.username}`] } }
+        return { params: { slug: [`@${user.username}`] } }
     });
 
     return { paths, fallback: true };
 }
 
 export async function getStaticProps(context) {
-    const { atUsername } = context.params;
-    const username = atUsername[0].slice(1);
+    const { slug } = context.params;
+    const username = slug[0].slice(1);
 
     let cacheUser = null;
     try {

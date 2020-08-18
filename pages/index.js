@@ -9,7 +9,7 @@ import { getPhotos, getPhoto, getRandomPhoto } from '../api';
 import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts/';
 import { Navbar, PhotoItem, PhotoPost } from '../components';
 
-export default function() {
+export default function HomePage() {
     // - Data
     const [photo, setPhoto] = useState(null);
 

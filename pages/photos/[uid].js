@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { getPhotos, getPhoto } from '../../api';
 import { Navbar, PhotoPost } from '../../components';
 
-export default function({ cachePhoto }) {
+export default function PhotoPage({ cachePhoto }) {
     // - Data
     const { data: fetchedPhoto } = useQuery(
         ['photo', !!cachePhoto ? cachePhoto.uid : null], 
