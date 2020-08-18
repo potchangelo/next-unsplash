@@ -1,8 +1,9 @@
 import style from './css/photo_post.module.scss';
-import { ChevronDown, X } from 'react-feather';
+import { X } from 'react-feather';
 import PhotoPostFigure from './_PhotoPostFigure';
 import User from './_User';
 import { ModalGuard } from '../layouts';
+import PhotoDownloadButton from './_PhotoDownloadButton';
 
 function PhotoPost({ photo, isModal }) {
     // Elements
@@ -28,16 +29,7 @@ function PhotoPost({ photo, isModal }) {
                 <ModalGuard>
                     <div className={style.topbar}>
                         <User user={photo.user} />
-                        <div className="buttons has-addons">
-                            <a className="button is-success has-text-weight-bold" href={`https://unsplash.com/photos/HF14p-du_0Q/download?force=true`} download>
-                                Download free
-                            </a>
-                            <button className={`button is-success ${style.dl_more}`} type="button">
-                                <span className="icon">
-                                    <ChevronDown size={20} strokeWidth={3} />
-                                </span>
-                            </button>
-                        </div>
+                        <PhotoDownloadButton photo={photo} />
                     </div>
                     <div className={style.content}>
                         <PhotoPostFigure photo={photo} />
