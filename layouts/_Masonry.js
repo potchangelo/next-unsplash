@@ -3,7 +3,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 
 const defaultBreakpointArray = [
     { columns: 1, minWidth: 0, gap: 0 },
-	{ columns: 2, minWidth: 720, gap: 24 },
+	{ columns: 2, minWidth: 600, gap: 24 },
 	{ columns: 3, minWidth: 960, gap: 24 }
 ];
 
@@ -20,12 +20,12 @@ function Masonry({ breakpointArray = defaultBreakpointArray, children }) {
         let breakpoint = defaultBreakpointArray[0];
 
         // Get width
-        if (layoutRef.current === null) return breakpoint;
-        const layoutWidth = layoutRef.current.offsetWidth;
+        if (typeof window === 'undefined') return breakpoint;
+        const docWidth = document.documentElement.clientWidth;
 
         // Get columns
         _breakpointArray.forEach(_breakpoint => {
-            if (layoutWidth <= _breakpoint.minWidth) return;
+            if (docWidth < _breakpoint.minWidth) return;
             breakpoint = _breakpoint;
         });
         return breakpoint;
