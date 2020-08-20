@@ -1,17 +1,50 @@
 import style from './css/navbar.module.scss';
 import Link from "next/link";
-import { Search } from 'react-feather';
+import { useState, useEffect } from 'react';
+import { Search, Menu } from 'react-feather';
+import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
 
 function Navbar() {
+    // Data
+    const [dropdownActive, setDropdownActive] = useState(false);
+
+    // Functions
+    function superStopPropagation(e) {
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+    }
+
+    function toggleDropdown(e) {
+        superStopPropagation(e);
+        setDropdownActive(prev => !prev);
+    }
+
+    function onClickDocument() {
+        setDropdownActive(false);
+    }
+
+    // Effects
+    useEffect(() => {
+        if (dropdownActive) {
+            document.addEventListener('click', onClickDocument);
+        }
+        else {
+            document.removeEventListener('click', onClickDocument);
+        }
+        return () => {
+            document.removeEventListener('click', onClickDocument);
+        }
+    }, [dropdownActive]);
+
     return (
         <nav className={style.main}>
             <div className={style.item}>
                 <Link href="/">
                     <a className={style.brand}>
-                        <img src="/logo-light-64.png" width="44" height="44" alt="Logo" />
-                        <div>
-                            <h1 className="title is-5">Unsplash-cloned</h1>
-                            <h3 className="subtitle is-7 has-text-weight-bold">by Zinglecode</h3>
+                        <img className={style.brand_logo} src="/logo-light-64.png" alt="Logo" />
+                        <div className={style.brand_text}>
+                            <h1 className="title is-6 has-text-weight-bold mb-1">Unsplash-cloned</h1>
+                            <h3 className="title is-7 has-text-weight-semibold">by Zinglecode</h3>
                         </div>
                     </a>
                 </Link>
@@ -30,9 +63,34 @@ function Navbar() {
             </div>
             <div className={style.item}>
                 <Link href="/about">
-                    <a className={style.link}>About</a>
+                    <a className={`is-hidden-mobile ${style.link}`}>
+                        <span>About</span>
+                    </a>
                 </Link>
-                <a className={style.link} href="https://github.com/potchangelo/next-unsplash" target="_blank">Github</a>
+                <a className={`is-hidden-mobile ${style.link}`} href="https://github.com/potchangelo/next-unsplash" target="_blank">
+                    <span>Github</span>
+                </a>
+                <div className={`is-hidden-tablet ${style.link}`} onClick={toggleDropdown}>
+                    <Dropdown active={dropdownActive}>
+                        <span className="icon">
+                            <Menu size={22} />
+                        </span>
+                        <DropdownMenu>
+                            <DropdownItem 
+                                type="next-link"
+                                href="/about"
+                                linkClass="has-text-white has-text-weight-medium">
+                                <span>About</span>
+                            </DropdownItem>
+                            <DropdownItem 
+                                type="ext-link"
+                                href="https://github.com/potchangelo/next-unsplash"
+                                linkClass="has-text-white has-text-weight-medium">
+                                <span>Github</span>
+                            </DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
             </div>
         </nav>
     );
