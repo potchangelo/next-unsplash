@@ -41,8 +41,8 @@
 }
 
 .brand_logo {
-    width: 44px;
-    height: 44px;
+    width: 36px;
+    height: 36px;
 }
 
 .brand_text {
@@ -52,6 +52,11 @@
 @include from($tablet) {
     .brand {
         grid-template-columns: auto auto;
+    }
+
+    .brand_logo {
+        width: 44px;
+        height: 44px;
     }
 
     .brand_text {
@@ -81,7 +86,8 @@
 
 .link {
     color: $grey;
-    font-weight: $weight-medium;
+    font-size: 14px;
+    font-weight: $weight-semibold;
     display: inline-flex;
     height: 100%;
     padding: 12px;

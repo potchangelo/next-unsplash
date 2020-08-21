@@ -1,6 +1,7 @@
 import style from './css/photo_post.module.scss';
 import { ChevronDown } from 'react-feather';
-import { useState, useEffect } from 'react';
+import { useDropdown } from '../helpers/hooks';
+import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
 
 const menuContentArray = [
     { title: 'small', width: 640 },
@@ -12,69 +13,37 @@ const menuContentArray = [
 
 function PhotoDownloadButton({ photo }) {
     // Data
-    const [active, setActive] = useState(false);
-
-    function superStopPropagation(e) {
-        e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation();
-    }
-
-    function onClickDocument() {
-        setActive(false);
-    };
-
-    function toggleDropdown(e) {
-        superStopPropagation(e);
-        setActive(prev => !prev);
-    }
-
-    useEffect(() => {
-        if (active) {
-            document.addEventListener('click', onClickDocument);
-        }
-        else {
-            document.removeEventListener('click', onClickDocument);
-        }
-        return () => {
-            document.removeEventListener('click', onClickDocument);
-        }
-    }, [active]);
+    const { dropdownActive, toggleDropdown } = useDropdown();
 
     if (!photo) return null;
 
-    // Attributes
-    let dropdownClass = 'dropdown is-right';
-    if (active) dropdownClass += ` ${style.dropdown_active}`;
-
     // Elements
-    const dropdownItems = menuContentArray.map(menu => {
+    const dropdownItems = menuContentArray.map((menu, index) => {
         const { title, width } = menu;
+        const key = `${title}-${index}`;
+
         if (title === 'separator') {
-            return (
-                <hr key={title} className={style.dropdown_line} />
-            );
+            return <DropdownItem key={key} type="line" />;
         }
 
         let href = `/api/photos/${photo.uid}/download?force=true`;
-        if (title !== 'original') {
-            href += `&w=${width}`;
-        }
+        if (title !== 'original') href += `&w=${width}`;
 
         const height = width * photo.height / photo.width;
         const whLabel = `(${width} x ${height.toFixed(0)})`;
 
         return (
-            <div key={title} className="dropdown-item has-text-right">
-                <a className="has-text-white has-text-weight-medium" href={href}>
-                    <span>{title[0].toUpperCase() + title.slice(1)} </span>
-                    <span className="has-text-grey-light">{whLabel}</span>
-                </a>
-            </div>
+            <DropdownItem
+                key={key} type="ext-link" href={href}
+                linkClass="has-text-white has-text-weight-medium">
+                <span>{title[0].toUpperCase() + title.slice(1)} </span>
+                <span className="has-text-grey-light">{whLabel}</span>
+            </DropdownItem>
         );
     });
 
     return (
-        <div className={dropdownClass}>
+        <Dropdown active={dropdownActive}>
             <div className="buttons has-addons mb-0">
                 <a className="button is-success has-text-weight-bold mb-0" href={`/api/photos/${photo.uid}/download?force=true`} download>
                     Download free
@@ -88,15 +57,10 @@ function PhotoDownloadButton({ photo }) {
                     </span>
                 </button>
             </div>
-            <div
-                className={`dropdown-menu ${style.dropdown_menu}`}
-                onClick={superStopPropagation}>
-                <div className={style.dropdown_caret} />
-                <div className={`dropdown-content ${style.dropdown_content}`}>
-                    {dropdownItems}
-                </div>
-            </div>
-        </div>
+            <DropdownMenu caretOffsetRight={12}>
+                {dropdownItems}
+            </DropdownMenu>
+        </Dropdown>
     )
 }
 

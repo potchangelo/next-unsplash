@@ -1,40 +1,12 @@
 import style from './css/navbar.module.scss';
 import Link from "next/link";
-import { useState, useEffect } from 'react';
 import { Search, Menu } from 'react-feather';
 import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
+import { useDropdown } from '../helpers/hooks';
 
 function Navbar() {
     // Data
-    const [dropdownActive, setDropdownActive] = useState(false);
-
-    // Functions
-    function superStopPropagation(e) {
-        e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation();
-    }
-
-    function toggleDropdown(e) {
-        superStopPropagation(e);
-        setDropdownActive(prev => !prev);
-    }
-
-    function onClickDocument() {
-        setDropdownActive(false);
-    }
-
-    // Effects
-    useEffect(() => {
-        if (dropdownActive) {
-            document.addEventListener('click', onClickDocument);
-        }
-        else {
-            document.removeEventListener('click', onClickDocument);
-        }
-        return () => {
-            document.removeEventListener('click', onClickDocument);
-        }
-    }, [dropdownActive]);
+    const { dropdownActive, toggleDropdown } = useDropdown();
 
     return (
         <nav className={style.main}>
@@ -53,7 +25,7 @@ function Navbar() {
                 <div className={style.search_outer}>
                     <div className={`field ${style.search_inner}`}>
                         <div className="control has-icons-left">
-                            <input className="input" type="text" placeholder="Search photos (coming soon...)" />
+                            <input className="input is-rounded" type="text" placeholder="Search photos (coming soon...)" />
                             <span className="icon is-left">
                                 <Search size={18} />
                             </span>
