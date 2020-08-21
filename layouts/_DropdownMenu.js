@@ -1,15 +1,23 @@
 import style from './css/dropdown.module.scss';
 
-function DropdownMenu({ children }) {
+function DropdownMenu({ caretOffsetLeft, caretOffsetRight, children }) {
+    const caretStyle = {}
+    if (!!caretOffsetLeft) {
+        caretStyle.left = `${caretOffsetLeft}px`;
+    }
+    else if (!!caretOffsetRight) {
+        caretStyle.right = `${caretOffsetRight}px`;
+    }
+
     function superStopPropagation(e) {
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
     }
 
     return (
-        <div className={`dropdown-menu ${style.dropdown_menu}`} onClick={superStopPropagation}>
-            <div className={style.dropdown_caret} />
-            <div className={`dropdown-content ${style.dropdown_content}`}>
+        <div className={style.menu} onClick={superStopPropagation}>
+            <div className={style.caret} style={caretStyle} />
+            <div className={style.content}>
                 {children}
             </div>
         </div>

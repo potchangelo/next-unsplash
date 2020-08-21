@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function DropdownItem({ type, href, linkClass, align, children }) {
     // Attributes
-    let itemClass = 'dropdown-item ';
+    let itemClass = `${style.item} `;
     if (align === 'left') {
         itemClass += 'has-text-left';
     }
@@ -15,7 +15,7 @@ function DropdownItem({ type, href, linkClass, align, children }) {
     }
 
     // Element
-    let element = <hr className={style.dropdown_line} />
+    let element = <hr className={style.line} />
     if (type === 'next-link') {
         element = (
             <div className={itemClass}>

@@ -2,14 +2,14 @@ import style from './css/dropdown.module.scss';
 
 function Dropdown({ active = false, align, children }) {
     // Attributes
-    let dropdownClass = 'dropdown ';
+    let dropdownClass = `${style.main} `;
     if (align === 'left') {
-        dropdownClass += 'is-left';
+        dropdownClass += style.left;
     }
     else {
-        dropdownClass += 'is-right';
+        dropdownClass += style.right;
     }
-    if (active) dropdownClass += ` ${style.dropdown_active}`;
+    if (active) dropdownClass += ` ${style.active}`;
 
     return <div className={dropdownClass}>{children}</div>;
 }
