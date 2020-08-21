@@ -1,4 +1,5 @@
 import style from './css/dropdown.module.scss';
+import { superStopPropagation } from '../helpers/functions';
 
 function DropdownMenu({ caretOffsetLeft, caretOffsetRight, children }) {
     const caretStyle = {}
@@ -7,11 +8,6 @@ function DropdownMenu({ caretOffsetLeft, caretOffsetRight, children }) {
     }
     else if (!!caretOffsetRight) {
         caretStyle.right = `${caretOffsetRight}px`;
-    }
-
-    function superStopPropagation(e) {
-        e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation();
     }
 
     return (

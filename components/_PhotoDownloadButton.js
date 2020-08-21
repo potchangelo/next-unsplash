@@ -1,7 +1,7 @@
-import style from './css/photo_post.module.scss';
+import style from './css/photo_download.module.scss';
 import { ChevronDown } from 'react-feather';
-import { useDropdown } from '../helpers/hooks';
 import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
+import { useDropdown } from '../helpers/hooks';
 
 const menuContentArray = [
     { title: 'small', width: 640 },
@@ -11,13 +11,27 @@ const menuContentArray = [
     { title: 'original', width: 3150 },
 ];
 
-function PhotoDownloadButton({ photo }) {
-    // Data
+function PhotoDownloadButton({ photo, buttonStyle, text = 'Download' }) {
+    // - Data
     const { dropdownActive, toggleDropdown } = useDropdown();
 
     if (!photo) return null;
 
-    // Elements
+    // - Attributes
+    let buttonClass = 'button has-text-weight-bold mb-0';
+    let buttonMoreClass = 'button mb-0';
+    let caretOffsetRight = 8;
+    if (buttonStyle === 'focus') {
+        buttonClass += ' is-success';
+        buttonMoreClass += ` is-success ${style.more_focus}`;
+        caretOffsetRight = 12;
+    }
+    else {
+        buttonClass += ' is-small';
+        buttonMoreClass += ` is-small`;
+    }
+
+    // - Elements
     const dropdownItems = menuContentArray.map((menu, index) => {
         const { title, width } = menu;
         const key = `${title}-${index}`;
@@ -45,11 +59,11 @@ function PhotoDownloadButton({ photo }) {
     return (
         <Dropdown active={dropdownActive}>
             <div className="buttons has-addons mb-0">
-                <a className="button is-success has-text-weight-bold mb-0" href={`/api/photos/${photo.uid}/download?force=true`} download>
-                    Download free
+                <a className={buttonClass} href={`/api/photos/${photo.uid}/download?force=true`} download>
+                    {text}
                 </a>
                 <button
-                    className={`button is-success mb-0 ${style.dl_more}`}
+                    className={`${buttonMoreClass}`}
                     type="button"
                     onClick={toggleDropdown}>
                     <span className="icon">
@@ -57,11 +71,11 @@ function PhotoDownloadButton({ photo }) {
                     </span>
                 </button>
             </div>
-            <DropdownMenu caretOffsetRight={12}>
+            <DropdownMenu caretOffsetRight={caretOffsetRight}>
                 {dropdownItems}
             </DropdownMenu>
         </Dropdown>
-    )
+    );
 }
 
 export default PhotoDownloadButton;

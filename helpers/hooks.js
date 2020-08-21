@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
+import { superStopPropagation } from "./functions";
 
 function useDropdown() {
     // Data
     const [active, setActive] = useState(false);
 
     // Functions
-    function superStopPropagation(e) {
-        e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation();
-    }
 
     function toggleDropdown(e) {
         superStopPropagation(e);

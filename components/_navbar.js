@@ -5,7 +5,7 @@ import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
 import { useDropdown } from '../helpers/hooks';
 
 function Navbar() {
-    // Data
+    // - Data
     const { dropdownActive, toggleDropdown } = useDropdown();
 
     return (

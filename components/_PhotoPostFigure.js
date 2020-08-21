@@ -3,14 +3,14 @@ import { useState } from 'react';
 import { Minimize2, Maximize2 } from 'react-feather';
 
 function Photo({ photo }) {
-    // Data
+    // - Data
     const [isZoomed, setIsZoomed] = useState(false);
 
     if (!photo) return null;
 
     const { width, height, description, url } = photo;
 
-    // Attributes
+    // - Attributes
     let figureClass = style.figure;
     let figureStyle = {
         maxWidth: `calc(calc(100vh - 200px) * ${width / height})`
@@ -24,7 +24,7 @@ function Photo({ photo }) {
         sizes = '100vw';
     }
 
-    // Elements
+    // - Elements
     const zoomSvg = isZoomed ? <Minimize2 size={24} /> : <Maximize2 size={24} />;
 
     return (

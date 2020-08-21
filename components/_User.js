@@ -4,16 +4,17 @@ import Link from 'next/link'
 function User({ user, textColor, hideUsername }) {
     if (!user) return null;
 
+    // - Data
     const { displayName, username, avatarUrl } = user;
 
-    // Attributes
+    // - Attributes
     const userAvatarUrl = avatarUrl?.small ?? 'https://via.placeholder.com/64';
     let textColorClass = 'has-text-black-ter';
     if (textColor === 'white') {
         textColorClass = 'has-text-white';
     }
 
-    // Elements
+    // - Elements
     let usernameText = (
         <h6 className={`subtitle is-7 ${textColorClass}`}>@{username}</h6>
     );

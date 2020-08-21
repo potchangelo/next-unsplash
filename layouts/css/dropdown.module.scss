@@ -1,14 +1,12 @@
 @import "../../css/vars";
 
 // - Dropdown
-
 .main {
     display: inline-flex;
     position: relative;
 }
 
 // - Menu
-
 .menu {
     opacity: 0;
     visibility: hidden;
@@ -28,7 +26,6 @@
 }
 
 // - Content
-
 .caret {
     background-color: $black-bis;
     border-radius: 2px;
@@ -50,7 +47,6 @@
 }
 
 // - Item
-
 .item {
     color: white;
     font-size: 14px;
@@ -67,7 +63,6 @@
 }
 
 // - State
-
 .main {
     &.active .menu {
         opacity: 1;

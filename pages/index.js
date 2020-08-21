@@ -13,9 +13,9 @@ export default function HomePage() {
     // - Data
     const [photo, setPhoto] = useState(null);
 
-    const { 
-        data: photoGroupArray = [], 
-        fetchMore, 
+    const {
+        data: photoGroupArray = [],
+        fetchMore,
         canFetchMore, isFetching, isFetchingMore
     } = useInfiniteQuery('photos', getPhotos, {
         getFetchMore: (lastGroup, allGroups) => {
@@ -45,15 +45,15 @@ export default function HomePage() {
 
     const loadPhoto = useCallback(async (uid) => {
         console.log(uid)
-		try {
+        try {
             const resJson = await getPhoto(null, uid);
-		    setPhoto(resJson);
+            setPhoto(resJson);
         }
         catch (error) {
             console.log(error);
             setPhoto(null);
         }
-	}, []);
+    }, []);
 
     // - Effects
     useEffect(() => {
@@ -63,14 +63,14 @@ export default function HomePage() {
 
     useEffect(() => {
         const { photoUid } = router.query;
-		if (!!photoUid) {
-			loadPhoto(photoUid);
-		}
-		else {
-			setPhoto(null);
-		}
-    }, [router.query, loadPhoto])
-    
+        if (!!photoUid) {
+            loadPhoto(photoUid);
+        }
+        else {
+            setPhoto(null);
+        }
+    }, [router.query, loadPhoto]);
+
     // - Elements
     let randomPhotoElement = null, randomUserElement = null;
     if (!!randomPhoto) {
@@ -103,10 +103,10 @@ export default function HomePage() {
 
     let headTitle = 'Unsplash-Cloned', photoModal = null;
     const headDescription = 'Unsplash-Cloned built from Next.js by Zinglecode (for educational purpose only)'
-	if (!!photo) {
+    if (!!photo) {
         headTitle = `Photo by ${photo.user.displayName} | Unsplash-Cloned`;
         photoModal = <Modal><PhotoPost photo={photo} isModal={true} /></Modal>;
-	}
+    }
 
     return (
         <>
@@ -126,9 +126,9 @@ export default function HomePage() {
                 <div className={style.hero_main}>
                     <div className={style.hero_body}>
                         <div className={`content ${style.hero_content}`}>
-                            <h1 className="title is-1 has-text-weight-bold">Unsplash-Cloned</h1>
-                            <p className="is-size-5">Built by Next.js, for educational purpose only</p>
-                            <div className="control has-icons-left">
+                            <h1 className="title is-size-4-mobile is-1-tablet has-text-weight-bold">Unsplash-Cloned</h1>
+                            <p className="is-size-6-mobile is-size-5-tablet has-text-weight-medium">Built by Next.js, for educational purpose only</p>
+                            <div className="control has-icons-left is-hidden-mobile">
                                 <input className="input is-medium" type="text" placeholder="Search photos (coming soon...)" />
                                 <span className="icon is-left">
                                     <Search size={18} />
@@ -137,10 +137,10 @@ export default function HomePage() {
                         </div>
                     </div>
                     <div className={style.hero_footer}>
-                        <div className={style.hero_footer_item}>
+                        <div className={`${style.hero_footer_item} is-size-7-mobile`}>
                             {randomUserElement}
                         </div>
-                        <div className={style.hero_footer_item}>
+                        <div className={`${style.hero_footer_item} is-size-7-mobile`}>
                             <a className="has-text-white" href="https://github.com/potchangelo/next-unsplash" target="_blank">Project code on Github</a>
                         </div>
                     </div>

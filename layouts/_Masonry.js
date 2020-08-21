@@ -8,14 +8,14 @@ const defaultBreakpointArray = [
 ];
 
 function Masonry({ breakpointArray = defaultBreakpointArray, children }) {
-    // Data
+    // - Data
     const [columnHeightArray, setColumnHeightArray] = useState([]);
     const [computedStylesArray, setComputedStyleArray] = useState([]);
     const layoutRef = useRef(null);
     const layoutTimerRef = useRef(null);
     const layoutStatusRef = useRef('done'); // restart, update, done
 
-    // Functions
+    // - Functions
     function getNextBreakpoint(_breakpointArray) {
         let breakpoint = defaultBreakpointArray[0];
 
@@ -91,7 +91,7 @@ function Masonry({ breakpointArray = defaultBreakpointArray, children }) {
 
     const onResize = useCallback(() => restartLayout(), [restartLayout]);
 
-    // Effects
+    // - Effects
     // 1. Browser resized -> restart
     useEffect(() => {
         window.addEventListener('resize', onResize);
@@ -109,7 +109,7 @@ function Masonry({ breakpointArray = defaultBreakpointArray, children }) {
         updateLayout();
     }, [columnHeightArray, computedStylesArray, updateLayout]);
 
-    // Attributes
+    // - Attributes
     const itemWidth = 100 / columnHeightArray.length;
     const { gap } = getNextBreakpoint(breakpointArray);
     const containerStyle = { padding: `${gap}px` };
@@ -120,7 +120,7 @@ function Masonry({ breakpointArray = defaultBreakpointArray, children }) {
         marginRight: `-${gap / 2}px`
     };
 
-    // Elements
+    // - Elements
     let childElements = null;
     if (!!children) {
         childElements = React.Children.map(children, (child, index) => {

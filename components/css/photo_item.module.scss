@@ -1,13 +1,17 @@
 @import "../../css/vars";
 
-// - Figure
+// - Top
+.top {
+    display: flex;
+    padding: 12px;
+}
 
+// - Figure
 .figure {
     position: relative;
 }
 
 // - Photo
-
 .link {
     display: block;
     position: absolute;
@@ -24,7 +28,6 @@
 }
 
 // - Overlay
-
 .overlay {
     background-image: linear-gradient(
         180deg,
@@ -54,7 +57,6 @@
 }
 
 // - User
-
 .user {
     display: inline-flex;
     align-items: center;
@@ -73,8 +75,13 @@
 }
 
 // - Figure hover
-
 .figure:hover .overlay {
     opacity: 1;
     visibility: visible;
+}
+
+// - Bottom
+.bottom {
+    display: flex;
+    padding: 12px 12px 32px;
 }

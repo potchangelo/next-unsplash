@@ -1,16 +1,10 @@
 @import "../../css/vars";
 
 // - General
-
 .topbar {
     display: flex;
     justify-content: space-between;
     padding: 16px;
-}
-
-.dl_more {
-    border-left: 1px solid rgba($white, 0.6) !important;
-    z-index: 9;
 }
 
 .content {
@@ -23,7 +17,6 @@
 }
 
 // - Modal
-
 .modal {
     background-color: $white;
     border-radius: 4px;
@@ -46,58 +39,7 @@
     }
 }
 
-// - Dropdown
-
-.dropdown_menu {
-    opacity: 0;
-    display: block;
-    visibility: hidden;
-    width: max-content;
-    top: calc(100% + 6px);
-    transform: scale(0.01);
-    transform-origin: top right;
-    transition: 
-        opacity 0.075s ease-out,
-        visibility 0.01s linear 0.151s, 
-        transform 0.15s ease-out;
-}
-
-.dropdown_content {
-    color: $white;
-    background-color: $black-bis;
-    position: relative;
-}
-
-.dropdown_caret {
-    background-color: $black-bis;
-    border-radius: 2px;
-    width: 14px;
-    height: 14px;
-    position: absolute;
-    bottom: calc(100% - 14px);
-    right: 12px;
-    transform: rotate(45deg);
-}
-
-.dropdown_line {
-    background-color: $grey-dark;
-    height: 1px;
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-
-.dropdown_active .dropdown_menu {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1);
-    transition: 
-        opacity 0.15s ease-out 0.15s,
-        visibility 0.01s, 
-        transform 0.3s cubic-bezier(0.000, 0.000, 0.405, 1.370) 0.011s;
-}
-
 // - Figure
-
 .figure_cover {
     display: flex;
     justify-content: center;
@@ -133,7 +75,6 @@
 }
 
 // - Hover
-
 .figure:hover .zoom_icon {
     opacity: 1;
 }
