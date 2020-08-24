@@ -8,7 +8,7 @@ function User({ user, textColor, hideUsername }) {
     const { displayName, username, avatarUrl } = user;
 
     // - Attributes
-    const userAvatarUrl = avatarUrl?.small ?? 'https://via.placeholder.com/64';
+    const userAvatarUrl = avatarUrl?.small ?? '/default-avatar.png';
     let textColorClass = 'has-text-black-ter';
     if (textColor === 'white') {
         textColorClass = 'has-text-white';

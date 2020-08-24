@@ -86,7 +86,7 @@ export default function UserPage({ cacheUser }) {
         headDescription = `Download photos by ${user.displayName} on Unsplash-Cloned`;
         headUrl += `/@${user.username}`;
 
-        const userAvatarUrl = user.avatarUrl?.large ?? 'https://via.placeholder.com/256';
+        const userAvatarUrl = user.avatarUrl?.large ?? '/default-avatar.png';
         headImageUrl = userAvatarUrl;
 
         userElement = (
