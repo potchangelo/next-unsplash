@@ -17,7 +17,7 @@ function Photo({ photo }) {
     };
     const paddingBottom = `${height / width * 100}%`;
     const srcset = `${url.small} 640w, ${url.medium} 1080w, ${url.large} 1920w`;
-    let sizes = '(max-width: 640px) 640px, (max-width: 1080px) 1080px, 100vw';'100vw';
+    let sizes = '(max-width: 640px) 640px, (max-width: 1080px) 1080px, 100vw'; '100vw';
     if (isZoomed) {
         figureClass += ` ${style.figure_zoomed}`;
         figureStyle = {};
@@ -29,19 +29,22 @@ function Photo({ photo }) {
 
     return (
         <div className={style.figure_cover}>
-            <figure 
-                className={figureClass} 
-                style={figureStyle} 
-                onClick={_ => setIsZoomed(prev => !prev)} >
+            <figure
+                className={figureClass}
+                style={figureStyle} >
                 <div style={{ paddingBottom }} />
-                <img 
-                    sizes={sizes} 
-                    srcSet={srcset} 
-                    src={url.medium} 
+                <img
+                    sizes={sizes}
+                    srcSet={srcset}
+                    src={url.medium}
                     alt={description} />
-                <span className={`icon has-text-white ${style.zoom_icon}`}>
-                    {zoomSvg}
-                </span>
+                <div
+                    className={style.figure_zoom_area}
+                    onClick={_ => setIsZoomed(prev => !prev)} >
+                    <span className={`icon has-text-white ${style.figure_zoom_icon}`}>
+                        {zoomSvg}
+                    </span>
+                </div>
             </figure>
         </div>
     );
