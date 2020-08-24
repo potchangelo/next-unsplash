@@ -126,7 +126,7 @@ export default function HomePage() {
                 <div className={style.hero_main}>
                     <div className={style.hero_body}>
                         <div className={`content ${style.hero_content}`}>
-                            <h1 className="title is-size-4-mobile is-1-tablet has-text-weight-bold">Unsplash-Cloned</h1>
+                            <h1 className="title is-size-4-mobile is-size-1-tablet has-text-weight-bold">Unsplash-Cloned</h1>
                             <p className="is-size-6-mobile is-size-5-tablet has-text-weight-medium">Built by Next.js, for educational purpose only</p>
                             <div className="control has-icons-left is-hidden-mobile">
                                 <input className="input is-medium" type="text" placeholder="Search photos (coming soon...)" />

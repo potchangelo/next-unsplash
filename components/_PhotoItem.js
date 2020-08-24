@@ -13,7 +13,7 @@ function PhotoItem({ photo, user: indyUser, basedPage = '/' }) {
 
     return (
         <>
-            <div className={`${style.top} is-hidden-tablet`}><User user={user} /></div>
+            <div className={style.top}><User user={user} /></div>
             <figure className={style.figure}>
                 <div style={{ paddingBottom }} />
                 <Link href={`${basedPage}?photoUid=${uid}`} as={`/photos/${uid}`} shallow={true} scroll={false}>
@@ -28,8 +28,8 @@ function PhotoItem({ photo, user: indyUser, basedPage = '/' }) {
                     </div>
                 </div>
             </figure>
-            <div className={`${style.bottom} is-hidden-tablet`}>
-                <div style={{flexGrow: 1}} />
+            <div className={style.bottom}>
+                <div className={style.bottom_space} />
                 <div><PhotoDownloadButton photo={photo} /></div>
             </div>
         </>

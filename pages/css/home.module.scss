@@ -32,7 +32,7 @@
 }
 
 .hero_body {
-    padding: 64px 16px 32px;
+    padding: 64px 16px 16px;
 }
 
 .hero_content {
@@ -52,7 +52,7 @@
 
 @include from($tablet) {
     .hero_body {
-        padding: 160px 16px;
+        padding: 160px 16px 144px;
     }
 
     .hero_footer {
