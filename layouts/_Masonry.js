@@ -21,7 +21,7 @@ function Masonry({ breakpointArray = defaultBreakpointArray, children }) {
 
         // Get width
         if (typeof window === 'undefined') return breakpoint;
-        const docWidth = document.documentElement.clientWidth;
+        const docWidth = window.innerWidth;
 
         // Get columns
         _breakpointArray.forEach(_breakpoint => {
@@ -110,11 +110,13 @@ function Masonry({ breakpointArray = defaultBreakpointArray, children }) {
     }, [columnHeightArray, computedStylesArray, updateLayout]);
 
     // - Attributes
-    const itemWidth = 100 / columnHeightArray.length;
-    const { gap } = getNextBreakpoint(breakpointArray);
+    const columnCount = columnHeightArray.length;
+    const itemWidth = 100 / (columnCount || 1);
+    const { gap } = (columnCount === 0) ? 0 : getNextBreakpoint(breakpointArray);
     const containerStyle = { padding: `${gap}px` };
+    const layoutHeight = (columnCount === 0) ? 0 : Math.max(...columnHeightArray);
     const layoutStyles = { 
-        height: `${Math.max(...columnHeightArray)}px`,
+        height: `${layoutHeight}px`,
         marginTop: `-${gap / 2}px`,
         marginLeft: `-${gap / 2}px`,
         marginRight: `-${gap / 2}px`
