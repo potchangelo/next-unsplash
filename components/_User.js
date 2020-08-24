@@ -23,7 +23,7 @@ function User({ user, textColor, hideUsername }) {
     }
 
     return (
-        <Link href={'/[...atUsername]'} as={`/@${username}`}>
+        <Link href={'/[...slug]'} as={`/@${username}`}>
             <a className={style.main}>
                 <img className={style.avatar} src={userAvatarUrl} />
                 <div>

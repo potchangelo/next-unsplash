@@ -7,7 +7,7 @@ import { useInfiniteQuery, useQuery } from 'react-query';
 import { Search } from 'react-feather';
 import { getPhotos, getPhoto, getRandomPhoto } from '../api';
 import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts/';
-import { Navbar, PhotoItem, PhotoPost } from '../components';
+import { Navbar, PhotoItem, PhotoPost, LoadSpinner, Footer } from '../components';
 
 export default function HomePage() {
     // - Data
@@ -86,7 +86,7 @@ export default function HomePage() {
                     <a className="has-text-white">Random photo</a>
                 </Link>
                 <span className="has-text-grey-light"> by </span>
-                <Link href={'/[...atUsername]'} as={`/@${user.username}`}>
+                <Link href={'/[...slug]'} as={`/@${user.username}`}>
                     <a className="has-text-white">{user.displayName}</a>
                 </Link>
             </p>
@@ -151,6 +151,8 @@ export default function HomePage() {
                     {photoElements}
                 </Masonry>
             </PhotosSection>
+            <LoadSpinner isShow={canFetchMore} isSpinning={isFetchingMore} />
+            <Footer />
             {photoModal}
         </>
     );
