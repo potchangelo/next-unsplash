@@ -23,7 +23,12 @@ function App({ Component, pageProps }) {
                 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" key="mask-icon" />
                 <link rel="manifest" href="/manifest.json" key="menifest" />
             </Head>
-            <ReactQueryConfigProvider config={{ queries: { refetchOnWindowFocus: false } }}>
+            <ReactQueryConfigProvider config={{ 
+                queries: { 
+                    staleTime: 1000 * 60 * 60,
+                    refetchOnWindowFocus: false
+                } 
+                }}>
                 <Component {...pageProps} />
             </ReactQueryConfigProvider>
         </>
