@@ -44,7 +44,6 @@ export default function HomePage() {
     }, [canFetchMore, isFetching, isFetchingMore]);
 
     const loadPhoto = useCallback(async (uid) => {
-        console.log(uid)
         try {
             const resJson = await getPhoto(null, uid);
             setPhoto(resJson);

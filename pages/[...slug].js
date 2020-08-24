@@ -5,7 +5,7 @@ import { useEffect, useCallback, useState } from 'react';
 import { useQuery, useInfiniteQuery } from 'react-query';
 import { getUser, getUserPhotos, getRandomUsers, getPhoto } from '../api';
 import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts';
-import { Navbar, PhotoItem, PhotoPost } from '../components';
+import { Navbar, PhotoItem, PhotoPost, LoadSpinner, Footer } from '../components';
 
 export default function UserPage({ cacheUser }) {
     // - Data
@@ -91,12 +91,12 @@ export default function UserPage({ cacheUser }) {
 
         userElement = (
             <div className={style.main}>
-                <div className="columns is-variable is-6">
-                    <div className="column is-narrow">
+                <div className="columns is-mobile is-variable is-2-mobile is-6-tablet">
+                    <div className="column is-narrow py-0">
                         <img className={style.avatar} src={userAvatarUrl} />
                     </div>
-                    <div className="column">
-                        <h2 className="title is-2 has-text-weight-bold mt-4">{user.displayName}</h2>
+                    <div className="column py-0 content">
+                        <h2 className="title is-size-5-mobile is-size-2-tablet has-text-weight-bold my-4">{user.displayName}</h2>
                         <p>{user.biography}</p>
                     </div>
                 </div>
@@ -141,6 +141,8 @@ export default function UserPage({ cacheUser }) {
                     {photoElements}
                 </Masonry>
             </PhotosSection>
+            <LoadSpinner isShow={canFetchMore} isSpinning={isFetchingMore} />
+            <Footer />
             {photoModal}
         </>
     );

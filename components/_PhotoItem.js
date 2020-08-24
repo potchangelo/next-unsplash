@@ -13,7 +13,9 @@ function PhotoItem({ photo, user: indyUser, basedPage = '/' }) {
 
     return (
         <>
-            <div className={style.top}><User user={user} /></div>
+            <div className={style.top}>
+                <User user={user} hideUsername={true} />
+            </div>
             <figure className={style.figure}>
                 <div style={{ paddingBottom }} />
                 <Link href={`${basedPage}?photoUid=${uid}`} as={`/photos/${uid}`} shallow={true} scroll={false}>
