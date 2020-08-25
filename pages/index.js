@@ -71,6 +71,21 @@ export default function HomePage() {
     }, [router.query, loadPhoto]);
 
     // - Elements
+    const publicTitle = process.env.NEXT_PUBLIC_TITLE;
+    let headTitle = publicTitle;
+    let headDescription = `${publicTitle} built from Next.js by Zinglecode (for educational purpose only)`;
+    let headUrl = process.env.NEXT_PUBLIC_HOST;
+    let headOgImage = null, headTwitterImage = null;
+    let photoModal = null;
+    if (!!photo) {
+        headTitle = `Photo by ${photo.user.displayName} | ${publicTitle}`;
+        headDescription = `Download this photo by ${photo.user.displayName} on ${publicTitle}`;
+        headUrl += `/photos/${photo.uid}`;
+        headOgImage = <meta property="og:image" content={photo.url.large} key="og-image" />;
+        headTwitterImage = <meta name="twitter:image" content={photo.url.large} key="twitter-image" />;
+        photoModal = <Modal><PhotoPost photo={photo} isModal={true} /></Modal>;
+    }
+
     let randomPhotoElement = null, randomUserElement = null;
     if (!!randomPhoto) {
         const { uid, url, user } = randomPhoto;
@@ -100,14 +115,6 @@ export default function HomePage() {
         );
     });
 
-    let headTitle = 'Unsplash-Cloned', photoModal = null;
-    const headDescription = 'Unsplash-Cloned built from Next.js by Zinglecode (for educational purpose only)';
-    const headUrl = process.env.NEXT_PUBLIC_HOST;
-    if (!!photo) {
-        headTitle = `Photo by ${photo.user.displayName} | Unsplash-Cloned`;
-        photoModal = <Modal><PhotoPost photo={photo} isModal={true} /></Modal>;
-    }
-
     return (
         <>
             <Head>
@@ -115,9 +122,11 @@ export default function HomePage() {
                 <meta property="og:title" content={headTitle} />
                 <meta property="og:description" content={headDescription} />
                 <meta property="og:url" content={headUrl} />
+                {headOgImage}
                 <meta name="twitter:title" content={headTitle} />
                 <meta name="twitter:description" content={headDescription} />
                 <meta name="twitter:url" content={headUrl} />
+                {headTwitterImage}
                 <title>{headTitle}</title>
             </Head>
             <Navbar />

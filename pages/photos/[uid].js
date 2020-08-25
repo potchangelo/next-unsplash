@@ -12,12 +12,13 @@ export default function PhotoPage({ cachePhoto }) {
     const photo = fetchedPhoto || cachePhoto;
 
     // - Elements
-    let headTitle = 'Photo | Unsplash-cloned';
-    let headDescription = 'Download this photo on Unsplash-Cloned';
+    const publicTitle = process.env.NEXT_PUBLIC_TITLE;
+    let headTitle = `Photo | ${publicTitle}`;
+    let headDescription = `Download this photo on ${publicTitle}`;
     let headUrl = process.env.NEXT_PUBLIC_HOST;
     let headImageUrl = '';
     if (!!photo) {
-        headTitle = `Photo by ${photo.user.displayName} | Unsplash-cloned`;
+        headTitle = `Photo by ${photo.user.displayName} | ${publicTitle}`;
         headDescription = `Download this photo by ${photo.user.displayName} on Unsplash-Cloned`;
         headUrl += `/photos/${photo.uid}`;
         headImageUrl = photo.url.large;

@@ -76,14 +76,15 @@ export default function UserPage({ cacheUser }) {
     }, [router.query, loadPhoto]);
 
     // - Elements
-    let headTitle = 'User | Unsplash-cloned';
-    let headDescription = 'Download photos on Unsplash-Cloned';
+    const publicTitle = process.env.NEXT_PUBLIC_TITLE;
+    let headTitle = `User | ${publicTitle}`;
+    let headDescription = `Download photos on ${publicTitle}`;
     let headUrl = process.env.NEXT_PUBLIC_HOST;
     let headImageUrl = '';
     let userElement = null, photoElements = null;
     if (!!user) {
-        headTitle = `${user.displayName} (@${user.username}) | Unsplash-cloned`;
-        headDescription = `Download photos by ${user.displayName} on Unsplash-Cloned`;
+        headTitle = `${user.displayName} (@${user.username}) | ${publicTitle}`;
+        headDescription = `Download photos by ${user.displayName} on ${publicTitle}`;
         headUrl += `/@${user.username}`;
 
         const userAvatarUrl = user.avatarUrl?.large ?? '/default-avatar.png';
