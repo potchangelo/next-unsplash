@@ -1,18 +1,18 @@
 async function getPhotos(key, beforeId) {
-    let url = 'http://localhost:8080/photos';
+    let url = `${process.env.NEXT_PUBLIC_API_HOST}/photos`;
     if (!!beforeId) url += `?beforeId=${beforeId}`;
     const res = await fetch(url);
     return await res.json();
 }
 
 async function getPhoto(key, uid) {
-    const url = `http://localhost:8080/photos/${uid}`;
+    const url = `${process.env.NEXT_PUBLIC_API_HOST}/photos/${uid}`;
     const res = await fetch(url);
     return await res.json();
 }
 
 async function getRandomPhoto(key) {
-    const url = `http://localhost:8080/photos/random`;
+    const url = `${process.env.NEXT_PUBLIC_API_HOST}/photos/random`;
     const res = await fetch(url);
     return await res.json();
 }

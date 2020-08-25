@@ -14,9 +14,9 @@ function App({ Component, pageProps }) {
                 <meta name="application-name" content="Unsplash-Cloned" key="application-name" />
                 <meta name="theme-color" content="#ffffff" key="theme-color" />
                 <meta property="og:type" content="website" key="og-type" />
-                <meta property="og:image" content="http://localhost:3000/home-banner.jpg" key="og-image" />
+                <meta property="og:image" content={`${process.env.NEXT_PUBLIC_HOST}/home-banner.jpg`} key="og-image" />
                 <meta name="twitter:card" content="summary_large_image" key="twitter-card" />
-                <meta name="twitter:image" content="http://localhost:3000/home-banner.jpg" key="twitter-image" />
+                <meta name="twitter:image" content={`${process.env.NEXT_PUBLIC_HOST}/home-banner.jpg`} key="twitter-image" />
                 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" key="apple-touch-icon" />
                 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" key="icon32" />
                 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" key="icon16" />

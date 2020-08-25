@@ -14,7 +14,7 @@ export default function PhotoPage({ cachePhoto }) {
     // - Elements
     let headTitle = 'Photo | Unsplash-cloned';
     let headDescription = 'Download this photo on Unsplash-Cloned';
-    let headUrl = 'http://localhost:3000';
+    let headUrl = process.env.NEXT_PUBLIC_HOST;
     let headImageUrl = '';
     if (!!photo) {
         headTitle = `Photo by ${photo.user.displayName} | Unsplash-cloned`;

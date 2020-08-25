@@ -78,7 +78,7 @@ export default function UserPage({ cacheUser }) {
     // - Elements
     let headTitle = 'User | Unsplash-cloned';
     let headDescription = 'Download photos on Unsplash-Cloned';
-    let headUrl = 'http://localhost:3000';
+    let headUrl = process.env.NEXT_PUBLIC_HOST;
     let headImageUrl = '';
     let userElement = null, photoElements = null;
     if (!!user) {

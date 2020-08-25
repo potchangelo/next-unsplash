@@ -11,10 +11,10 @@ export default function AboutPage() {
                 <meta name="description" content={headDescription} />
                 <meta property="og:title" content={headTitle} />
                 <meta property="og:description" content={headDescription} />
-                <meta property="og:url" content="http://localhost:3000/about" />
+                <meta property="og:url" content={`${process.env.NEXT_PUBLIC_HOST}/about`} />
                 <meta name="twitter:title" content={headTitle} />
                 <meta name="twitter:description" content={headDescription} />
-                <meta name="twitter:url" content="http://localhost:3000/about" />
+                <meta name="twitter:url" content={`${process.env.NEXT_PUBLIC_HOST}/about`} />
                 <title>{headTitle}</title>
             </Head>
             <Navbar />

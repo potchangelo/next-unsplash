@@ -101,7 +101,8 @@ export default function HomePage() {
     });
 
     let headTitle = 'Unsplash-Cloned', photoModal = null;
-    const headDescription = 'Unsplash-Cloned built from Next.js by Zinglecode (for educational purpose only)'
+    const headDescription = 'Unsplash-Cloned built from Next.js by Zinglecode (for educational purpose only)';
+    const headUrl = process.env.NEXT_PUBLIC_HOST;
     if (!!photo) {
         headTitle = `Photo by ${photo.user.displayName} | Unsplash-Cloned`;
         photoModal = <Modal><PhotoPost photo={photo} isModal={true} /></Modal>;
@@ -113,10 +114,10 @@ export default function HomePage() {
                 <meta name="description" content={headDescription} />
                 <meta property="og:title" content={headTitle} />
                 <meta property="og:description" content={headDescription} />
-                <meta property="og:url" content="http://localhost:3000/" />
+                <meta property="og:url" content={headUrl} />
                 <meta name="twitter:title" content={headTitle} />
                 <meta name="twitter:description" content={headDescription} />
-                <meta name="twitter:url" content="http://localhost:3000/" />
+                <meta name="twitter:url" content={headUrl} />
                 <title>{headTitle}</title>
             </Head>
             <Navbar />
