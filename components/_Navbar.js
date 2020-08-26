@@ -13,7 +13,7 @@ function Navbar() {
             <div className={style.item}>
                 <Link href="/">
                     <a className={style.brand}>
-                        <img className={style.brand_logo} src="/logo-light-64.png" alt="Logo" />
+                        <img className={style.brand_logo} src="/logo-light-64x64.png" alt="Logo" />
                         <div className={style.brand_text}>
                             <h1 className="title is-6 has-text-weight-bold mb-1">Unsplash-cloned</h1>
                             <h3 className="title is-7 has-text-weight-medium">by Zinglecode</h3>
