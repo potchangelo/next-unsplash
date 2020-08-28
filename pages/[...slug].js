@@ -142,7 +142,9 @@ export default function UserPage({ cacheUser }) {
                     {photoElements}
                 </Masonry>
             </PhotosSection>
-            <LoadSpinner isShow={canFetchMore} isSpinning={isFetchingMore} />
+            <LoadSpinner 
+                isShow={canFetchMore} 
+                isSpinning={isFetching || isFetchingMore} />
             <Footer />
             {photoModal}
         </>
