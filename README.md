@@ -1,30 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next Unsplash by Zinglecode
 
-## Getting Started
+Unsplash-Cloned web-app (for educational purposes only)
 
-First, run the development server:
+[Back-end API](https://github.com/potchangelo/express-unsplash/)
 
-```bash
-npm run dev
-# or
-yarn dev
+## Table of Contents
+
+* [How to Install and Run Offline](#how-to-install-and-run-offline)
+* [Credits](#credits)
+
+## How to Install and Run Offline
+
+0. Please install and run [Back-end API](https://github.com/potchangelo/express-unsplash/) on your machine before running this project.
+
+1. Download this project, then open project folder in code editor (VSCode or Anything).
+
+2. Create .env file in project folder, then type your configuration like this.
+
+Template
+```
+NEXT_PUBLIC_HOST={front-end-url}
+NEXT_PUBLIC_API_HOST={back-end-url}
+NEXT_PUBLIC_TITLE={website-based-title}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Example
+```
+NEXT_PUBLIC_HOST=http://localhost:3000
+NEXT_PUBLIC_API_HOST=http://localhost:8080
+NEXT_PUBLIC_TITLE=Unsplash-Cloned
+```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+3. Open Terminal or Command Prompt at project folder, then install packages.
 
-## Learn More
+```
+npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. Start running Next.js web-app.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+5. Check if web-app. is working properly by open these URLs in browser.
 
-## Deploy on Vercel
+```
+http://localhost:3000/
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Credits
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The project was inspired by https://unsplash.com/.
+
+### Stack used in the project
+
+- Next.js (React Framework)
+- React Query
+- React Feather
+- Bulma
