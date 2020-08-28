@@ -15,7 +15,7 @@ Unsplash-Cloned web-app (for educational purposes only)
 
 1. Download this project, then open project folder in code editor (VSCode or Anything).
 
-2. Create .env file in project folder, then type your configuration like this.
+2. Create .env.local file in project folder, then type your configuration like this.
 
 Template
 ```
