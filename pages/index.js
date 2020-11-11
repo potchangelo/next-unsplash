@@ -13,33 +13,41 @@ export default function HomePage() {
     // - Data
     const [photo, setPhoto] = useState(null);
 
+    // --- Photos
     const {
         data: photoGroupArray = [],
         fetchMore,
         canFetchMore, isFetching, isFetchingMore
     } = useInfiniteQuery('photos', getPhotos, {
-        getFetchMore: (lastGroup, allGroups) => {
-            if (lastGroup.length < 12) return false;
-            return lastGroup[lastGroup.length - 1].id;
+        getFetchMore: (lastGroup = {}, allGroups) => {
+            const { photos: lastPhotoArray = [] } = lastGroup;
+            const count = lastPhotoArray.length;
+            if (count < 12) return false;
+            return lastPhotoArray[count - 1].id;
         }
     });
-    const photoArray = photoGroupArray.flat();
+    const photoArray = photoGroupArray.flatMap(group => {
+        const { photos: groupPhotoArray = [] } = group;
+        return groupPhotoArray;
+    });
 
-    const { data: randomPhoto } = useQuery('random-photo', getRandomPhoto)
+    // --- Random photo
+    const { data: randomPhotoResponse = {} } = useQuery('random-photo', getRandomPhoto);
+    const { photo: randomPhoto } = randomPhotoResponse;
 
     const router = useRouter();
 
-    // - Callback
+    // - Callbacks
     const onScroll = useCallback(() => {
-        // Position
+        // --- Position
         const scrollBottom = window.scrollY + window.innerHeight;
         const docBottom = document.body.offsetHeight;
 
-        // Condition
+        // --- Condition
         const canFetch = canFetchMore && !isFetching && !isFetchingMore;
         const isScrollReached = scrollBottom > docBottom - 700;
 
-        // Fetch
+        // --- Fetch
         if (canFetch && isScrollReached) fetchMore();
     }, [canFetchMore, isFetching, isFetchingMore]);
 
@@ -71,6 +79,7 @@ export default function HomePage() {
     }, [router.query, loadPhoto]);
 
     // - Elements
+    // --- Meta
     const publicTitle = process.env.NEXT_PUBLIC_TITLE;
     let headTitle = publicTitle;
     let headDescription = `${publicTitle} built from Next.js by Zinglecode (for educational purpose only)`;
@@ -86,6 +95,7 @@ export default function HomePage() {
         photoModal = <Modal><PhotoPost photo={photo} isModal={true} /></Modal>;
     }
 
+    // --- Random photo
     let randomPhotoElement = null, randomUserElement = null;
     if (!!randomPhoto) {
         const { uid, url, user } = randomPhoto;
@@ -107,6 +117,7 @@ export default function HomePage() {
         );
     }
 
+    // - Photos
     const photoElements = photoArray.map(photo => {
         return (
             <MasonryItem key={photo.uid}>

@@ -66,4 +66,8 @@
     .hero_footer_item {
         padding: 16px;
     }
+
+    .hero_footer_item:not(:last-child) {
+        margin-bottom: 0px;
+    }
 }
