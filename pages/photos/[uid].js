@@ -5,11 +5,11 @@ import { Navbar, PhotoPost } from '../../components';
 
 export default function PhotoPage({ cachePhoto }) {
     // - Data
-    const { data: fetchedPhoto } = useQuery(
+    const { data: photoResponse = {} } = useQuery(
         ['photo', !!cachePhoto ? cachePhoto.uid : null], 
         getPhoto
     );
-    const photo = fetchedPhoto || cachePhoto;
+    const photo = photoResponse.photo || cachePhoto;
 
     // - Elements
     const publicTitle = process.env.NEXT_PUBLIC_TITLE;
@@ -47,14 +47,15 @@ export default function PhotoPage({ cachePhoto }) {
 }
 
 export async function getStaticPaths() {
-    let photoArray = [];
+    let resJson = {};
     try {
-        photoArray = await getPhotos(null);
+        resJson = await getPhotos(null);
     }
     catch (error) {
         console.error(error);
     }
 
+    const { photos: photoArray = [] } = resJson;
     const paths = photoArray.map(photo => {
         return { params: { uid: photo.uid } }
     });
@@ -65,13 +66,14 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
     const { uid } = context.params;
 
-    let cachePhoto = null;
+    let resJson = {};
     try {
-        cachePhoto = await getPhoto(null, uid);
+        resJson = await getPhoto(null, uid);
     }
     catch (error) {
         console.error(error);
     }
 
-    return { props: { cachePhoto } };
+    const { photo: cachePhoto = null, errorCode = null } = resJson;
+    return { props: { cachePhoto, errorCode } };
 }

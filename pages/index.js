@@ -11,12 +11,9 @@ import { Navbar, PhotoItem, PhotoPost, LoadSpinner, Footer } from '../components
 
 export default function HomePage() {
     // - Data
-    const [photo, setPhoto] = useState(null);
-
     // --- Photos
     const {
-        data: photoGroupArray = [],
-        fetchMore,
+        data: photoGroupArray = [], fetchMore,
         canFetchMore, isFetching, isFetchingMore
     } = useInfiniteQuery('photos', getPhotos, {
         getFetchMore: (lastGroup = {}, allGroups) => {
@@ -34,6 +31,9 @@ export default function HomePage() {
     // --- Random photo
     const { data: randomPhotoResponse = {} } = useQuery('random-photo', getRandomPhoto);
     const { photo: randomPhoto } = randomPhotoResponse;
+
+    // --- Modal photo
+    const [photo, setPhoto] = useState(null);
 
     const router = useRouter();
 
@@ -53,8 +53,9 @@ export default function HomePage() {
 
     const loadPhoto = useCallback(async (uid) => {
         try {
-            const resJson = await getPhoto(null, uid);
-            setPhoto(resJson);
+            const { photo, errorCode } = await getPhoto(null, uid);
+            if (!!errorCode) throw new Error(errorCode);
+            setPhoto(photo);
         }
         catch (error) {
             console.log(error);
