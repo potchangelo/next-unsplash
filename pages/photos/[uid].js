@@ -6,8 +6,7 @@ import { Navbar, PhotoPost } from '../../components';
 export default function PhotoPage({ cachePhoto }) {
     // - Data
     const { data: photoResponse = {} } = useQuery(
-        ['photo', !!cachePhoto ? cachePhoto.uid : null], 
-        getPhoto
+        ['photo', cachePhoto?.uid], getPhoto
     );
     const photo = photoResponse.photo || cachePhoto;
 

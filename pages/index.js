@@ -29,7 +29,9 @@ export default function HomePage() {
     });
 
     // --- Random photo
-    const { data: randomPhotoResponse = {} } = useQuery('random-photo', getRandomPhoto);
+    const { data: randomPhotoResponse = {} } = useQuery(
+        'random-photo', getRandomPhoto
+    );
     const { photo: randomPhoto } = randomPhotoResponse;
 
     // --- Modal photo
@@ -71,12 +73,8 @@ export default function HomePage() {
 
     useEffect(() => {
         const { photoUid } = router.query;
-        if (!!photoUid) {
-            loadPhoto(photoUid);
-        }
-        else {
-            setPhoto(null);
-        }
+        if (!!photoUid) loadPhoto(photoUid);
+        else setPhoto(null);
     }, [router.query, loadPhoto]);
 
     // - Elements
@@ -86,14 +84,12 @@ export default function HomePage() {
     let headDescription = `${publicTitle} built from Next.js by Zinglecode (for educational purpose only)`;
     let headUrl = process.env.NEXT_PUBLIC_HOST;
     let headOgImage = null, headTwitterImage = null;
-    let photoModal = null;
     if (!!photo) {
         headTitle = `Photo by ${photo.user.displayName} | ${publicTitle}`;
         headDescription = `Download this photo by ${photo.user.displayName} on ${publicTitle}`;
         headUrl += `/photos/${photo.uid}`;
         headOgImage = <meta property="og:image" content={photo.url.large} key="og-image" />;
         headTwitterImage = <meta name="twitter:image" content={photo.url.large} key="twitter-image" />;
-        photoModal = <Modal><PhotoPost photo={photo} isModal={true} /></Modal>;
     }
 
     // --- Random photo
@@ -118,7 +114,7 @@ export default function HomePage() {
         );
     }
 
-    // - Photos
+    // --- Photos
     const photoElements = photoArray.map(photo => {
         return (
             <MasonryItem key={photo.uid}>
@@ -126,6 +122,12 @@ export default function HomePage() {
             </MasonryItem>
         );
     });
+
+    // --- Modal
+    let photoModal = null;
+    if (!!photo) {
+        photoModal = <Modal><PhotoPost photo={photo} isModal={true} /></Modal>;
+    }
 
     return (
         <>

@@ -1,13 +1,13 @@
-async function getUser(key, username, includedLatestPhotos = true) {
+async function getUser(key, username, includedPhotos = false, photosBeforeId) {
     let url = `${process.env.NEXT_PUBLIC_API_HOST}/users/${username}`;
-    if (!!includedLatestPhotos) url += `?latestPhotos=1`;
-    const res = await fetch(url);
-    return await res.json();
-}
 
-async function getUserPhotos(key, username, beforeId) {
-    let url = `${process.env.NEXT_PUBLIC_API_HOST}/users/${username}/photos`;
-    if (!!beforeId) url += `?beforeId=${beforeId}`;
+    const params = new URLSearchParams();
+    if (!!includedPhotos) params.set('includedPhotos', '1');
+    if (!!photosBeforeId) params.set('photosBeforeId', photosBeforeId);
+
+    const paramsStr = params.toString();
+    if (!!paramsStr) url += `?${paramsStr}`;
+
     const res = await fetch(url);
     return await res.json();
 }
@@ -18,4 +18,4 @@ async function getRandomUsers() {
     return await res.json();
 }
 
-export { getUser, getUserPhotos, getRandomUsers };
+export { getUser, getRandomUsers };
