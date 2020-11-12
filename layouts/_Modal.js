@@ -1,14 +1,17 @@
-import { useEffect, useCallback } from 'react';
+import style from './css/modal.module.scss';
+import { useEffect, useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
-import ModalContent from './_ModalContent';
 
 function Modal({ children }) {
-    // Create
+    // - Create
     const portal = document.querySelector('#modal_portal');
-    const container = document.createElement('div');
-    container.classList.add('modal_container');
+    const [container] = useState(() => {
+        const div = document.createElement('div');
+        div.classList.add('modal_container');
+        return div;
+    });
 
-    // Add / Remove
+    // - Add / Remove
     const addToPortal = useCallback(() => {
         if (!portal) return;
         if (portal.contains(container)) return;
@@ -24,14 +27,16 @@ function Modal({ children }) {
         document.documentElement.classList.remove('disable_scroll');
     }, [portal, container]);
 
-    // Initialize
+    // - Initialize
     useEffect(() => {
         addToPortal();
         return removeFromPortal;
     }, [addToPortal, removeFromPortal]);
 
     return ReactDOM.createPortal((
-        <ModalContent>{children}</ModalContent>
+        <div className={style.content}>
+            {children}
+        </div>
     ), container);
 }
 

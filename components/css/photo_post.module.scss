@@ -1,6 +1,38 @@
 @import "../../css/vars";
 
-// - General
+// - Modal
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 100vh;
+    padding: 48px 0px;
+    position: relative;
+    cursor: zoom-out;
+}
+
+.modal_inner {
+    background-color: $white;
+    border-radius: 4px;
+    box-shadow: 0px 8px 16px rgba($black, 0.15);
+    width: 100%;
+    min-height: 200px;
+}
+
+.close {
+    color: $grey-lighter;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    cursor: pointer;
+
+    &:hover {
+        color: $white;
+    }
+}
+
+// - Content
 .topbar {
     display: flex;
     justify-content: space-between;
@@ -14,28 +46,6 @@
 
 .info {
     padding: 16px;
-}
-
-// - Modal
-.modal {
-    background-color: $white;
-    border-radius: 4px;
-    box-shadow: 0px 8px 16px rgba($black, 0.15);
-    width: 100%;
-    min-height: 200px;
-    margin: 48px auto;
-}
-
-.close {
-    color: $grey-lighter;
-    position: fixed;
-    top: 12px;
-    left: 12px;
-    cursor: pointer;
-
-    &:hover {
-        color: $white;
-    }
 }
 
 // - Figure
@@ -91,10 +101,9 @@
 }
 
 @include from($tablet) {
-    .modal {
+    .modal_inner {
         width: calc(100% - 128px);
         max-width: 1152px;
-        margin: 32px auto 96px;
     }
 
     .figure_zoom_area {
