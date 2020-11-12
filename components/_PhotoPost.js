@@ -9,24 +9,55 @@ import { useRouter } from 'next/router';
 function PhotoPost({ photo, isModal = false }) {
     const router = useRouter();
 
-    // - Elements
+    // - Attributes
     let postClass = 'photo_post', postInnerClass = 'photo_post_inner';
-    let closeButton = null;
     if (!!isModal) {
         postClass = style.modal;
         postInnerClass = style.modal_inner;
+    }
+    
+    // - Extract
+    if (!photo) {
+        return <div className={postClass}>No photo</div>;
+    };
+    const { description, topics: topicArray = [], user } = photo;
+
+    // - Elements
+    // --- Close for modal
+    let closeButton = null;
+    if (!!isModal) {
         closeButton = (
             <div className={style.close} onClick={_ => router.back()}>
                 <span className="icon">
-                    <X size={24} />
+                    <X size={24} strokeWidth={2} />
                 </span>
             </div>
         );
     }
 
-    if (!photo) {
-        return <div className={postClass}>No photo</div>;
-    };
+    // --- Description
+    let descriptionElement = null;
+    if (!!description) {
+        descriptionElement = (
+            <div className={style.info}>
+                <p>{description}</p>
+            </div>
+        );
+    }
+
+    // --- Topics
+    let topicElement = null;
+    if (topicArray.length > 0) {
+        const topicTagElements = topicArray.map(topic => (
+             <span key={topic.uid} className="tag">{topic.title}</span>
+        ));
+        topicElement = (
+            <div className={style.info}>
+                <h5 className="title is-6 mb-4">Related topics</h5>
+                <div className="tags">{topicTagElements}</div>
+            </div>
+        );
+    }
 
     return (
         <>
@@ -34,15 +65,14 @@ function PhotoPost({ photo, isModal = false }) {
                 <div className={postInnerClass}>
                     <ModalGuard>
                         <div className={style.topbar}>
-                            <User user={photo.user} />
+                            <User user={user} />
                             <PhotoDownloadButton photo={photo} buttonStyle="focus" />
                         </div>
                         <div className={style.content}>
                             <PhotoPostFigure photo={photo} />
                         </div>
-                        <div className={style.info}>
-                            <p>{photo.description}</p>
-                        </div>
+                        {descriptionElement}
+                        {topicElement}
                     </ModalGuard>
                 </div>
             </div>

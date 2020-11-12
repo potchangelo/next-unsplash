@@ -6,8 +6,8 @@ function Photo({ photo }) {
     // - Data
     const [isZoomed, setIsZoomed] = useState(false);
 
+    // - Extract
     if (!photo) return null;
-
     const { width, height, description, url } = photo;
 
     // - Attributes
@@ -31,16 +31,19 @@ function Photo({ photo }) {
         <div className={style.figure_cover}>
             <figure
                 className={figureClass}
-                style={figureStyle} >
+                style={figureStyle}
+            >
                 <div style={{ paddingBottom }} />
                 <img
                     sizes={sizes}
                     srcSet={srcset}
                     src={url.medium}
-                    alt={description} />
+                    alt={description}
+                />
                 <div
                     className={style.figure_zoom_area}
-                    onClick={_ => setIsZoomed(prev => !prev)} >
+                    onClick={_ => setIsZoomed(prev => !prev)}
+                >
                     <span className={`icon has-text-white ${style.figure_zoom_icon}`}>
                         {zoomSvg}
                     </span>

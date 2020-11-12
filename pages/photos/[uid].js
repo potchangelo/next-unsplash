@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import { useQuery } from 'react-query';
 import { getPhotos, getPhoto } from '../../api';
-import { Navbar, PhotoPost } from '../../components';
+import { Footer, Navbar, PhotoPost } from '../../components';
+
+const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
 export default function PhotoPage({ cachePhoto }) {
     // - Data
@@ -11,16 +13,15 @@ export default function PhotoPage({ cachePhoto }) {
     const photo = photoResponse.photo || cachePhoto;
 
     // - Elements
-    const publicTitle = process.env.NEXT_PUBLIC_TITLE;
     let headTitle = `Photo | ${publicTitle}`;
     let headDescription = `Download this photo on ${publicTitle}`;
     let headUrl = process.env.NEXT_PUBLIC_HOST;
     let headImageUrl = '';
     if (!!photo) {
-        headTitle = `Photo by ${photo.user.displayName} | ${publicTitle}`;
-        headDescription = `Download this photo by ${photo.user.displayName} on Unsplash-Cloned`;
+        headTitle = `Photo by ${photo.user?.displayName} | ${publicTitle}`;
+        headDescription = `Download this photo by ${photo.user?.displayName} on Unsplash-Cloned`;
         headUrl += `/photos/${photo.uid}`;
-        headImageUrl = photo.url.large;
+        headImageUrl = photo.url?.large;
     }
 
     return (
@@ -41,6 +42,7 @@ export default function PhotoPage({ cachePhoto }) {
             <section>
                 <PhotoPost photo={photo} />
             </section>
+            <Footer />
         </>
     );
 }

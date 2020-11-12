@@ -4,6 +4,7 @@ import PhotoDownloadButton from './_PhotoDownloadButton';
 import User from './_User';
 
 function PhotoItem({ photo, user: indyUser, basedPage = '/' }) {
+    if (!photo) return null;
     const {
         uid, width, height, description, 
         user: photoUser, url

@@ -7,6 +7,8 @@ import { getUser, getRandomUsers, getPhoto } from '../api';
 import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts';
 import { Navbar, PhotoItem, PhotoPost, LoadSpinner, Footer } from '../components';
 
+const publicTitle = process.env.NEXT_PUBLIC_TITLE;
+
 export default function UserPage({ cacheUser }) {
     // - Data
     // --- User
@@ -16,18 +18,18 @@ export default function UserPage({ cacheUser }) {
     const user = userResponse.user || cacheUser;
 
     // --- Photos
-    const { 
-        data: photoGroupArray = [], fetchMore, 
+    const {
+        data: photoGroupArray = [], fetchMore,
         canFetchMore, isFetching, isFetchingMore
     } = useInfiniteQuery(
-        ['user-photos', cacheUser?.username, true], 
+        ['user-photos', cacheUser?.username, true],
         getUser, {
-            getFetchMore: (lastGroup = {}, allGroups) => {
-                const { user: theUser = {} } = lastGroup;
-                const { photos: lastPhotoArray = [] } = theUser;
-                const count = lastPhotoArray.length;
-                if (count < 12) return false;
-                return lastPhotoArray[count - 1].id;
+        getFetchMore: (lastGroup = {}, allGroups) => {
+            const { user: theUser = {} } = lastGroup;
+            const { photos: lastPhotoArray = [] } = theUser;
+            const count = lastPhotoArray.length;
+            if (count < 12) return false;
+            return lastPhotoArray[count - 1].id;
         }
     });
     const photoArray = photoGroupArray.flatMap(group => {
@@ -56,7 +58,7 @@ export default function UserPage({ cacheUser }) {
     }, [canFetchMore, isFetching, isFetchingMore]);
 
     const loadPhoto = useCallback(async (uid) => {
-		try {
+        try {
             const { photo, errorCode } = await getPhoto(null, uid);
             if (!!errorCode) throw new Error(errorCode);
             setPhoto(photo);
@@ -66,7 +68,7 @@ export default function UserPage({ cacheUser }) {
             setPhoto(null);
         }
     }, []);
-    
+
     // - Effects
     useEffect(() => {
         window.addEventListener('scroll', onScroll);
@@ -75,24 +77,21 @@ export default function UserPage({ cacheUser }) {
 
     useEffect(() => {
         const { photoUid } = router.query;
-		if (!!photoUid) loadPhoto(photoUid);
-		else setPhoto(null);
+        if (!!photoUid) loadPhoto(photoUid);
+        else setPhoto(null);
     }, [router.query, loadPhoto]);
 
     // - Elements
     // --- Meta
-    const publicTitle = process.env.NEXT_PUBLIC_TITLE;
     let headTitle = `User | ${publicTitle}`;
     let headDescription = `Download photos on ${publicTitle}`;
     let headUrl = process.env.NEXT_PUBLIC_HOST;
     let headImageUrl = '';
-    let userAvatarUrl = null;
     if (!!user) {
         headTitle = `${user.displayName} (@${user.username}) | ${publicTitle}`;
         headDescription = `Download photos by ${user.displayName} on ${publicTitle}`;
         headUrl += `/@${user.username}`;
-        userAvatarUrl = user.avatarUrl?.large ?? '/default-avatar.png';
-        headImageUrl = userAvatarUrl;
+        headImageUrl = user.avatarUrl?.large ?? '/default-avatar.png';
     }
 
     // --- User
@@ -102,10 +101,16 @@ export default function UserPage({ cacheUser }) {
             <div className={style.main}>
                 <div className="columns is-mobile is-variable is-2-mobile is-6-tablet">
                     <div className="column is-narrow py-0">
-                        <img className={style.avatar} src={userAvatarUrl} />
+                        <img
+                            className={style.avatar}
+                            src={user.avatarUrl?.large ?? '/default-avatar.png'}
+                            alt="Avatar"
+                        />
                     </div>
                     <div className="column py-0 content">
-                        <h2 className="title is-size-5-mobile is-size-2-tablet has-text-weight-bold my-4">{user.displayName}</h2>
+                        <h2 className="title is-size-5-mobile is-size-2-tablet has-text-weight-bold my-4">
+                            {user.displayName}
+                        </h2>
                         <p>{user.biography}</p>
                     </div>
                 </div>
@@ -124,9 +129,9 @@ export default function UserPage({ cacheUser }) {
 
     // --- Modal
     let photoModal = null;
-	if (!!photo) {
+    if (!!photo) {
         photoModal = <Modal><PhotoPost photo={photo} isModal={true} /></Modal>;
-	}
+    }
 
     return (
         <>
@@ -151,9 +156,10 @@ export default function UserPage({ cacheUser }) {
                     {photoElements}
                 </Masonry>
             </PhotosSection>
-            <LoadSpinner 
-                isShow={canFetchMore} 
-                isSpinning={isFetching || isFetchingMore} />
+            <LoadSpinner
+                isShow={canFetchMore}
+                isSpinning={isFetching || isFetchingMore}
+            />
             <Footer />
             {photoModal}
         </>

@@ -9,6 +9,8 @@ import { getPhotos, getPhoto, getRandomPhoto } from '../api';
 import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts/';
 import { Navbar, PhotoItem, PhotoPost, LoadSpinner, Footer } from '../components';
 
+const publicTitle = process.env.NEXT_PUBLIC_TITLE;
+
 export default function HomePage() {
     // - Data
     // --- Photos
@@ -79,17 +81,16 @@ export default function HomePage() {
 
     // - Elements
     // --- Meta
-    const publicTitle = process.env.NEXT_PUBLIC_TITLE;
     let headTitle = publicTitle;
     let headDescription = `${publicTitle} built from Next.js by Zinglecode (for educational purpose only)`;
     let headUrl = process.env.NEXT_PUBLIC_HOST;
     let headOgImage = null, headTwitterImage = null;
     if (!!photo) {
-        headTitle = `Photo by ${photo.user.displayName} | ${publicTitle}`;
-        headDescription = `Download this photo by ${photo.user.displayName} on ${publicTitle}`;
+        headTitle = `Photo by ${photo.user?.displayName} | ${publicTitle}`;
+        headDescription = `Download this photo by ${photo.user?.displayName} on ${publicTitle}`;
         headUrl += `/photos/${photo.uid}`;
-        headOgImage = <meta property="og:image" content={photo.url.large} key="og-image" />;
-        headTwitterImage = <meta name="twitter:image" content={photo.url.large} key="twitter-image" />;
+        headOgImage = <meta property="og:image" content={photo.url?.large} key="og-image" />;
+        headTwitterImage = <meta name="twitter:image" content={photo.url?.large} key="twitter-image" />;
     }
 
     // --- Random photo
@@ -98,30 +99,33 @@ export default function HomePage() {
         const { uid, url, user } = randomPhoto;
         randomPhotoElement = (
             <div className={style.hero_back}>
-                <img src={url.medium} />
+                <img src={url?.medium} alt="Random photo" />
             </div>
         );
         randomUserElement = (
             <p>
-                <Link href={`/?photoUid=${uid}`} as={`/photos/${uid}`} shallow={true} scroll={false}>
+                <Link
+                    href={`/?photoUid=${uid}`}
+                    as={`/photos/${uid}`}
+                    shallow={true}
+                    scroll={false}
+                >
                     <a className="has-text-white">Random photo</a>
                 </Link>
                 <span className="has-text-grey-light"> by </span>
-                <Link href={'/[...slug]'} as={`/@${user.username}`}>
-                    <a className="has-text-white">{user.displayName}</a>
+                <Link href={'/[...slug]'} as={`/@${user?.username}`}>
+                    <a className="has-text-white">{user?.displayName}</a>
                 </Link>
             </p>
         );
     }
 
     // --- Photos
-    const photoElements = photoArray.map(photo => {
-        return (
-            <MasonryItem key={photo.uid}>
-                <PhotoItem photo={photo} />
-            </MasonryItem>
-        );
-    });
+    const photoElements = photoArray.map(photo => (
+        <MasonryItem key={photo.uid}>
+            <PhotoItem photo={photo} />
+        </MasonryItem>
+    ));
 
     // --- Modal
     let photoModal = null;
@@ -149,10 +153,18 @@ export default function HomePage() {
                 <div className={style.hero_main}>
                     <div className={style.hero_body}>
                         <div className={`content ${style.hero_content}`}>
-                            <h1 className="title is-size-4-mobile is-size-1-tablet has-text-weight-bold">Unsplash-Cloned</h1>
-                            <p className="is-size-6-mobile is-size-5-tablet has-text-weight-medium">Built by Next.js, for educational purpose only</p>
+                            <h1 className="title is-size-4-mobile is-size-1-tablet has-text-weight-bold">
+                                Unsplash-Cloned
+                            </h1>
+                            <p className="is-size-6-mobile is-size-5-tablet has-text-weight-medium">
+                                Built by Next.js, for educational purpose only
+                            </p>
                             <div className="control has-icons-left is-hidden-mobile">
-                                <input className="input is-medium" type="text" placeholder="Search photos (coming soon...)" />
+                                <input
+                                    className="input is-medium"
+                                    type="text"
+                                    placeholder="Search photos (coming soon...)"
+                                />
                                 <span className="icon is-left">
                                     <Search size={18} />
                                 </span>
@@ -164,7 +176,13 @@ export default function HomePage() {
                             {randomUserElement}
                         </div>
                         <div className={`${style.hero_footer_item} is-size-7-mobile`}>
-                            <a className="has-text-white" href="https://github.com/potchangelo/next-unsplash" target="_blank">Project code on Github</a>
+                            <a
+                                className="has-text-white"
+                                href="https://github.com/potchangelo/next-unsplash"
+                                target="_blank"
+                            >
+                                Project code on Github
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -174,9 +192,10 @@ export default function HomePage() {
                     {photoElements}
                 </Masonry>
             </PhotosSection>
-            <LoadSpinner 
-                isShow={canFetchMore} 
-                isSpinning={isFetching || isFetchingMore} />
+            <LoadSpinner
+                isShow={canFetchMore}
+                isSpinning={isFetching || isFetchingMore}
+            />
             <Footer />
             {photoModal}
         </>

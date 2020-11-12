@@ -18,16 +18,16 @@ function PhotoDownloadButton({ photo, buttonStyle, text = 'Download' }) {
     if (!photo) return null;
 
     // - Attributes
-    let buttonClass = 'button has-text-weight-bold mb-0';
+    let buttonClass = 'button mb-0';
     let buttonMoreClass = 'button mb-0';
     let caretOffsetRight = 8;
     if (buttonStyle === 'focus') {
-        buttonClass += ' is-success';
+        buttonClass += ' is-success has-text-weight-bold';
         buttonMoreClass += ` is-success ${style.more_focus}`;
         caretOffsetRight = 12;
     }
     else {
-        buttonClass += ' is-small';
+        buttonClass += ' is-small has-text-weight-medium';
         buttonMoreClass += ` is-small`;
     }
 
