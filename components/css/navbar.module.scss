@@ -4,8 +4,6 @@
 .main {
     background-color: $white;
     box-shadow: none;
-    display: flex;
-    height: $custom-navbar-height;
     position: relative;
     top: 0px;
     z-index: $custom-z-index-navbar;
@@ -56,15 +54,30 @@
     color: $grey;
     font-size: 14px;
     font-weight: $weight-semibold;
+    white-space: nowrap;
     display: inline-flex;
     height: 100%;
     padding: 12px;
     align-items: center;
     cursor: pointer;
+}
 
-    &:last-child {
-        padding-right: 16px;
-    }
+// - Scroll
+.scroll_cover {
+    height: 48px;
+    overflow: hidden;
+}
+
+.scroll_area {
+    height: calc(100% + 15px);
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.scroll_content {
+    display: flex;
+    width: max-content;
+    height: 100%;
 }
 
 // - Responsive

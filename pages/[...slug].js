@@ -3,14 +3,17 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useCallback, useState } from 'react';
 import { useQuery, useInfiniteQuery } from 'react-query';
-import { getUser, getRandomUsers, getPhoto } from '../api';
+import { getUser, getRandomUsers, getPhoto, getTopics } from '../api';
 import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts';
 import { Navbar, PhotoItem, PhotoPost, LoadSpinner, Footer } from '../components';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
-export default function UserPage({ cacheUser }) {
+export default function UserPage(props) {
     // - Data
+    const { topicArray, cacheUser } = props;
+    console.log(topicArray);
+
     // --- User
     const { data: userResponse = {} } = useQuery(
         ['user', cacheUser?.username], getUser
@@ -187,14 +190,16 @@ export async function getStaticProps(context) {
     const { slug } = context.params;
     const username = slug[0].slice(1);
 
-    let resJson = {};
+    let resJson = {}, resJsonTwo = {};
     try {
         resJson = await getUser(null, username);
+        resJsonTwo = await getTopics(null);
     }
     catch (error) {
         console.error(error);
     }
 
+    const { topics: topicArray = [] } = resJsonTwo;
     const { user: cacheUser = null, errorCode = null } = resJson;
-    return { props: { cacheUser, errorCode } };
+    return { props: { topicArray, cacheUser, errorCode } };
 }
