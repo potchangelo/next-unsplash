@@ -12,7 +12,6 @@ const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 export default function UserPage(props) {
     // - Data
     const { topicArray, cacheUser } = props;
-    console.log(topicArray);
 
     // --- User
     const { data: userResponse = {} } = useQuery(
@@ -150,7 +149,7 @@ export default function UserPage(props) {
                 <meta name="twitter:image" content={headImageUrl} key="twitter-image" />
                 <title>{headTitle}</title>
             </Head>
-            <Navbar />
+            <Navbar topicArray={topicArray} />
             <section>
                 {userElement}
             </section>

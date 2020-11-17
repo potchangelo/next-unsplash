@@ -1,19 +1,58 @@
 import style from './css/navbar.module.scss';
 import Link from "next/link";
-import { Search, Menu } from 'react-feather';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight, Menu, Search } from 'react-feather';
 import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
 import { useDropdown } from '../helpers/hooks';
 
 function Navbar(props) {
     // - Data
     const { topicArray = [] } = props;
+    const [hasScrollLeft, setHasScrollLeft] = useState(false);
+    const [hasScrollRight, setHasScrollRight] = useState(false);
+    const scrollAreaRef = useRef(null);
     const { dropdownActive, toggleDropdown } = useDropdown();
 
+    // - Functions
     function onScroll(event) {
         const { scrollLeft, scrollLeftMax } = event.target;
-        if (scrollLeft === 0) console.log('start');
-        if (scrollLeft === scrollLeftMax) console.log('end');
+        setHasScrollLeft(scrollLeft > 0);
+        setHasScrollRight(scrollLeft < scrollLeftMax);
     }
+
+    const onResize = useCallback(() => {
+        // console.log(scrollAreaRef)
+        const { scrollLeft, scrollLeftMax } = scrollAreaRef.current;
+        // console.log(scrollLeft, scrollLeftMax)
+        setHasScrollLeft(scrollLeft > 0);
+        setHasScrollRight(scrollLeft < scrollLeftMax);
+    }, []);
+
+    // - Effects
+    useEffect(() => {
+        onResize();
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, [onResize]);
+
+    // - Attributes
+    let scrollLeftClass = style.scroll_left;
+    if (!hasScrollLeft) scrollLeftClass += ' is-hidden';
+
+    let scrollRightClass = style.scroll_right;
+    if (!hasScrollRight) scrollRightClass += ' is-hidden';
+
+    // - Elements
+    const topicElements = topicArray.map(topic => {
+        const { uid, title } = topic;
+        return (
+            <Link key={uid} href={`/topics/:uid`} as={`/topics/${title}`}>
+                <a className={style.link}>
+                    <span>{title}</span>
+                </a>
+            </Link>
+        )
+    });
 
     return (
         <header className={style.main}>
@@ -81,26 +120,28 @@ function Navbar(props) {
                         <span>Editorial</span>
                     </a>
                 </div>
+                <div className={`${style.item}`}>
+                    <div className={style.divider} />
+                </div>
                 <div className={`${style.item_expand} ${style.scroll_cover}`}>
-                    <div className={style.scroll_area} onScroll={onScroll}>
+                    <div className={style.scroll_area} ref={scrollAreaRef} onScroll={onScroll}>
                         <div className={style.scroll_content}>
-                            <a className={`${style.link}`} href="https://github.com/potchangelo/next-unsplash" target="_blank">
-                                <span>Food and Drink</span>
-                            </a>
-                            <a className={`${style.link}`} href="https://github.com/potchangelo/next-unsplash" target="_blank">
-                                <span>Editorial 2</span>
-                            </a>
-                            <a className={`${style.link}`} href="https://github.com/potchangelo/next-unsplash" target="_blank">
-                                <span>Travel</span>
-                            </a>
-                            <a className={`${style.link}`} href="https://github.com/potchangelo/next-unsplash" target="_blank">
-                                <span>Editorial 4</span>
-                            </a>
-                            <a className={`${style.link}`} href="https://github.com/potchangelo/next-unsplash" target="_blank">
-                                <span>Animal</span>
-                            </a>
+                            {topicElements}
                         </div>
                     </div>
+                    <div className={scrollLeftClass}>
+                        <span className="icon has-text-grey">
+                            <ChevronLeft width={22} strokeWidth={2.5} />
+                        </span>
+                    </div>
+                    <div className={scrollRightClass}>
+                        <span className="icon has-text-grey">
+                            <ChevronRight width={22} strokeWidth={2.5} />
+                        </span>
+                    </div>
+                </div>
+                <div className={`${style.item}`}>
+                    <div className={style.divider} />
                 </div>
                 <div className={`${style.item} pr-2`}>
                     <a className={`${style.link}`} href="https://github.com/potchangelo/next-unsplash" target="_blank">

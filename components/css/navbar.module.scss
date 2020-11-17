@@ -19,6 +19,15 @@
     flex-grow: 1;
 }
 
+.divider {
+    background-color: $grey-light;
+    width: 1px;
+    height: 32px;
+    margin-left: 4px;
+    margin-right: 4px;
+    transform: translateY(8px);
+}
+
 // - Brand
 .brand {
     display: grid;
@@ -65,7 +74,29 @@
 // - Scroll
 .scroll_cover {
     height: 48px;
+    position: relative;
     overflow: hidden;
+}
+
+.scroll_left,
+.scroll_right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+}
+
+.scroll_left {
+    background: linear-gradient(270deg, rgba($white, 0) 0,$white 75%,$white);
+    left: 0px;
+}
+
+.scroll_right {
+    background: linear-gradient(90deg, rgba($white, 0) 0,$white 75%,$white);
+    right: 0px;
 }
 
 .scroll_area {
