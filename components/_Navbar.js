@@ -14,6 +14,15 @@ function Navbar(props) {
     const { dropdownActive, toggleDropdown } = useDropdown();
 
     // - Functions
+    function onScrollClick(direction) {
+        if (direction === 'left') {
+            scrollAreaRef.current?.scrollBy({ left: -120, behavior: 'smooth' });
+        }
+        else if (direction === 'right') {
+            scrollAreaRef.current?.scrollBy({ left: 120, behavior: 'smooth' });
+        }
+    }
+
     function onScroll(event) {
         const { scrollLeft, scrollLeftMax } = event.target;
         setHasScrollLeft(scrollLeft > 0);
@@ -21,9 +30,7 @@ function Navbar(props) {
     }
 
     const onResize = useCallback(() => {
-        // console.log(scrollAreaRef)
         const { scrollLeft, scrollLeftMax } = scrollAreaRef.current;
-        // console.log(scrollLeft, scrollLeftMax)
         setHasScrollLeft(scrollLeft > 0);
         setHasScrollRight(scrollLeft < scrollLeftMax);
     }, []);
@@ -116,9 +123,11 @@ function Navbar(props) {
             </nav>
             <nav className="is-flex">
                 <div className={`${style.item} pl-2`}>
-                    <a className={`${style.link}`} href="https://github.com/potchangelo/next-unsplash" target="_blank">
-                        <span>Editorial</span>
-                    </a>
+                    <Link href="/">
+                        <a className={style.link}>
+                            <span>Editorial</span>
+                        </a>
+                    </Link>
                 </div>
                 <div className={`${style.item}`}>
                     <div className={style.divider} />
@@ -129,12 +138,12 @@ function Navbar(props) {
                             {topicElements}
                         </div>
                     </div>
-                    <div className={scrollLeftClass}>
+                    <div className={scrollLeftClass} onClick={_ => onScrollClick('left')}>
                         <span className="icon has-text-grey">
                             <ChevronLeft width={22} strokeWidth={2.5} />
                         </span>
                     </div>
-                    <div className={scrollRightClass}>
+                    <div className={scrollRightClass} onClick={_ => onScrollClick('right')}>
                         <span className="icon has-text-grey">
                             <ChevronRight width={22} strokeWidth={2.5} />
                         </span>
@@ -144,9 +153,11 @@ function Navbar(props) {
                     <div className={style.divider} />
                 </div>
                 <div className={`${style.item} pr-2`}>
-                    <a className={`${style.link}`} href="https://github.com/potchangelo/next-unsplash" target="_blank">
-                        <span>View All</span>
-                    </a>
+                    <Link href="/topics">
+                        <a className={style.link}>
+                            <span>View all</span>
+                        </a>
+                    </Link>
                 </div>
             </nav>
         </header>
