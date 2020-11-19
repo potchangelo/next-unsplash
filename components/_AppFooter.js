@@ -1,4 +1,4 @@
-function Footer() {
+function AppFooter() {
     return (
         <footer className="footer">
             <div className="container content has-text-centered">
@@ -9,4 +9,4 @@ function Footer() {
     )
 }
 
-export default Footer;
+export default AppFooter;

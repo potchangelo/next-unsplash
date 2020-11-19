@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useQuery } from 'react-query';
 import { getPhotos, getPhoto } from '../../api';
-import { Footer, Navbar, PhotoPost } from '../../components';
+import { AppHeader, AppFooter, PhotoPost } from '../../components';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -38,11 +38,11 @@ export default function PhotoPage({ cachePhoto }) {
                 <meta name="twitter:image" content={headImageUrl} key="twitter-image" />
                 <title>{headTitle}</title>
             </Head>
-            <Navbar />
+            <AppHeader />
             <section>
                 <PhotoPost photo={photo} />
             </section>
-            <Footer />
+            <AppFooter />
         </>
     );
 }

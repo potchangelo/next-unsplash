@@ -1,6 +1,6 @@
 import style from './css/about.module.scss';
 import Head from 'next/head';
-import { Navbar, Footer } from '../components';
+import { AppHeader, AppFooter } from '../components';
 
 export default function AboutPage() {
     const headTitle = 'About | Unsplash-cloned';
@@ -17,7 +17,7 @@ export default function AboutPage() {
                 <meta name="twitter:url" content={`${process.env.NEXT_PUBLIC_HOST}/about`} />
                 <title>{headTitle}</title>
             </Head>
-            <Navbar />
+            <AppHeader />
             <section className="section">
                 <div className={style.main}>
                     <div className="content mt-4 mb-6">
@@ -47,7 +47,7 @@ export default function AboutPage() {
                     </div>
                 </div>
             </section>
-            <Footer />
+            <AppFooter />
         </>
     );
 }

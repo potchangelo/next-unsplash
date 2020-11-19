@@ -7,7 +7,7 @@ import { useInfiniteQuery, useQuery } from 'react-query';
 import { Search } from 'react-feather';
 import { getPhotos, getPhoto, getRandomPhoto } from '../api';
 import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts/';
-import { Navbar, PhotoItem, PhotoPost, LoadSpinner, Footer } from '../components';
+import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -147,7 +147,7 @@ export default function HomePage() {
                 {headTwitterImage}
                 <title>{headTitle}</title>
             </Head>
-            <Navbar />
+            <AppHeader />
             <section className={`hero is-dark is-large ${style.hero}`}>
                 {randomPhotoElement}
                 <div className={style.hero_main}>
@@ -192,11 +192,11 @@ export default function HomePage() {
                     {photoElements}
                 </Masonry>
             </PhotosSection>
-            <LoadSpinner
+            <AppLoading
                 isShow={canFetchMore}
                 isSpinning={isFetching || isFetchingMore}
             />
-            <Footer />
+            <AppFooter />
             {photoModal}
         </>
     );

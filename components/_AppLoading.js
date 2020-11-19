@@ -1,10 +1,13 @@
-import style from './css/load_spinner.module.scss';
+import style from './css/app_loading.module.scss';
 import { Loader } from 'react-feather';
 
-function LoadSpinner({ isShow = true, isSpinning = false }) {
+function AppLoading(props) {
+    const { isShow = true, isSpinning = false } = props;
+
     let iconClass = 'icon is-large';
     if (!isShow) iconClass += ' is-invisible';
-    else if (isSpinning) iconClass += ` ${style.icon_spinning}`;
+    else if (isSpinning) iconClass += ` ${style.is_spinning}`;
+
     return (
         <div className={`${style.main}`}>
             <span className={iconClass}>
@@ -14,4 +17,4 @@ function LoadSpinner({ isShow = true, isSpinning = false }) {
     );
 }
 
-export default LoadSpinner;
+export default AppLoading;

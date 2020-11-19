@@ -5,7 +5,7 @@ import { useEffect, useCallback, useState } from 'react';
 import { useQuery, useInfiniteQuery } from 'react-query';
 import { getUser, getRandomUsers, getPhoto, getTopics } from '../api';
 import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts';
-import { Navbar, PhotoItem, PhotoPost, LoadSpinner, Footer } from '../components';
+import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -149,7 +149,7 @@ export default function UserPage(props) {
                 <meta name="twitter:image" content={headImageUrl} key="twitter-image" />
                 <title>{headTitle}</title>
             </Head>
-            <Navbar topicArray={topicArray} />
+            <AppHeader topicArray={topicArray} />
             <section>
                 {userElement}
             </section>
@@ -158,11 +158,11 @@ export default function UserPage(props) {
                     {photoElements}
                 </Masonry>
             </PhotosSection>
-            <LoadSpinner
+            <AppLoading
                 isShow={canFetchMore}
                 isSpinning={isFetching || isFetchingMore}
             />
-            <Footer />
+            <AppFooter />
             {photoModal}
         </>
     );
