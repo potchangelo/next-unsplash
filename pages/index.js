@@ -3,16 +3,18 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useCallback, useState } from 'react';
-import { useInfiniteQuery, useQuery } from 'react-query';
 import { Search } from 'react-feather';
-import { getPhotos, getPhoto, getRandomPhoto } from '../api';
-import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts/';
+import { useInfiniteQuery, useQuery } from 'react-query';
+import { getPhotos, getPhoto, getRandomPhoto, getTopics } from '../api';
 import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
+import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts/';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
-export default function HomePage() {
+export default function HomePage(props) {
     // - Data
+    const { topicArray } = props;
+
     // --- Photos
     const {
         data: photoGroupArray = [], fetchMore,
@@ -147,7 +149,7 @@ export default function HomePage() {
                 {headTwitterImage}
                 <title>{headTitle}</title>
             </Head>
-            <AppHeader />
+            <AppHeader topicArray={topicArray} />
             <section className={`hero is-dark is-large ${style.hero}`}>
                 {randomPhotoElement}
                 <div className={style.hero_main}>
@@ -200,4 +202,17 @@ export default function HomePage() {
             {photoModal}
         </>
     );
+}
+
+export async function getStaticProps() {
+    let topicsJson = {};
+    try {
+        topicsJson = await getTopics(null);
+    }
+    catch (error) {
+        console.error(error);
+    }
+
+    const { topics: topicArray = [], errorCode = null } = topicsJson;
+    return { props: { topicArray, errorCode } };
 }

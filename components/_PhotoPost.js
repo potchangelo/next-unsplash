@@ -5,6 +5,7 @@ import PhotoDownloadButton from './_PhotoDownloadButton';
 import User from './_User';
 import { ModalGuard } from '../layouts';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 function PhotoPost({ photo, isModal = false }) {
     const router = useRouter();
@@ -48,9 +49,14 @@ function PhotoPost({ photo, isModal = false }) {
     // --- Topics
     let topicElement = null;
     if (topicArray.length > 0) {
-        const topicTagElements = topicArray.map(topic => (
-             <span key={topic.uid} className="tag">{topic.title}</span>
-        ));
+        const topicTagElements = topicArray.map(topic => {
+            const { uid, title } = topic;
+            return (
+                <Link key={uid} href={`/topics/:uid`} as={`/topics/${uid}`}>
+                    <a key={uid} className="tag">{title}</a>
+                </Link>
+            );
+        });
         topicElement = (
             <div className={style.info}>
                 <h5 className="title is-6 mb-4">Related topics</h5>

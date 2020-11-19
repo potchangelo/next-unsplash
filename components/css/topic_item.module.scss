@@ -1,0 +1,49 @@
+@import "../../css/vars";
+
+// - Main
+.main {
+    color: $grey-dark;
+    background-color: $white;
+    border: 1px solid $grey-lighter;
+    border-radius: 6px;
+    box-shadow: 0 4px 24px rgba($black, 0);
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    transition: box-shadow 0.1s ease-in-out;
+
+    &:hover {
+        box-shadow: 0 4px 24px rgba($black, 0.1);
+    }
+}
+
+// - Image
+
+.image_cover {
+    padding-bottom: 37.5%;
+    position: relative;
+}
+
+.image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+// - Info
+.info {
+    padding: 24px;
+}
+
+.description {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+// - Responsive
