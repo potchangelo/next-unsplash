@@ -3,9 +3,9 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useCallback, useState } from 'react';
 import { useQuery, useInfiniteQuery } from 'react-query';
-import { getUser, getRandomUsers, getPhoto, getTopics } from '../api';
+import { getUser, getRandomUsers, getPhoto } from '../api';
 import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
-import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts';
+import { Modal, Masonry, MasonryItem, Section } from '../layouts';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -101,7 +101,7 @@ export default function UserPage(props) {
     if (!!user) {
         userElement = (
             <div className={style.main}>
-                <div className="columns is-mobile is-variable is-2-mobile is-6-tablet">
+                <div className="columns is-variable is-2-mobile is-6-tablet">
                     <div className="column is-narrow py-0">
                         <img
                             className={style.avatar}
@@ -110,7 +110,7 @@ export default function UserPage(props) {
                         />
                     </div>
                     <div className="column py-0 content">
-                        <h2 className="title is-size-5-mobile is-size-2-tablet has-text-weight-bold my-4">
+                        <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold my-4">
                             {user.displayName}
                         </h2>
                         <p>{user.biography}</p>
@@ -150,14 +150,14 @@ export default function UserPage(props) {
                 <title>{headTitle}</title>
             </Head>
             <AppHeader />
-            <section>
+            <Section type="top">
                 {userElement}
-            </section>
-            <PhotosSection>
+            </Section>
+            <Section type="photos">
                 <Masonry>
                     {photoElements}
                 </Masonry>
-            </PhotosSection>
+            </Section>
             <AppLoading
                 isShow={canFetchMore}
                 isSpinning={isFetching || isFetchingMore}

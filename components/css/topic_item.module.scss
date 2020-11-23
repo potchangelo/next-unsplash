@@ -4,15 +4,16 @@
 .main {
     color: $grey-dark;
     background-color: $white;
-    border: 1px solid $grey-lighter;
+    border: 1px solid $white-ter;
     border-radius: 6px;
     box-shadow: 0 4px 24px rgba($black, 0);
     display: block;
     height: 100%;
     overflow: hidden;
-    transition: box-shadow 0.1s ease-in-out;
+    transition: border-color, box-shadow 0.1s ease-in-out;
 
     &:hover {
+        border-color: $grey-lighter;
         box-shadow: 0 4px 24px rgba($black, 0.1);
     }
 }

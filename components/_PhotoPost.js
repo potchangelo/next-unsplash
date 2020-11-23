@@ -11,7 +11,7 @@ function PhotoPost({ photo, isModal = false }) {
     const router = useRouter();
 
     // - Attributes
-    let postClass = 'photo_post', postInnerClass = 'photo_post_inner';
+    let postClass = style.main, postInnerClass = 'photo_post_inner';
     if (!!isModal) {
         postClass = style.modal;
         postInnerClass = style.modal_inner;

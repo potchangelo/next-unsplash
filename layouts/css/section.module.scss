@@ -1,0 +1,26 @@
+@import "../../css/vars";
+
+.general {
+    padding: 48px 16px;
+}
+
+.top {
+    padding: 72px 16px 24px;
+}
+
+.photos {
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+.wrapper {
+    max-width: 1344px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (min-width: 600px) {
+    .top {
+        padding: 72px 24px 24px;
+    }
+}

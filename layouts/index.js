@@ -5,4 +5,4 @@ export { default as ModalGuard } from './_ModalGuard';
 export { default as Dropdown } from './_Dropdown';
 export { default as DropdownMenu } from './_DropdownMenu';
 export { default as DropdownItem } from './_DropdownItem';
-export { default as PhotosSection } from './_PhotosSection';
+export { default as Section } from './_Section';

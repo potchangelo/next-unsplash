@@ -7,7 +7,7 @@ import { Search } from 'react-feather';
 import { useInfiniteQuery, useQuery } from 'react-query';
 import { getPhotos, getPhoto, getRandomPhoto, getTopics } from '../api';
 import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
-import { Modal, Masonry, MasonryItem, PhotosSection } from '../layouts/';
+import { Modal, Masonry, MasonryItem, Section } from '../layouts/';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -189,11 +189,11 @@ export default function HomePage(props) {
                     </div>
                 </div>
             </section>
-            <PhotosSection>
+            <Section type="photos">
                 <Masonry>
                     {photoElements}
                 </Masonry>
-            </PhotosSection>
+            </Section>
             <AppLoading
                 isShow={canFetchMore}
                 isSpinning={isFetching || isFetchingMore}

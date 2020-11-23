@@ -39,9 +39,7 @@ export default function PhotoPage({ cachePhoto }) {
                 <title>{headTitle}</title>
             </Head>
             <AppHeader />
-            <section>
-                <PhotoPost photo={photo} />
-            </section>
+            <PhotoPost photo={photo} />
             <AppFooter />
         </>
     );

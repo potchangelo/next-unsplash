@@ -1,6 +1,7 @@
 import style from './css/about.module.scss';
 import Head from 'next/head';
 import { AppHeader, AppFooter } from '../components';
+import { Section } from '../layouts';
 
 export default function AboutPage() {
     const headTitle = 'About | Unsplash-cloned';
@@ -18,7 +19,7 @@ export default function AboutPage() {
                 <title>{headTitle}</title>
             </Head>
             <AppHeader />
-            <section className="section">
+            <Section>
                 <div className={style.main}>
                     <div className="content mt-4 mb-6">
                         <h2 className="title is-size-5-mobile is-size-3-tablet">Unsplash-Cloned by Zinglecode</h2>
@@ -46,7 +47,7 @@ export default function AboutPage() {
                         <span>Photo by <a href="https://unsplash.com/@tengyart?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank">Tengyart</a> on <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank">Unsplash</a></span>
                     </div>
                 </div>
-            </section>
+            </Section>
             <AppFooter />
         </>
     );

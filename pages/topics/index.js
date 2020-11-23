@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { getTopics } from '../../api';
 import { AppHeader, AppFooter, TopicItem } from '../../components';
+import { Section } from '../../layouts';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -37,16 +38,16 @@ export default function TopicsPage(props) {
                 <title>{headTitle}</title>
             </Head>
             <AppHeader topicArray={topicArray} />
-            <section className="section">
-                <div className="container">
-                    <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold">Topics</h2>
-                    <p className="subtitle is-size-6-mobile is-size-5-tablet mb-6">Explore the world through topics of beautiful photos</p>
-                    <h4 className="title is-size-6-mobile is-size-5-tablet has-text-weight-bold">All topics</h4>
-                    <div className="columns is-multiline">
-                        {topicElements}
-                    </div>
+            <Section type="top">
+                <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold">Topics</h2>
+                <p className="subtitle is-size-6-mobile is-size-5-tablet">Explore the world through topics of beautiful photos</p>
+            </Section>
+            <Section>
+                <h4 className="title is-size-5-mobile is-size-4-tablet has-text-weight-bold">All topics</h4>
+                <div className="columns is-multiline">
+                    {topicElements}
                 </div>
-            </section>
+            </Section>
             <AppFooter />
         </>
     );
