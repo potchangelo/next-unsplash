@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import { getTopics } from '../../api';
 import { AppHeader, AppFooter, TopicItem } from '../../components';
 import { Section } from '../../layouts';

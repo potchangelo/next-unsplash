@@ -9,18 +9,25 @@
 }
 
 .photos {
-    padding-top: 32px;
-    padding-bottom: 32px;
+    padding: 32px 0px;
 }
 
 .wrapper {
-    max-width: 1344px;
+    max-width: 1296px;
     margin-left: auto;
     margin-right: auto;
 }
 
 @media screen and (min-width: 600px) {
+    .general {
+        padding: 48px 24px;
+    }
+
     .top {
         padding: 72px 24px 24px;
+    }
+
+    .photos {
+        padding: 48px 24px;
     }
 }

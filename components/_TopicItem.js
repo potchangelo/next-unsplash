@@ -5,10 +5,10 @@ function TopicItem(props) {
     const { topic } = props;
 
     if (!topic) return null;
-    const { uid, title, description, isFeatured, coverUrl = {} } = topic;
+    const { uid, slug, title, description, isFeatured, coverUrl = {} } = topic;
 
     return (
-        <Link key={uid} href={`/topics/:uid`} as={`/topics/${uid}`}>
+        <Link key={uid} href={`/topics/:slug`} as={`/topics/${slug}`}>
             <a className={style.main}>
                 <div className={style.image_cover}>
                     <img className={style.image} src={coverUrl?.small} />

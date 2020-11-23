@@ -113,7 +113,7 @@ function Masonry({ breakpointArray = defaultBreakpointArray, children }) {
     const columnCount = columnHeightArray.length;
     const itemWidth = 100 / (columnCount || 1);
     const { gap } = (columnCount === 0) ? 0 : getNextBreakpoint(breakpointArray);
-    const containerStyle = { padding: `${gap}px` };
+    // const containerStyle = { padding: `${gap}px` };
     const layoutHeight = (columnCount === 0) ? 0 : Math.max(...columnHeightArray);
     const layoutStyles = { 
         height: `${layoutHeight}px`,
@@ -146,7 +146,7 @@ function Masonry({ breakpointArray = defaultBreakpointArray, children }) {
     }
 
     return (
-        <div className="masonry_container" style={containerStyle}>
+        <div className="masonry_container">
             <div className={style.layout} ref={layoutRef} style={layoutStyles}>
                 {childElements}
             </div>
