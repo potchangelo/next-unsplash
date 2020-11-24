@@ -1,20 +1,17 @@
 import style from './css/dropdown.module.scss';
 import Link from "next/link";
 
-function DropdownItem({ type, href, linkClass, align, children }) {
-    // Attributes
-    let itemClass = `${style.item} `;
-    if (align === 'left') {
-        itemClass += 'has-text-left';
-    }
-    else if (align === 'center') {
-        itemClass += 'has-text-centered';
-    }
-    else {
-        itemClass += 'has-text-right';
-    }
+function DropdownItem(props) {
+    // - Data
+    const { type, href, linkClass, align, children } = props;
 
-    // Element
+    // - Attributes
+    let itemClass = `${style.item} `;
+    if (align === 'left') itemClass += 'has-text-left';
+    else if (align === 'center') itemClass += 'has-text-centered';
+    else itemClass += 'has-text-right';
+
+    // - Elements
     let element = <hr className={style.line} />
     if (type === 'next-link') {
         element = (

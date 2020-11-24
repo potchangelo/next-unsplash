@@ -98,6 +98,7 @@ export default function HomePage(props) {
     // --- Random photo
     let randomPhotoElement = null, randomUserElement = null;
     if (!!randomPhoto) {
+        const { pathname, query } = router;
         const { uid, url, user } = randomPhoto;
         randomPhotoElement = (
             <div className={style.hero_back}>
@@ -107,7 +108,7 @@ export default function HomePage(props) {
         randomUserElement = (
             <p>
                 <Link
-                    href={`/?photoUid=${uid}`}
+                    href={{ pathname, query: { ...query, photoUid: uid } }}
                     as={`/photos/${uid}`}
                     shallow={true}
                     scroll={false}
@@ -115,7 +116,7 @@ export default function HomePage(props) {
                     <a className="has-text-white">Random photo</a>
                 </Link>
                 <span className="has-text-grey-light"> by </span>
-                <Link href={'/[...slug]'} as={`/@${user?.username}`}>
+                <Link href={`/@${user?.username}`}>
                     <a className="has-text-white">{user?.displayName}</a>
                 </Link>
             </p>

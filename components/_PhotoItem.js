@@ -1,21 +1,24 @@
 import style from './css/photo_item.module.scss';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import PhotoDownloadButton from './_PhotoDownloadButton';
 import User from './_User';
-import { useRouter } from 'next/router';
 
-function PhotoItem({ photo, user: indyUser, basedPage = '/' }) {
+function PhotoItem(props) {
+    // - Data
+    const { photo, user: indyUser } = props;
     const { pathname, query } = useRouter();
 
+    // - Extract
     if (!photo) return null;
     const {
         uid, width, height, description, 
         user: photoUser, url
     } = photo;
     const user = indyUser ?? photoUser;
-    const paddingBottom = `${height / width * 100}%`;
 
-    console.log({ pathname, query: { ...query, photoUid: uid } })
+    // - Attributes
+    const paddingBottom = `${height / width * 100}%`;
 
     return (
         <>
@@ -24,7 +27,12 @@ function PhotoItem({ photo, user: indyUser, basedPage = '/' }) {
             </div>
             <figure className={style.figure}>
                 <div style={{ paddingBottom }} />
-                <Link href={{ pathname, query: { ...query, photoUid: uid } }} as={`/photos/${uid}`} shallow={true} scroll={false}>
+                <Link 
+                    href={{ pathname, query: { ...query, photoUid: uid } }} 
+                    as={`/photos/${uid}`} 
+                    shallow={true} 
+                    scroll={false}
+                >
                     <a className={style.link}>
                         <img src={url.small} alt={description} />
                     </a>

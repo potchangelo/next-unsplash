@@ -179,15 +179,15 @@ export async function getStaticPaths() {
 
     const { users: userArray = [] } = resJson;
     const paths = userArray.map(user => {
-        return { params: { slug: [`@${user.username}`] } }
+        return { params: { atUsername: `@${user.username}` } }
     });
 
     return { paths, fallback: true };
 }
 
 export async function getStaticProps(context) {
-    const { slug } = context.params;
-    const username = slug[0].slice(1);
+    const { atUsername } = context.params;
+    const username = atUsername?.slice(1);
 
     let userJson = {};
     try {

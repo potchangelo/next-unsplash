@@ -50,10 +50,10 @@ function PhotoPost({ photo, isModal = false }) {
     let topicElement = null;
     if (topicArray.length > 0) {
         const topicTagElements = topicArray.map(topic => {
-            const { uid, title } = topic;
+            const { uid, slug, title } = topic;
             return (
-                <Link key={uid} href={`/topics/:uid`} as={`/topics/${uid}`}>
-                    <a key={uid} className="tag">{title}</a>
+                <Link key={uid} href={`/topics/${slug}`}>
+                    <a className="tag">{title}</a>
                 </Link>
             );
         });

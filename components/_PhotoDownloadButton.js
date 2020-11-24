@@ -11,8 +11,9 @@ const menuContentArray = [
     { title: 'original', width: 3150 },
 ];
 
-function PhotoDownloadButton({ photo, buttonStyle, text = 'Download' }) {
+function PhotoDownloadButton(props) {
     // - Data
+    const { photo, buttonStyle, text = 'Download' } = props;
     const { dropdownActive, toggleDropdown } = useDropdown();
 
     if (!photo) return null;
@@ -48,8 +49,11 @@ function PhotoDownloadButton({ photo, buttonStyle, text = 'Download' }) {
 
         return (
             <DropdownItem
-                key={key} type="ext-link" href={href}
-                linkClass="has-text-white has-text-weight-medium">
+                key={key}
+                type="ext-link"
+                href={href}
+                linkClass="has-text-white has-text-weight-medium"
+            >
                 <span>{title[0].toUpperCase() + title.slice(1)} </span>
                 <span className="has-text-grey-light">{whLabel}</span>
             </DropdownItem>

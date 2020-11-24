@@ -8,7 +8,7 @@ function TopicItem(props) {
     const { uid, slug, title, description, isFeatured, coverUrl = {} } = topic;
 
     return (
-        <Link key={uid} href={`/topics/:slug`} as={`/topics/${slug}`}>
+        <Link key={uid} href={`/topics/${slug}`}>
             <a className={style.main}>
                 <div className={style.image_cover}>
                     <img className={style.image} src={coverUrl?.small} />

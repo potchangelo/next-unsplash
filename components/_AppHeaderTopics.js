@@ -53,7 +53,7 @@ function AppHeaderTopic(props) {
     const topicElements = topicArray.map(topic => {
         const { uid, slug, title } = topic;
         return (
-            <Link key={uid} href={`/topics/:slug`} as={`/topics/${slug}`}>
+            <Link key={uid} href={`/topics/${slug}`}>
                 <a className={style.link}>
                     <span>{title}</span>
                 </a>
