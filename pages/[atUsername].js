@@ -2,29 +2,24 @@ import style from './css/user.module.scss';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useCallback, useState } from 'react';
-import { useQuery, useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import { getUser, getRandomUsers, getPhoto } from '../api';
-import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
+import { AppHeader, AppFooter, AppNotFound, AppLoading, PhotoItem, PhotoPost } from '../components';
 import { Modal, Masonry, MasonryItem, Section } from '../layouts';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
 export default function UserPage(props) {
     // - Data
-    const { cacheUser } = props;
-
     // --- User
-    const { data: userResponse = {} } = useQuery(
-        ['user', cacheUser?.username], getUser
-    );
-    const user = userResponse.user || cacheUser;
+    const { user } = props;
 
     // --- Photos
     const {
         data: photoGroupArray = [], fetchMore,
         canFetchMore, isFetching, isFetchingMore
     } = useInfiniteQuery(
-        ['user-photos', cacheUser?.username, true],
+        ['user-photos', user?.username, true],
         getUser, {
         getFetchMore: (lastGroup = {}, allGroups) => {
             const { user: theUser = {} } = lastGroup;
@@ -83,51 +78,42 @@ export default function UserPage(props) {
         else setPhoto(null);
     }, [router.query, loadPhoto]);
 
+    // - Checking
+    if (!user) return <AppNotFound />
+    const { username, displayName, biography, avatarUrl } = user;
+
     // - Elements
     // --- Meta
-    let headTitle = `User | ${publicTitle}`;
-    let headDescription = `Download photos on ${publicTitle}`;
-    let headUrl = process.env.NEXT_PUBLIC_HOST;
-    let headImageUrl = '';
-    if (!!user) {
-        headTitle = `${user.displayName} (@${user.username}) | ${publicTitle}`;
-        headDescription = `Download photos by ${user.displayName} on ${publicTitle}`;
-        headUrl += `/@${user.username}`;
-        headImageUrl = user.avatarUrl?.large ?? '/default-avatar.png';
-    }
+    const headTitle = `${displayName} (@${username}) | ${publicTitle}`;
+    const headDescription = `Download photos by ${displayName} on ${publicTitle}`;
+    const headUrl = `${process.env.NEXT_PUBLIC_HOST}/@${username}`;
+    const headImageUrl = avatarUrl?.large ?? '/default-avatar.png';
 
     // --- User
-    let userElement = null;
-    if (!!user) {
-        userElement = (
-            <div className={style.main}>
-                <div className="columns is-variable is-2-mobile is-6-tablet">
-                    <div className="column is-narrow py-0">
-                        <img
-                            className={style.avatar}
-                            src={user.avatarUrl?.large ?? '/default-avatar.png'}
-                            alt="Avatar"
-                        />
-                    </div>
-                    <div className="column py-0 content">
-                        <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold my-4">
-                            {user.displayName}
-                        </h2>
-                        <p>{user.biography}</p>
-                    </div>
+    const userElement = (
+        <div className={style.main}>
+            <div className="columns is-variable is-2-mobile is-6-tablet">
+                <div className="column is-narrow py-0">
+                    <img
+                        className={style.avatar}
+                        src={avatarUrl?.large ?? '/default-avatar.png'}
+                        alt="Avatar"
+                    />
+                </div>
+                <div className="column py-0 content">
+                    <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold my-4">
+                        {displayName}
+                    </h2>
+                    <p>{biography}</p>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 
     // --- Photos
-    const photoElements = photoArray.map(photo => {
-        return (
-            <MasonryItem key={photo.uid}>
-                <PhotoItem photo={photo} user={user} basedPage={`/[...slug]`} />
-            </MasonryItem>
-        );
-    });
+    const photoElements = photoArray.map(photo => (
+        <MasonryItem key={photo.uid}><PhotoItem photo={photo} user={user} /></MasonryItem>
+    ));
 
     // --- Modal
     let photoModal = null;
@@ -197,6 +183,6 @@ export async function getStaticProps(context) {
         console.error(error);
     }
 
-    const { user: cacheUser = null, errorCode = null } = userJson;
-    return { props: { cacheUser, errorCode } };
+    const { user = null, errorCode = null } = userJson;
+    return { props: { user, errorCode } };
 }

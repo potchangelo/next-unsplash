@@ -16,13 +16,11 @@ export default function TopicsPage(props) {
     const headUrl = `${process.env.NEXT_PUBLIC_HOST}/about`;
 
     // --- Topics
-    const topicElements = topicArray.map(topic => {
-        return (
-            <div key={topic.uid} className="column is-4">
-                <TopicItem topic={topic} />
-            </div>
-        )
-    })
+    const topicElements = topicArray.map(topic => (
+        <div key={topic.uid} className="column is-4">
+            <TopicItem topic={topic} />
+        </div>
+    ));
 
     return (
         <>

@@ -13,6 +13,7 @@ const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
 export default function HomePage(props) {
     // - Data
+    // --- Topics
     const { topicArray } = props;
 
     // --- Photos
@@ -125,9 +126,7 @@ export default function HomePage(props) {
 
     // --- Photos
     const photoElements = photoArray.map(photo => (
-        <MasonryItem key={photo.uid}>
-            <PhotoItem photo={photo} />
-        </MasonryItem>
+        <MasonryItem key={photo.uid}><PhotoItem photo={photo} /></MasonryItem>
     ));
 
     // --- Modal

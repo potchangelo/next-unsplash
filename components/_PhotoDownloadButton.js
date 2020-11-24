@@ -63,7 +63,11 @@ function PhotoDownloadButton(props) {
     return (
         <Dropdown active={dropdownActive}>
             <div className="buttons has-addons mb-0">
-                <a className={buttonClass} href={`/api/photos/${photo.uid}/download?force=true`} download>
+                <a 
+                    className={buttonClass} 
+                    href={`/api/photos/${photo.uid}/download?force=true`} 
+                    download
+                >
                     {text}
                 </a>
                 <button

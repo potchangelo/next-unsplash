@@ -1,28 +1,22 @@
 import Head from 'next/head';
-import { useQuery } from 'react-query';
 import { getPhotos, getPhoto } from '../../api';
-import { AppHeader, AppFooter, PhotoPost } from '../../components';
+import { AppHeader, AppFooter, AppNotFound, PhotoPost } from '../../components';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
-export default function PhotoPage({ cachePhoto }) {
+export default function PhotoPage(props) {
     // - Data
-    const { data: photoResponse = {} } = useQuery(
-        ['photo', cachePhoto?.uid], getPhoto
-    );
-    const photo = photoResponse.photo || cachePhoto;
+    const { photo } = props;
+
+    // - Checking
+    if (!photo) return <AppNotFound />;
+    const { uid, url, user } = photo;
 
     // - Elements
-    let headTitle = `Photo | ${publicTitle}`;
-    let headDescription = `Download this photo on ${publicTitle}`;
-    let headUrl = process.env.NEXT_PUBLIC_HOST;
-    let headImageUrl = '';
-    if (!!photo) {
-        headTitle = `Photo by ${photo.user?.displayName} | ${publicTitle}`;
-        headDescription = `Download this photo by ${photo.user?.displayName} on Unsplash-Cloned`;
-        headUrl += `/photos/${photo.uid}`;
-        headImageUrl = photo.url?.large;
-    }
+    const headTitle = `Photo by ${user?.displayName} | ${publicTitle}`;
+    const headDescription = `Download this photo by ${user?.displayName} on Unsplash-Cloned`;
+    const headUrl = `${process.env.NEXT_PUBLIC_HOST}/photos/${uid}`;
+    const headImageUrl = url?.large;
 
     return (
         <>
@@ -73,6 +67,6 @@ export async function getStaticProps(context) {
         console.error(error);
     }
 
-    const { photo: cachePhoto = null, errorCode = null } = resJson;
-    return { props: { cachePhoto, errorCode } };
+    const { photo = null, errorCode = null } = resJson;
+    return { props: { photo, errorCode } };
 }
