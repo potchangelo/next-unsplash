@@ -1,4 +1,4 @@
-import { getPhoto } from '../../../api';
+import { getPhoto } from '../../../../api';
 
 const sizeArray = [
     { title: 'small', width: '640' },
@@ -7,16 +7,9 @@ const sizeArray = [
 ];
 
 export default async function(req, res) {
-    const { slug, force, w } = req.query;
-    const [uid, download] = slug;
+    // Data
+    const { uid, force, w } = req.query;
     let photo = null, fetchedData = null;
-
-    // No download in URL path
-    if (!download) {
-        res.status(501);
-        res.send('Unknown request');
-        return;
-    }
 
     // Size option
     let sizeTitle = 'original';
@@ -26,30 +19,31 @@ export default async function(req, res) {
     }
 
     try {
-        photo = await getPhoto(null, uid);
-        const fetchedRes = await fetch(photo?.url[`${sizeTitle}`]);
+        const resJson = await getPhoto(null, uid);
+        photo = resJson?.photo;
+        if (!photo) throw new Error('Photo not found');
+        const fetchedRes = await fetch(photo.url[`${sizeTitle}`]);
         fetchedData = await fetchedRes.arrayBuffer();
     }
     catch (error) {
         console.log(error.toString());
         res.status(404);
-        res.send('Cannot find image');
+        res.send('Photo not found');
         return;
     }
 
     // No force in URL query string
     if (force !== 'true') {
-        res.redirect(photo.url.original);
+        res.redirect(photo.url?.original);
         return;
     }
 
     // Download
-    const basedFilename = `${photo.user.displayName}-${photo.uid}-${sizeTitle}-unsplash-cloned.jpg`;
+    const basedFilename = `${photo.user?.displayName}-${photo.uid}-${sizeTitle}-unsplash-cloned.jpg`;
     const filename = basedFilename.replace(' ', '-').toLowerCase();
     res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
     res.setHeader('Content-Type', 'image/jpeg');
     res.setHeader('Content-Length', fetchedData.byteLength);
     res.status(200);
-    const imageBuffer = Buffer.from(fetchedData);
-    res.send(imageBuffer);
+    res.send(Buffer.from(fetchedData));
 }
