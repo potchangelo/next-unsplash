@@ -1,13 +1,25 @@
 import style from './css/user.module.scss';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useEffect, useCallback, useState } from 'react';
-import { useInfiniteQuery } from 'react-query';
-import { getUser, getRandomUsers, getPhoto } from '../api';
+import { getUser, getRandomUsers } from '../api';
 import { AppHeader, AppFooter, AppNotFound, AppLoading, PhotoItem, PhotoPost } from '../components';
+import { usePhotos } from '../helpers/hooks';
 import { Modal, Masonry, MasonryItem, Section } from '../layouts';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
+
+function getFetchMore(lastGroup = {}, _) {
+    const { user = {} } = lastGroup;
+    const { photos = [] } = user;
+    const count = photos.length;
+    if (count < 12) return false;
+    return photos[count - 1].id;
+}
+
+function flatMapPhotos(group) {
+    const { user = {} } = group;
+    const { photos = [] } = user;
+    return photos;
+}
 
 export default function UserPage(props) {
     // - Data
@@ -16,70 +28,15 @@ export default function UserPage(props) {
 
     // --- Photos
     const {
-        data: photoGroupArray = [], fetchMore,
+        photoArray, photo, 
         canFetchMore, isFetching, isFetchingMore
-    } = useInfiniteQuery(
-        ['user-photos', user?.username, true],
-        getUser, {
-        getFetchMore: (lastGroup = {}, allGroups) => {
-            const { user: theUser = {} } = lastGroup;
-            const { photos: lastPhotoArray = [] } = theUser;
-            const count = lastPhotoArray.length;
-            if (count < 12) return false;
-            return lastPhotoArray[count - 1].id;
-        }
-    });
-    const photoArray = photoGroupArray.flatMap(group => {
-        const { user: theUser = {} } = group;
-        const { photos: groupPhotoArray = [] } = theUser;
-        return groupPhotoArray;
-    });
+    } = usePhotos(
+        ['user-photos', user?.username, true], 
+        getUser, getFetchMore, flatMapPhotos
+    );
 
-    // --- Modal photo
-    const [photo, setPhoto] = useState(null);
-
-    const router = useRouter();
-
-    // - Callback
-    const onScroll = useCallback(() => {
-        // --- Position
-        const scrollBottom = window.scrollY + window.innerHeight;
-        const docBottom = document.body.offsetHeight;
-
-        // --- Condition
-        const canFetch = canFetchMore && !isFetching && !isFetchingMore;
-        const isScrollReached = scrollBottom > docBottom - 700;
-
-        // --- Fetch
-        if (canFetch && isScrollReached) fetchMore();
-    }, [canFetchMore, isFetching, isFetchingMore]);
-
-    const loadPhoto = useCallback(async (uid) => {
-        try {
-            const { photo, errorCode } = await getPhoto(null, uid);
-            if (!!errorCode) throw new Error(errorCode);
-            setPhoto(photo);
-        }
-        catch (error) {
-            console.log(error);
-            setPhoto(null);
-        }
-    }, []);
-
-    // - Effects
-    useEffect(() => {
-        window.addEventListener('scroll', onScroll);
-        return () => window.removeEventListener('scroll', onScroll);
-    }, [onScroll]);
-
-    useEffect(() => {
-        const { photoUid } = router.query;
-        if (!!photoUid) loadPhoto(photoUid);
-        else setPhoto(null);
-    }, [router.query, loadPhoto]);
-
-    // - Checking
-    if (!user) return <AppNotFound />
+    // - Extract
+    if (!user) return <AppNotFound />;
     const { username, displayName, biography, avatarUrl } = user;
 
     // - Elements
@@ -155,15 +112,15 @@ export default function UserPage(props) {
 };
 
 export async function getStaticPaths() {
-    let resJson = {};
+    let usersJson = {};
     try {
-        resJson = await getRandomUsers();
+        usersJson = await getRandomUsers();
     }
     catch (error) {
         console.error(error);
     }
 
-    const { users: userArray = [] } = resJson;
+    const { users: userArray = [] } = usersJson;
     const paths = userArray.map(user => {
         return { params: { atUsername: `@${user.username}` } }
     });

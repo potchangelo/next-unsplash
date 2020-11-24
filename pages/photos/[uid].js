@@ -40,15 +40,15 @@ export default function PhotoPage(props) {
 }
 
 export async function getStaticPaths() {
-    let resJson = {};
+    let photosJson = {};
     try {
-        resJson = await getPhotos(null);
+        photosJson = await getPhotos(null);
     }
     catch (error) {
         console.error(error);
     }
 
-    const { photos: photoArray = [] } = resJson;
+    const { photos: photoArray = [] } = photosJson;
     const paths = photoArray.map(photo => {
         return { params: { uid: photo.uid } }
     });
@@ -59,14 +59,14 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
     const { uid } = context.params;
 
-    let resJson = {};
+    let photoJson = {};
     try {
-        resJson = await getPhoto(null, uid);
+        photoJson = await getPhoto(null, uid);
     }
     catch (error) {
         console.error(error);
     }
 
-    const { photo = null, errorCode = null } = resJson;
+    const { photo = null, errorCode = null } = photoJson;
     return { props: { photo, errorCode } };
 }

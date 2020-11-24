@@ -1,12 +1,24 @@
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
-import { useInfiniteQuery } from 'react-query';
-import { getPhoto, getTopic, getTopics } from '../../api';
+import { getTopic, getTopics } from '../../api';
 import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../../components';
+import { usePhotos } from '../../helpers/hooks';
 import { Masonry, MasonryItem, Modal, Section } from '../../layouts';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
+
+function getFetchMore(lastGroup = {}, _) {
+    const { topic = {} } = lastGroup;
+    const { photos = [] } = topic;
+    const count = photos.length;
+    if (count < 12) return false;
+    return photos[count - 1].id;
+}
+
+function flatMapPhotos(group) {
+    const { topic = {} } = group;
+    const { photos = [] } = topic;
+    return photos;
+}
 
 export default function TopicPage(props) {
     // - Data
@@ -15,69 +27,14 @@ export default function TopicPage(props) {
     
     // --- Photos
     const {
-        data: photoGroupArray = [], fetchMore,
+        photoArray, photo, 
         canFetchMore, isFetching, isFetchingMore
-    } = useInfiniteQuery(
+    } = usePhotos(
         ['topic-photos', topic?.slug, true],
-        getTopic, {
-        getFetchMore: (lastGroup = {}, allGroups) => {
-            const { topic: theTopic = {} } = lastGroup;
-            const { photos: lastPhotoArray = [] } = theTopic;
-            const count = lastPhotoArray.length;
-            if (count < 12) return false;
-            return lastPhotoArray[count - 1].id;
-        }
-    });
-    const photoArray = photoGroupArray.flatMap(group => {
-        const { topic: theTopic = {} } = group;
-        const { photos: groupPhotoArray = [] } = theTopic;
-        return groupPhotoArray;
-    });
+        getTopic, getFetchMore, flatMapPhotos
+    );
 
-    // --- Modal photo
-    const [photo, setPhoto] = useState(null);
-
-    const router = useRouter();
-
-    // - Callback
-    const onScroll = useCallback(() => {
-        // --- Position
-        const scrollBottom = window.scrollY + window.innerHeight;
-        const docBottom = document.body.offsetHeight;
-
-        // --- Condition
-        const canFetch = canFetchMore && !isFetching && !isFetchingMore;
-        const isScrollReached = scrollBottom > docBottom - 700;
-
-        // --- Fetch
-        if (canFetch && isScrollReached) fetchMore();
-    }, [canFetchMore, isFetching, isFetchingMore]);
-
-    const loadPhoto = useCallback(async (uid) => {
-        try {
-            const { photo, errorCode } = await getPhoto(null, uid);
-            if (!!errorCode) throw new Error(errorCode);
-            setPhoto(photo);
-        }
-        catch (error) {
-            console.log(error);
-            setPhoto(null);
-        }
-    }, []);
-
-    // - Effects
-    useEffect(() => {
-        window.addEventListener('scroll', onScroll);
-        return () => window.removeEventListener('scroll', onScroll);
-    }, [onScroll]);
-
-    useEffect(() => {
-        const { photoUid } = router.query;
-        if (!!photoUid) loadPhoto(photoUid);
-        else setPhoto(null);
-    }, [router.query, loadPhoto]);
-
-    // - Checking
+    // - Extract
     if (!topic) return <AppNotFound />;
     const { slug, title, description, coverUrl } = topic;
 
@@ -134,15 +91,15 @@ export default function TopicPage(props) {
 }
 
 export async function getStaticPaths() {
-    let resJson = {};
+    let topicsJson = {};
     try {
-        resJson = await getTopics(null);
+        topicsJson = await getTopics(null);
     }
     catch (error) {
         console.error(error);
     }
 
-    const { topics: topicArray = [] } = resJson;
+    const { topics: topicArray = [] } = topicsJson;
     const paths = topicArray.map(topic => {
         return { params: { slug: topic.slug } }
     });

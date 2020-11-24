@@ -2,14 +2,26 @@ import style from './css/home.module.scss';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useCallback, useState } from 'react';
 import { Search } from 'react-feather';
-import { useInfiniteQuery, useQuery } from 'react-query';
-import { getPhotos, getPhoto, getRandomPhoto, getTopics } from '../api';
+import { useQuery } from 'react-query';
+import { getPhotos, getRandomPhoto, getTopics } from '../api';
 import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
 import { Modal, Masonry, MasonryItem, Section } from '../layouts/';
+import { usePhotos } from '../helpers/hooks';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
+
+function getFetchMore(lastGroup = {}, _) {
+    const { photos = [] } = lastGroup;
+    const count = photos.length;
+    if (count < 12) return false;
+    return photos[count - 1].id;
+}
+
+function flatMapPhotos(group) {
+    const { photos = [] } = group;
+    return photos;
+}
 
 export default function HomePage(props) {
     // - Data
@@ -18,20 +30,9 @@ export default function HomePage(props) {
 
     // --- Photos
     const {
-        data: photoGroupArray = [], fetchMore,
+        photoArray, photo, 
         canFetchMore, isFetching, isFetchingMore
-    } = useInfiniteQuery('photos', getPhotos, {
-        getFetchMore: (lastGroup = {}, allGroups) => {
-            const { photos: lastPhotoArray = [] } = lastGroup;
-            const count = lastPhotoArray.length;
-            if (count < 12) return false;
-            return lastPhotoArray[count - 1].id;
-        }
-    });
-    const photoArray = photoGroupArray.flatMap(group => {
-        const { photos: groupPhotoArray = [] } = group;
-        return groupPhotoArray;
-    });
+    } = usePhotos('photos', getPhotos, getFetchMore, flatMapPhotos);
 
     // --- Random photo
     const { data: randomPhotoResponse = {} } = useQuery(
@@ -39,48 +40,7 @@ export default function HomePage(props) {
     );
     const { photo: randomPhoto } = randomPhotoResponse;
 
-    // --- Modal photo
-    const [photo, setPhoto] = useState(null);
-
     const router = useRouter();
-
-    // - Callbacks
-    const onScroll = useCallback(() => {
-        // --- Position
-        const scrollBottom = window.scrollY + window.innerHeight;
-        const docBottom = document.body.offsetHeight;
-
-        // --- Condition
-        const canFetch = canFetchMore && !isFetching && !isFetchingMore;
-        const isScrollReached = scrollBottom > docBottom - 700;
-
-        // --- Fetch
-        if (canFetch && isScrollReached) fetchMore();
-    }, [canFetchMore, isFetching, isFetchingMore]);
-
-    const loadPhoto = useCallback(async (uid) => {
-        try {
-            const { photo, errorCode } = await getPhoto(null, uid);
-            if (!!errorCode) throw new Error(errorCode);
-            setPhoto(photo);
-        }
-        catch (error) {
-            console.log(error);
-            setPhoto(null);
-        }
-    }, []);
-
-    // - Effects
-    useEffect(() => {
-        window.addEventListener('scroll', onScroll);
-        return () => window.removeEventListener('scroll', onScroll);
-    }, [onScroll]);
-
-    useEffect(() => {
-        const { photoUid } = router.query;
-        if (!!photoUid) loadPhoto(photoUid);
-        else setPhoto(null);
-    }, [router.query, loadPhoto]);
 
     // - Elements
     // --- Meta
