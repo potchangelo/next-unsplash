@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { getTopic, getTopics } from '../../api';
-import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../../components';
+import { AppHeader, AppFooter, AppLoading, AppNotFound, PhotoItem, PhotoPost } from '../../components';
 import { usePhotos } from '../../helpers/hooks';
 import { Masonry, MasonryItem, Modal, Section } from '../../layouts';
 

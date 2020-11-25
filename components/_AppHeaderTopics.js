@@ -1,15 +1,24 @@
 import style from './css/app_header.module.scss';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 
 function AppHeaderTopic(props) {
+    // - Data
     const { topicArray = [] } = props;
     const [hasScrollLeft, setHasScrollLeft] = useState(false);
     const [hasScrollRight, setHasScrollRight] = useState(false);
     const scrollAreaRef = useRef(null);
+    const { asPath } = useRouter();
 
     // - Functions
+    function getLinkClass(path) {
+        let linkClass = style.link;
+        if (path === asPath) linkClass += ` ${style.link_active}`;
+        return linkClass;
+    }
+
     function onScrollClick(direction) {
         if (direction === 'left') {
             scrollAreaRef.current?.scrollBy({ left: -120, behavior: 'smooth' });
@@ -54,7 +63,7 @@ function AppHeaderTopic(props) {
         const { uid, slug, title } = topic;
         return (
             <Link key={uid} href={`/topics/${slug}`}>
-                <a className={style.link}>
+                <a className={getLinkClass(`/topics/${slug}`)}>
                     <span>{title}</span>
                 </a>
             </Link>
@@ -65,7 +74,7 @@ function AppHeaderTopic(props) {
         <nav className="is-flex">
             <div className={`${style.item} pl-2`}>
                 <Link href="/">
-                    <a className={style.link}>
+                    <a className={getLinkClass('/')}>
                         <span>Editorial</span>
                     </a>
                 </Link>
@@ -95,7 +104,7 @@ function AppHeaderTopic(props) {
             </div>
             <div className={`${style.item} pr-2`}>
                 <Link href="/topics">
-                    <a className={style.link}>
+                    <a className={getLinkClass('/topics')}>
                         <span>View all</span>
                     </a>
                 </Link>

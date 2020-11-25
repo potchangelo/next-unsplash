@@ -65,10 +65,25 @@
     font-weight: $weight-semibold;
     white-space: nowrap;
     display: inline-flex;
+    align-items: center;
     height: 100%;
     padding: 12px;
-    align-items: center;
+    position: relative;
     cursor: pointer;
+
+    &.link_active {
+        color: $black-bis;
+    }
+
+    &.link_active::after {
+        content: '';
+        background-color: $black-bis;
+        height: 2px;
+        position: absolute;
+        bottom: 0px;
+        left: 12px;
+        right: 12px;
+    }
 }
 
 // - Scroll
