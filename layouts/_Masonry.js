@@ -1,5 +1,5 @@
 import style from './css/masonry.module.scss';
-import { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 
 const defaultBreakpointArray = [
     { columns: 1, minWidth: 0, gap: 0 },
