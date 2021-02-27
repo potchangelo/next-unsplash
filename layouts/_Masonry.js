@@ -1,14 +1,16 @@
-import style from './css/masonry.module.scss';
 import React, { useState, useRef, useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import style from './css/masonry.module.scss';
 
 const defaultBreakpointArray = [
     { columns: 1, minWidth: 0, gap: 0 },
-	{ columns: 2, minWidth: 600, gap: 24 },
-	{ columns: 3, minWidth: 960, gap: 24 }
+    { columns: 2, minWidth: 600, gap: 24 },
+    { columns: 3, minWidth: 960, gap: 24 }
 ];
 
-function Masonry({ breakpointArray = defaultBreakpointArray, children }) {
+function Masonry(props) {
     // - Data
+    const { breakpointArray, children } = props;
     const [columnHeightArray, setColumnHeightArray] = useState([]);
     const [computedStylesArray, setComputedStyleArray] = useState([]);
     const layoutRef = useRef(null);
@@ -113,9 +115,8 @@ function Masonry({ breakpointArray = defaultBreakpointArray, children }) {
     const columnCount = columnHeightArray.length;
     const itemWidth = 100 / (columnCount || 1);
     const { gap } = (columnCount === 0) ? 0 : getNextBreakpoint(breakpointArray);
-    // const containerStyle = { padding: `${gap}px` };
     const layoutHeight = (columnCount === 0) ? 0 : Math.max(...columnHeightArray);
-    const layoutStyles = { 
+    const layoutStyles = {
         height: `${layoutHeight}px`,
         marginTop: `-${gap / 2}px`,
         marginLeft: `-${gap / 2}px`,
@@ -128,19 +129,19 @@ function Masonry({ breakpointArray = defaultBreakpointArray, children }) {
         childElements = React.Children.map(children, (child, index) => {
             if (index < computedStylesArray.length) {
                 const computedStyles = computedStylesArray[index];
-                const itemStyles = { 
-                    width: `${itemWidth}%`, 
+                const itemStyles = {
+                    width: `${itemWidth}%`,
                     padding: `${gap / 2}px`,
-                    ...computedStyles 
+                    ...computedStyles
                 };
-                return React.cloneElement(child, { 
-                    key: `masonry_item_${index}`, 
-                    itemStyles 
+                return React.cloneElement(child, {
+                    key: `masonry_item_${index}`,
+                    itemStyles
                 });
             }
-            return React.cloneElement(child, { 
-                key: `masonry_item_${index}`, 
-                isLoading: true 
+            return React.cloneElement(child, {
+                key: `masonry_item_${index}`,
+                isLoading: true
             });
         });
     }
@@ -153,5 +154,17 @@ function Masonry({ breakpointArray = defaultBreakpointArray, children }) {
         </div>
     );
 }
+
+Masonry.propTypes = {
+    breakpointArray: PropTypes.arrayOf(PropTypes.shape({
+        columns: PropTypes.number.isRequired,
+        minWidth: PropTypes.number.isRequired,
+        gap: PropTypes.number.isRequired
+    }))
+};
+
+Masonry.defaultProps = {
+    breakpointArray: defaultBreakpointArray
+};
 
 export default Masonry;

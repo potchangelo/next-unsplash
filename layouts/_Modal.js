@@ -1,6 +1,6 @@
-import style from './css/modal.module.scss';
 import { useEffect, useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
+import style from './css/modal.module.scss';
 
 function Modal({ children }) {
     // - Create
