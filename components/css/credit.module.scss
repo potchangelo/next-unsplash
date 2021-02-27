@@ -1,0 +1,10 @@
+@import "../../css/vars";
+
+.main {
+    background-color: $white-ter;
+    border: 1px solid $grey-lighter;
+    border-radius: 4px;
+    font-size: 14px;
+    display: inline-block;
+    padding: 8px 10px;
+}

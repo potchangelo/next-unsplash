@@ -6,6 +6,7 @@ import User from './_User';
 import { ModalGuard } from '../layouts';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Credit from './_Credit';
 
 function PhotoPost({ photo, isModal = false }) {
     const router = useRouter();
@@ -79,6 +80,9 @@ function PhotoPost({ photo, isModal = false }) {
                         </div>
                         {descriptionElement}
                         {topicElement}
+                        <div className={style.credit}>
+                            <Credit photoUrl={photo.url} />
+                        </div>
                     </ModalGuard>
                 </div>
             </div>

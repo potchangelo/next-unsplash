@@ -1,7 +1,7 @@
 import style from './css/user.module.scss';
 import Head from 'next/head';
 import { getUser, getRandomUsers } from '../api';
-import { AppHeader, AppFooter, AppNotFound, AppLoading, PhotoItem, PhotoPost } from '../components';
+import { AppHeader, AppFooter, AppNotFound, AppLoading, PhotoItem, PhotoPost, Credit } from '../components';
 import { usePhotos } from '../helpers/hooks';
 import { Modal, Masonry, MasonryItem, Section } from '../layouts';
 
@@ -46,6 +46,16 @@ export default function UserPage(props) {
     const headUrl = `${process.env.NEXT_PUBLIC_HOST}/@${username}`;
     const headImageUrl = avatarUrl?.large ?? '/default-avatar.png';
 
+    // --- Credit
+    let creditElement = null;
+    if (!!user.avatarUrl) {
+        creditElement = (
+            <div>
+                <Credit photoUrl={user.avatarUrl} />
+            </div>
+        );
+    }
+
     // --- User
     const userElement = (
         <div className={style.main}>
@@ -58,10 +68,11 @@ export default function UserPage(props) {
                     />
                 </div>
                 <div className="column py-0 content">
-                    <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold my-4">
+                    <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold my-2">
                         {displayName}
                     </h2>
                     <p>{biography}</p>
+                    {creditElement}
                 </div>
             </div>
         </div>

@@ -55,6 +55,19 @@
     padding: 16px;
 }
 
+.credit {
+    margin: 16px;
+}
+
+.creditContent {
+    background-color: $white-ter;
+    border: 1px solid $grey-lighter;
+    border-radius: 4px;
+    font-size: 14px;
+    display: inline-block;
+    padding: 8px 10px;
+}
+
 // - Figure
 .figure_cover {
     display: flex;
