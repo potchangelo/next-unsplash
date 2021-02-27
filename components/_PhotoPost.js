@@ -1,14 +1,17 @@
-import style from './css/photo_post.module.scss';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { X } from 'react-feather';
+import PropTypes from 'prop-types';
+import style from './css/photo_post.module.scss';
 import PhotoPostFigure from './_PhotoPostFigure';
 import PhotoDownloadButton from './_PhotoDownloadButton';
 import User from './_User';
-import { ModalGuard } from '../layouts';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import Credit from './_Credit';
+import { ModalGuard } from '../layouts';
 
-function PhotoPost({ photo, isModal = false }) {
+function PhotoPost(props) {
+    // - Data
+    const { photo, isModal } = props;
     const router = useRouter();
 
     // - Attributes
@@ -17,7 +20,7 @@ function PhotoPost({ photo, isModal = false }) {
         postClass = style.modal;
         postInnerClass = style.modal_inner;
     }
-    
+
     // - Extract
     if (!photo) {
         return <div className={postClass}>No photo</div>;
@@ -90,5 +93,14 @@ function PhotoPost({ photo, isModal = false }) {
         </>
     );
 }
+
+PhotoPost.propTypes = {
+    photo: PropTypes.object.isRequired,
+    isModal: PropTypes.bool
+};
+
+PhotoPost.defaultProps = {
+    isModal: false
+};
 
 export default PhotoPost;

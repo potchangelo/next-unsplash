@@ -1,5 +1,6 @@
+import Link from 'next/link';
+import PropTypes from 'prop-types';
 import style from './css/user.module.scss';
-import Link from 'next/link'
 
 function User(props) {
     // - Data
@@ -18,7 +19,7 @@ function User(props) {
     let usernameText = (
         <h6 className={`subtitle is-7 ${textColorClass}`}>@{username}</h6>
     );
-    if (!!hideUsername) usernameText = null;
+    if (hideUsername) usernameText = null;
 
     return (
         <Link href={`/@${username}`}>
@@ -32,5 +33,15 @@ function User(props) {
         </Link>
     );
 };
+
+User.propTypes = {
+    user: PropTypes.object.isRequired,
+    textColor: PropTypes.string,
+    hideUsername: PropTypes.bool
+};
+
+User.defaultProps = {
+    hideUsername: false
+}
 
 export default User;

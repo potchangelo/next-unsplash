@@ -1,9 +1,11 @@
-import style from './css/photo_post.module.scss';
 import { useState } from 'react';
 import { Minimize2, Maximize2 } from 'react-feather';
+import PropTypes from 'prop-types';
+import style from './css/photo_post.module.scss';
 
-function Photo({ photo }) {
+function PhotoPostFigure(props) {
     // - Data
+    const { photo } = props;
     const [isZoomed, setIsZoomed] = useState(false);
 
     // - Extract
@@ -53,4 +55,8 @@ function Photo({ photo }) {
     );
 };
 
-export default Photo;
+PhotoPostFigure.propTypes = {
+    photo: PropTypes.object.isRequired
+};
+
+export default PhotoPostFigure;

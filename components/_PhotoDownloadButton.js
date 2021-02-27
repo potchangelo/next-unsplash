@@ -1,5 +1,6 @@
-import style from './css/photo_download.module.scss';
 import { ChevronDown } from 'react-feather';
+import PropTypes from 'prop-types';
+import style from './css/photo_download.module.scss';
 import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
 import { useDropdown } from '../helpers/hooks';
 
@@ -13,7 +14,7 @@ const menuContentArray = [
 
 function PhotoDownloadButton(props) {
     // - Data
-    const { photo, buttonStyle, text = 'Download' } = props;
+    const { photo, buttonStyle, text } = props;
     const { dropdownActive, toggleDropdown } = useDropdown();
 
     if (!photo) return null;
@@ -63,9 +64,9 @@ function PhotoDownloadButton(props) {
     return (
         <Dropdown active={dropdownActive}>
             <div className="buttons has-addons mb-0">
-                <a 
-                    className={buttonClass} 
-                    href={`/api/photos/${photo.uid}/download?force=true`} 
+                <a
+                    className={buttonClass}
+                    href={`/api/photos/${photo.uid}/download?force=true`}
                     download
                 >
                     {text}
@@ -73,7 +74,8 @@ function PhotoDownloadButton(props) {
                 <button
                     className={`${buttonMoreClass}`}
                     type="button"
-                    onClick={toggleDropdown}>
+                    onClick={toggleDropdown}
+                >
                     <span className="icon">
                         <ChevronDown size={20} strokeWidth={3} />
                     </span>
@@ -85,5 +87,19 @@ function PhotoDownloadButton(props) {
         </Dropdown>
     );
 }
+
+PhotoDownloadButton.propTypes = {
+    photo: PropTypes.shape({
+        uid: PropTypes.string.isRequired,
+        width: PropTypes.number.isRequired,
+        height: PropTypes.number.isRequired
+    }).isRequired,
+    buttonStyle: PropTypes.string,
+    text: PropTypes.string
+};
+
+PhotoDownloadButton.defaultProps = {
+    text: 'Download'
+};
 
 export default PhotoDownloadButton;

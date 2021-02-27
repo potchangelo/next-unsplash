@@ -1,8 +1,9 @@
-import style from './css/app_loading.module.scss';
+import PropTypes from 'prop-types';
 import { Loader } from 'react-feather';
+import style from './css/app_loading.module.scss';
 
 function AppLoading(props) {
-    const { isShow = true, isSpinning = false } = props;
+    const { isShow, isSpinning } = props;
 
     let iconClass = 'icon is-large';
     if (!isShow) iconClass += ' is-invisible';
@@ -16,5 +17,15 @@ function AppLoading(props) {
         </div>
     );
 }
+
+AppLoading.propTypes = {
+    isShow: PropTypes.bool,
+    isSpinning: PropTypes.bool
+};
+
+AppLoading.defaultProps = {
+    isShow: true,
+    isSpinning: false
+};
 
 export default AppLoading;

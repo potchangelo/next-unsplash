@@ -1,11 +1,12 @@
-import style from './css/topic_item.module.scss';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+import style from './css/topic_item.module.scss';
 
 function TopicItem(props) {
     const { topic } = props;
 
     if (!topic) return null;
-    const { uid, slug, title, description, isFeatured, coverUrl = {} } = topic;
+    const { uid, slug, title, description, coverUrl } = topic;
 
     return (
         <Link key={uid} href={`/topics/${slug}`}>
@@ -21,5 +22,9 @@ function TopicItem(props) {
         </Link>
     );
 }
+
+TopicItem.propTypes = {
+    topic: PropTypes.object.isRequired
+};
 
 export default TopicItem;

@@ -1,6 +1,7 @@
-import style from './css/photo_item.module.scss';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
+import style from './css/photo_item.module.scss';
 import PhotoDownloadButton from './_PhotoDownloadButton';
 import User from './_User';
 
@@ -12,7 +13,7 @@ function PhotoItem(props) {
     // - Extract
     if (!photo) return null;
     const {
-        uid, width, height, description, 
+        uid, width, height, description,
         user: photoUser, url
     } = photo;
     const user = indyUser ?? photoUser;
@@ -27,10 +28,10 @@ function PhotoItem(props) {
             </div>
             <figure className={style.figure}>
                 <div style={{ paddingBottom }} />
-                <Link 
-                    href={{ pathname, query: { ...query, photoUid: uid } }} 
-                    as={`/photos/${uid}`} 
-                    shallow={true} 
+                <Link
+                    href={{ pathname, query: { ...query, photoUid: uid } }}
+                    as={`/photos/${uid}`}
+                    shallow={true}
                     scroll={false}
                 >
                     <a className={style.link}>
@@ -51,5 +52,17 @@ function PhotoItem(props) {
         </>
     );
 }
+
+PhotoItem.propTypes = {
+    photo: PropTypes.shape({
+        uid: PropTypes.string.isRequired,
+        width: PropTypes.number.isRequired,
+        height: PropTypes.number.isRequired,
+        description: PropTypes.string,
+        user: PropTypes.object,
+        url: PropTypes.object.isRequired
+    }).isRequired,
+    user: PropTypes.object
+};
 
 export default PhotoItem;

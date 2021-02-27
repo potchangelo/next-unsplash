@@ -1,13 +1,13 @@
-import style from './css/app_header.module.scss';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import { Menu, Search } from 'react-feather';
-import AppHeaderTopic from './_AppHeaderTopics';
+import style from './css/app_header.module.scss';
+import AppHeaderTopics from './_AppHeaderTopics';
 import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
 import { useDropdown } from '../helpers/hooks';
 
 function AppHeader(props) {
-    // - Data
-    const { topicArray = [] } = props;
+    const { topicArray } = props;
     const { dropdownActive, toggleDropdown } = useDropdown();
 
     return (
@@ -53,13 +53,13 @@ function AppHeader(props) {
                                 <Menu size={22} />
                             </span>
                             <DropdownMenu>
-                                <DropdownItem 
+                                <DropdownItem
                                     type="next-link"
                                     href="/about"
                                     linkClass="has-text-white has-text-weight-medium">
                                     <span>About</span>
                                 </DropdownItem>
-                                <DropdownItem 
+                                <DropdownItem
                                     type="ext-link"
                                     href="https://github.com/potchangelo/next-unsplash"
                                     linkClass="has-text-white has-text-weight-medium">
@@ -70,9 +70,21 @@ function AppHeader(props) {
                     </div>
                 </div>
             </nav>
-            <AppHeaderTopic topicArray={topicArray} />
+            <AppHeaderTopics topicArray={topicArray} />
         </header>
     );
 }
+
+AppHeader.propTypes = {
+    topicArray: PropTypes.arrayOf(PropTypes.shape({
+        uid: PropTypes.string.isRequired,
+        slug: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired
+    }))
+};
+
+AppHeader.defaultProps = {
+    topicArray: []
+};
 
 export default AppHeader;
