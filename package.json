@@ -28,12 +28,11 @@
   "dependencies": {
     "bulma": "^0.9.2",
     "next": "^10.0.5",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-feather": "^2.0.9",
-    "react-query": "^2.26.4"
-  },
-  "devDependencies": {
+    "react-query": "^2.26.4",
     "sass": "^1.32.5"
   }
 }
