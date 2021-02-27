@@ -24,7 +24,13 @@ function TopicItem(props) {
 }
 
 TopicItem.propTypes = {
-    topic: PropTypes.object.isRequired
+    topic: PropTypes.shape({
+        uid: PropTypes.string.isRequired,
+        slug: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        coverUrl: PropTypes.object
+    }).isRequired
 };
 
 export default TopicItem;

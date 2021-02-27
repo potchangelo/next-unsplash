@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'react-feather';
+import PropTypes from 'prop-types';
 import style from './css/app_header.module.scss';
 
 function AppHeaderTopics(props) {
     // - Data
-    const { topicArray } = props;
+    const { topicArray = [] } = props;
     const [hasScrollLeft, setHasScrollLeft] = useState(false);
     const [hasScrollRight, setHasScrollRight] = useState(false);
     const scrollAreaRef = useRef(null);

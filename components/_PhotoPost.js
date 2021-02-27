@@ -95,7 +95,11 @@ function PhotoPost(props) {
 }
 
 PhotoPost.propTypes = {
-    photo: PropTypes.object.isRequired,
+    photo: PropTypes.shape({
+        description: PropTypes.string,
+        topics: PropTypes.arrayOf(PropTypes.object),
+        user: PropTypes.object
+    }).isRequired,
     isModal: PropTypes.bool
 };
 

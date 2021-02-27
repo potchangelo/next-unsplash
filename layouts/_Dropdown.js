@@ -2,10 +2,8 @@ import PropTypes from 'prop-types';
 import style from './css/dropdown.module.scss';
 
 function Dropdown(props) {
-    // - Props
     const { active, align, children } = props;
 
-    // - Attributes
     let dropdownClass = `${style.main} `;
     if (align === 'left') dropdownClass += style.left;
     else dropdownClass += style.right;

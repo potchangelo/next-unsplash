@@ -56,7 +56,12 @@ function PhotoPostFigure(props) {
 };
 
 PhotoPostFigure.propTypes = {
-    photo: PropTypes.object.isRequired
+    photo: PropTypes.shape({
+        width: PropTypes.number.isRequired,
+        height: PropTypes.number.isRequired,
+        description: PropTypes.string,
+        url: PropTypes.object
+    }).isRequired
 };
 
 export default PhotoPostFigure;

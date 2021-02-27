@@ -3,10 +3,8 @@ import style from './css/dropdown.module.scss';
 import { superStopPropagation } from '../helpers/functions';
 
 function DropdownMenu(props) {
-    // - Props
     const { caretOffsetLeft, caretOffsetRight, children } = props;
-    
-    // - Attributes
+
     const caretStyle = {}
     if (!!caretOffsetLeft) {
         caretStyle.left = `${caretOffsetLeft}px`;

@@ -35,7 +35,11 @@ function User(props) {
 };
 
 User.propTypes = {
-    user: PropTypes.object.isRequired,
+    user: PropTypes.shape({
+        displayName: PropTypes.string.isRequired,
+        username: PropTypes.string.isRequired,
+        avatarUrl: PropTypes.object
+    }),
     textColor: PropTypes.string,
     hideUsername: PropTypes.bool
 };

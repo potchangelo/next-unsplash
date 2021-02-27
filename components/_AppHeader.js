@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import { Menu, Search } from 'react-feather';
+import PropTypes from 'prop-types';
 import style from './css/app_header.module.scss';
 import AppHeaderTopics from './_AppHeaderTopics';
 import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
@@ -76,11 +76,7 @@ function AppHeader(props) {
 }
 
 AppHeader.propTypes = {
-    topicArray: PropTypes.arrayOf(PropTypes.shape({
-        uid: PropTypes.string.isRequired,
-        slug: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired
-    }))
+    topicArray: PropTypes.arrayOf(PropTypes.object)
 };
 
 AppHeader.defaultProps = {

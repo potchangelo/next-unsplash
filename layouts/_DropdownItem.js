@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import style from './css/dropdown.module.scss';
 
 function DropdownItem(props) {
-    // - Props
+    // - Data
     const { type, href, linkClass, align, children } = props;
 
     // - Attributes
