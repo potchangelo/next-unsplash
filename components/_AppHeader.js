@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Menu, Search } from 'react-feather';
 import PropTypes from 'prop-types';
-import style from './css/app_header.module.scss';
+import style from './css/appHeader.module.scss';
 import AppHeaderTopics from './_AppHeaderTopics';
 import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
 import { useDropdown } from '../helpers/hooks';
@@ -16,17 +16,17 @@ function AppHeader(props) {
                 <div className={style.item}>
                     <Link href="/">
                         <a className={style.brand}>
-                            <img className={style.brand_logo} src="/logo-light-64x64.png" alt="Logo" />
-                            <div className={style.brand_text}>
+                            <img className={style.brandLogo} src="/logo-light-64x64.png" alt="Logo" />
+                            <div className={style.brandText}>
                                 <h1 className="title is-6 has-text-weight-bold mb-0">Unsplash-cloned</h1>
                                 <h3 className="title is-7 has-text-weight-medium">by Zinglecode</h3>
                             </div>
                         </a>
                     </Link>
                 </div>
-                <div className={style.item_expand}>
-                    <div className={style.search_outer}>
-                        <div className={`field ${style.search_inner}`}>
+                <div className={style.itemExpand}>
+                    <div className={style.searchOuter}>
+                        <div className={`field ${style.searchInner}`}>
                             <div className="control has-icons-left">
                                 <input className="input is-rounded" type="text" placeholder="Search photos (coming soon...)" />
                                 <span className="icon is-left">

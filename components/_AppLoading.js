@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
 import { Loader } from 'react-feather';
-import style from './css/app_loading.module.scss';
+import PropTypes from 'prop-types';
+import style from './css/appLoading.module.scss';
 
 function AppLoading(props) {
     const { isShow, isSpinning } = props;
 
     let iconClass = 'icon is-large';
     if (!isShow) iconClass += ' is-invisible';
-    else if (isSpinning) iconClass += ` ${style.is_spinning}`;
+    else if (isSpinning) iconClass += ` ${style.isSpinning}`;
 
     return (
         <div className={`${style.main}`}>

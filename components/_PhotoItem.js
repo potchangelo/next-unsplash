@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import style from './css/photo_item.module.scss';
+import style from './css/photoItem.module.scss';
 import PhotoDownloadButton from './_PhotoDownloadButton';
 import User from './_User';
 
@@ -46,7 +46,7 @@ function PhotoItem(props) {
                 </div>
             </figure>
             <div className={style.bottom}>
-                <div className={style.bottom_space} />
+                <div className={style.bottomSpace} />
                 <div><PhotoDownloadButton photo={photo} /></div>
             </div>
         </>

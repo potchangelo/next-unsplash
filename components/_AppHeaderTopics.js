@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import PropTypes from 'prop-types';
-import style from './css/app_header.module.scss';
+import style from './css/appHeader.module.scss';
 
 function AppHeaderTopics(props) {
     // - Data
@@ -16,7 +16,7 @@ function AppHeaderTopics(props) {
     // - Functions
     function getLinkClass(path) {
         let linkClass = style.link;
-        if (path === asPath) linkClass += ` ${style.link_active}`;
+        if (path === asPath) linkClass += ` ${style.linkActive}`;
         return linkClass;
     }
 
@@ -53,10 +53,10 @@ function AppHeaderTopics(props) {
     if (topicArray.length === 0) return null;
 
     // - Attributes
-    let scrollLeftClass = style.scroll_left;
+    let scrollLeftClass = style.scrollLeft;
     if (!hasScrollLeft) scrollLeftClass += ' is-hidden';
 
-    let scrollRightClass = style.scroll_right;
+    let scrollRightClass = style.scrollRight;
     if (!hasScrollRight) scrollRightClass += ' is-hidden';
 
     // - Elements
@@ -83,9 +83,9 @@ function AppHeaderTopics(props) {
             <div className={`${style.item}`}>
                 <div className={style.divider} />
             </div>
-            <div className={`${style.item_expand} ${style.scroll_cover}`}>
-                <div className={style.scroll_area} ref={scrollAreaRef} onScroll={onScroll}>
-                    <div className={style.scroll_content}>
+            <div className={`${style.itemExpand} ${style.scrollCover}`}>
+                <div className={style.scrollArea} ref={scrollAreaRef} onScroll={onScroll}>
+                    <div className={style.scrollContent}>
                         {topicElements}
                     </div>
                 </div>

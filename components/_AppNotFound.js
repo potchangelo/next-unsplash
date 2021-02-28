@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import style from './css/app_not_found.module.scss';
+import style from './css/appNotFound.module.scss';
 import { AppHeader, AppFooter } from '.';
 import { Section } from '../layouts';
 

@@ -30,7 +30,7 @@ export default function HomePage(props) {
 
     // --- Photos
     const {
-        photoArray, photo, 
+        photoArray, photo,
         canFetchMore, isFetching, isFetchingMore
     } = usePhotos('photos', getPhotos, getFetchMore, flatMapPhotos);
 
@@ -62,7 +62,7 @@ export default function HomePage(props) {
         const { pathname, query } = router;
         const { uid, url, user } = randomPhoto;
         randomPhotoElement = (
-            <div className={style.hero_back}>
+            <div className={style.heroBack}>
                 <img src={url?.medium} alt="Random photo" />
             </div>
         );
@@ -112,9 +112,9 @@ export default function HomePage(props) {
             <AppHeader topicArray={topicArray} />
             <section className={`hero is-dark is-large ${style.hero}`}>
                 {randomPhotoElement}
-                <div className={style.hero_main}>
-                    <div className={style.hero_body}>
-                        <div className={`content ${style.hero_content}`}>
+                <div className={style.heroMain}>
+                    <div className={style.heroBody}>
+                        <div className={`content ${style.heroContent}`}>
                             <h1 className="title is-size-4-mobile is-size-1-tablet has-text-weight-bold">
                                 Unsplash-Cloned
                             </h1>
@@ -133,11 +133,11 @@ export default function HomePage(props) {
                             </div>
                         </div>
                     </div>
-                    <div className={style.hero_footer}>
-                        <div className={`${style.hero_footer_item} is-size-7-mobile`}>
+                    <div className={style.heroFooter}>
+                        <div className={`${style.heroFooterItem} is-size-7-mobile`}>
                             {randomUserElement}
                         </div>
-                        <div className={`${style.hero_footer_item} is-size-7-mobile`}>
+                        <div className={`${style.heroFooterItem} is-size-7-mobile`}>
                             <a
                                 className="has-text-white"
                                 href="https://github.com/potchangelo/next-unsplash"

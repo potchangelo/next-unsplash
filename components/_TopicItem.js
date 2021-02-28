@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import style from './css/topic_item.module.scss';
+import style from './css/topicItem.module.scss';
 
 function TopicItem(props) {
     const { topic } = props;
@@ -11,7 +11,7 @@ function TopicItem(props) {
     return (
         <Link key={uid} href={`/topics/${slug}`}>
             <a className={style.main}>
-                <div className={style.image_cover}>
+                <div className={style.imageCover}>
                     <img className={style.image} src={coverUrl?.small} />
                 </div>
                 <div className={`${style.info} content`}>

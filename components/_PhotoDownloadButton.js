@@ -1,6 +1,6 @@
 import { ChevronDown } from 'react-feather';
 import PropTypes from 'prop-types';
-import style from './css/photo_download.module.scss';
+import style from './css/photoDownload.module.scss';
 import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
 import { useDropdown } from '../helpers/hooks';
 
@@ -25,7 +25,7 @@ function PhotoDownloadButton(props) {
     let caretOffsetRight = 8;
     if (buttonStyle === 'focus') {
         buttonClass += ' is-success has-text-weight-bold';
-        buttonMoreClass += ` is-success ${style.more_focus}`;
+        buttonMoreClass += ` is-success ${style.moreFocus}`;
         caretOffsetRight = 12;
     }
     else {

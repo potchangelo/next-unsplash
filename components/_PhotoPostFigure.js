@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Minimize2, Maximize2 } from 'react-feather';
 import PropTypes from 'prop-types';
-import style from './css/photo_post.module.scss';
+import style from './css/photoPost.module.scss';
 
 function PhotoPostFigure(props) {
     // - Data
@@ -21,7 +21,7 @@ function PhotoPostFigure(props) {
     const srcset = `${url.small} 640w, ${url.medium} 1080w, ${url.large} 1920w`;
     let sizes = '(max-width: 640px) 640px, (max-width: 1080px) 1080px, 100vw'; '100vw';
     if (isZoomed) {
-        figureClass += ` ${style.figure_zoomed}`;
+        figureClass += ` ${style.figureZoomed}`;
         figureStyle = {};
         sizes = '100vw';
     }
@@ -30,7 +30,7 @@ function PhotoPostFigure(props) {
     const zoomSvg = isZoomed ? <Minimize2 size={24} /> : <Maximize2 size={24} />;
 
     return (
-        <div className={style.figure_cover}>
+        <div className={style.figureCover}>
             <figure
                 className={figureClass}
                 style={figureStyle}
@@ -43,10 +43,10 @@ function PhotoPostFigure(props) {
                     alt={description}
                 />
                 <div
-                    className={style.figure_zoom_area}
+                    className={style.figureZoomArea}
                     onClick={_ => setIsZoomed(prev => !prev)}
                 >
-                    <span className={`icon has-text-white ${style.figure_zoom_icon}`}>
+                    <span className={`icon has-text-white ${style.figureZoomIcon}`}>
                         {zoomSvg}
                     </span>
                 </div>

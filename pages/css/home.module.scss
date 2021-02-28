@@ -6,7 +6,7 @@
     overflow: hidden;
 }
 
-.hero_back {
+.heroBack {
     position: absolute;
     top: 0px;
     bottom: 0px;
@@ -20,7 +20,7 @@
     }
 }
 
-.hero_main {
+.heroMain {
     background-image: linear-gradient(
         180deg,
         rgba($black,.50) 0,
@@ -32,42 +32,42 @@
     position: relative;
 }
 
-.hero_body {
+.heroBody {
     padding: 64px 16px 16px;
 }
 
-.hero_content {
+.heroContent {
     text-shadow: 0px 0px 8px rgba($black, 0.3);
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.hero_footer {
+.heroFooter {
     padding: 16px 16px 24px;
 }
 
-.hero_footer_item:not(:last-child) {
+.heroFooterItem:not(:last-child) {
     margin-bottom: 12px;
 }
 
 // - Responsive
 @include from($tablet) {
-    .hero_body {
+    .heroBody {
         padding: 160px 16px 144px;
     }
 
-    .hero_footer {
+    .heroFooter {
         display: flex;
         justify-content: space-between;
         padding: 0px;
     }
 
-    .hero_footer_item {
+    .heroFooterItem {
         padding: 16px;
     }
 
-    .hero_footer_item:not(:last-child) {
+    .heroFooterItem:not(:last-child) {
         margin-bottom: 0px;
     }
 }

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { X } from 'react-feather';
 import PropTypes from 'prop-types';
-import style from './css/photo_post.module.scss';
+import style from './css/photoPost.module.scss';
 import PhotoPostFigure from './_PhotoPostFigure';
 import PhotoDownloadButton from './_PhotoDownloadButton';
 import User from './_User';
@@ -18,7 +18,7 @@ function PhotoPost(props) {
     let postClass = style.main, postInnerClass = 'photo_post_inner';
     if (!!isModal) {
         postClass = style.modal;
-        postInnerClass = style.modal_inner;
+        postInnerClass = style.modalInner;
     }
 
     // - Extract

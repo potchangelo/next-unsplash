@@ -7,7 +7,7 @@ function MasonryItem(props) {
 
     // - Attributes
     let itemClass = style.item;
-    if (isLoading === true) itemClass += ` ${style.item_loading}`;
+    if (isLoading === true) itemClass += ` ${style.itemLoading}`;
 
     return (
         <div className={itemClass} style={itemStyles}>
