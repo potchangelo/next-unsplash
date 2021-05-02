@@ -5,13 +5,25 @@ import { superStopPropagation } from './functions';
 import { getPhoto } from '../api';
 
 function usePhotos(key, fetcher, getFetchMore, flatMapPhotos) {
-    // - Data
-    // --- Photos
+    // - New data infinite
     const {
-        data: photoGroupArray = [], fetchMore,
-        canFetchMore, isFetching, isFetchingMore
-    } = useInfiniteQuery(key, fetcher, { getFetchMore });
-    const photoArray = photoGroupArray.flatMap(flatMapPhotos);
+        data: testte = {}, fetchNextPage: fetchMore,
+        hasNextPage: canFetchMore, isFetching, isFetchingNextPage: isFetchingMore
+    } = useInfiniteQuery(key, ({ pageParam = null }) => fetcher(pageParam), {
+        getNextPageParam: getFetchMore
+    });
+    // console.log(testte);
+    const photoGroupArray = testte.pages;
+    const photoArray = testte.pages?.flatMap(flatMapPhotos) ?? [];
+
+    // - Old Data
+    // --- Photos
+    // const {
+    //     data: photoGroupArray = [], fetchMore,
+    //     canFetchMore, isFetching, isFetchingMore
+    // } = useInfiniteQuery(key, fetcher, { getFetchMore });
+    
+    // const photoArray = photoGroupArray.flatMap(flatMapPhotos);
 
     // --- Photo
     const [photo, setPhoto] = useState(null);

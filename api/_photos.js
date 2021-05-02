@@ -1,3 +1,11 @@
+// - New fetch
+async function getPhotos2(beforeId) {
+    let url = `${process.env.NEXT_PUBLIC_API_HOST}/photos`;
+    if (!!beforeId) url += `?beforeId=${beforeId}`;
+    const res = await fetch(url);
+    return await res.json();
+}
+
 async function getPhotos(key, beforeId) {
     let url = `${process.env.NEXT_PUBLIC_API_HOST}/photos`;
     if (!!beforeId) url += `?beforeId=${beforeId}`;
@@ -17,4 +25,4 @@ async function getRandomPhoto(key) {
     return await res.json();
 }
 
-export { getPhotos, getPhoto, getRandomPhoto };
+export { getPhotos2, getPhotos, getPhoto, getRandomPhoto };

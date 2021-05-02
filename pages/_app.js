@@ -1,8 +1,16 @@
 import './css/global.scss';
 import Head from 'next/head';
-import { ReactQueryConfigProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 function App({ Component, pageProps }) {
+    const queryClient = new QueryClient({
+        defaultOptions: {
+            queries: {
+                staleTime: 1000 * 60 * 60,
+                refetchOnWindowFocus: false
+            }
+        }
+    });
     return (
         <>
             <Head>
@@ -23,14 +31,9 @@ function App({ Component, pageProps }) {
                 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" key="mask-icon" />
                 <link rel="manifest" href="/manifest.json" key="menifest" />
             </Head>
-            <ReactQueryConfigProvider config={{ 
-                queries: { 
-                    staleTime: 1000 * 60 * 60,
-                    refetchOnWindowFocus: false
-                } 
-                }}>
+            <QueryClientProvider client={queryClient}>
                 <Component {...pageProps} />
-            </ReactQueryConfigProvider>
+            </QueryClientProvider>
         </>
     );
 }
