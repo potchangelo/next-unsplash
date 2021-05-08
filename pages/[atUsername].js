@@ -7,16 +7,16 @@ import { Modal, Masonry, MasonryItem, Section } from '../layouts';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
-function getFetchMore(lastGroup = {}, _) {
-    const { user = {} } = lastGroup;
+function getNextPageParam(lastPage = {}, _) {
+    const { user = {} } = lastPage;
     const { photos = [] } = user;
     const count = photos.length;
     if (count < 12) return false;
     return photos[count - 1].id;
 }
 
-function flatMapPhotos(group) {
-    const { user = {} } = group;
+function flatMapPhotos(page) {
+    const { user = {} } = page;
     const { photos = [] } = user;
     return photos;
 }
@@ -32,7 +32,8 @@ export default function UserPage(props) {
         canFetchMore, isFetching, isFetchingMore
     } = usePhotos(
         ['user-photos', user?.username, true], 
-        getUser, getFetchMore, flatMapPhotos
+        (pageParam) => getUser(user?.username, true, pageParam), 
+        getNextPageParam, flatMapPhotos
     );
 
     // - Extract
@@ -145,7 +146,7 @@ export async function getStaticProps(context) {
 
     let userJson = {};
     try {
-        userJson = await getUser(null, username);
+        userJson = await getUser(username);
     }
     catch (error) {
         console.error(error);

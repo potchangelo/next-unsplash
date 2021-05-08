@@ -1,4 +1,4 @@
-async function getUser(key, username, includedPhotos = false, photosBeforeId) {
+async function getUser(username, includedPhotos = false, photosBeforeId) {
     let url = `${process.env.NEXT_PUBLIC_API_HOST}/users/${username}`;
 
     const params = new URLSearchParams();
