@@ -21,7 +21,7 @@ function flatMapPhotos(page) {
 export default function SearchPhotosPage(props) {
     // - Data
     // --- Search query
-    const { q } = props;
+    const { q = '' } = props;
 
     // --- Photos
     const {
@@ -73,7 +73,7 @@ export default function SearchPhotosPage(props) {
                 {headTwitterImage}
                 <title>{headTitle}</title>
             </Head>
-            <AppHeader />
+            <AppHeader isShowSearchTypes={true} />
             <Section type="top">
                 <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold">{title}</h2>
             </Section>

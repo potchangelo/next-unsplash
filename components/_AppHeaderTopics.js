@@ -7,7 +7,7 @@ import style from './css/appHeader.module.scss';
 
 function AppHeaderTopics(props) {
     // - Data
-    const { topicArray = [] } = props;
+    const { topicArray } = props;
     const [hasScrollLeft, setHasScrollLeft] = useState(false);
     const [hasScrollRight, setHasScrollRight] = useState(false);
     const scrollAreaRef = useRef(null);

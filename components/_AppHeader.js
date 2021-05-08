@@ -2,13 +2,16 @@ import Link from 'next/link';
 import { Menu, Search } from 'react-feather';
 import PropTypes from 'prop-types';
 import style from './css/appHeader.module.scss';
+import AppHeaderSearchTypes from './_AppHeaderSearchTypes';
 import AppHeaderTopics from './_AppHeaderTopics';
 import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
 import { useDropdown } from '../helpers/hooks';
 
 function AppHeader(props) {
-    const { topicArray } = props;
+    const { topicArray, isShowSearchTypes } = props;
     const { dropdownActive, toggleDropdown } = useDropdown();
+
+    const searchTypesElement = isShowSearchTypes ? <AppHeaderSearchTypes /> : null;
 
     return (
         <header className={style.main}>
@@ -71,16 +74,19 @@ function AppHeader(props) {
                 </div>
             </nav>
             <AppHeaderTopics topicArray={topicArray} />
+            {searchTypesElement}
         </header>
     );
 }
 
 AppHeader.propTypes = {
-    topicArray: PropTypes.arrayOf(PropTypes.object)
+    topicArray: PropTypes.arrayOf(PropTypes.object),
+    isShowSearchTypes: PropTypes.bool
 };
 
 AppHeader.defaultProps = {
-    topicArray: []
+    topicArray: [],
+    isShowSearchTypes: false
 };
 
 export default AppHeader;
