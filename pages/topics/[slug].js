@@ -6,16 +6,16 @@ import { Masonry, MasonryItem, Modal, Section } from '../../layouts';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
-function getFetchMore(lastGroup = {}, _) {
-    const { topic = {} } = lastGroup;
+function getNextPageParam(lastPage = {}, _) {
+    const { topic = {} } = lastPage;
     const { photos = [] } = topic;
     const count = photos.length;
     if (count < 12) return false;
     return photos[count - 1].id;
 }
 
-function flatMapPhotos(group) {
-    const { topic = {} } = group;
+function flatMapPhotos(page) {
+    const { topic = {} } = page;
     const { photos = [] } = topic;
     return photos;
 }
@@ -31,7 +31,8 @@ export default function TopicPage(props) {
         canFetchMore, isFetching, isFetchingMore
     } = usePhotos(
         ['topic-photos', topic?.slug, true],
-        getTopic, getFetchMore, flatMapPhotos
+        (pageParam) => getTopic(topic?.slug, true, pageParam), 
+        getNextPageParam, flatMapPhotos
     );
 
     // - Extract
@@ -93,7 +94,7 @@ export default function TopicPage(props) {
 export async function getStaticPaths() {
     let topicsJson = {};
     try {
-        topicsJson = await getTopics(null);
+        topicsJson = await getTopics();
     }
     catch (error) {
         console.error(error);
@@ -112,8 +113,8 @@ export async function getStaticProps(context) {
 
     let topicJson = {}, allTopicsJson = {};
     try {
-        topicJson = await getTopic(null, slug);
-        allTopicsJson = await getTopics(null);
+        topicJson = await getTopic(slug);
+        allTopicsJson = await getTopics();
     }
     catch (error) {
         console.error(error);

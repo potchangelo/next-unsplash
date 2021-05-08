@@ -171,7 +171,7 @@ export default function HomePage(props) {
 export async function getStaticProps() {
     let topicsJson = {};
     try {
-        topicsJson = await getTopics(null);
+        topicsJson = await getTopics();
     }
     catch (error) {
         console.error(error);

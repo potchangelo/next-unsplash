@@ -1,10 +1,10 @@
-async function getTopics(key) {
+async function getTopics() {
     let url = `${process.env.NEXT_PUBLIC_API_HOST}/topics`;
     const res = await fetch(url);
     return await res.json();
 }
 
-async function getTopic(key, slug, includedPhotos = false, photosBeforeId) {
+async function getTopic(slug, includedPhotos = false, photosBeforeId) {
     let url = `${process.env.NEXT_PUBLIC_API_HOST}/topics/${slug}`;
 
     const params = new URLSearchParams();
