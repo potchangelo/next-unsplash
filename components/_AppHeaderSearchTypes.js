@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Image } from 'react-feather';
+import { Image, User } from 'react-feather';
 import style from './css/appHeader.module.scss';
 
 function AppHeaderSearchTypes() {
@@ -24,6 +24,14 @@ function AppHeaderSearchTypes() {
                             <Image width={18} height={18} />
                         </span>
                         <span>Photos</span>
+                    </a>
+                </Link>
+                <Link href={`/search/users/${q}`}>
+                    <a className={getLinkClass(`/search/users`)}>
+                        <span className={`icon ${style.linkIcon}`}>
+                            <User width={18} height={18} />
+                        </span>
+                        <span>Users</span>
                     </a>
                 </Link>
             </div>
