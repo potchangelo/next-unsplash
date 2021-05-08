@@ -7,23 +7,13 @@ import { getPhoto } from '../api';
 function usePhotos(key, fetcher, getFetchMore, flatMapPhotos) {
     // - New data infinite
     const {
-        data: testte = {}, fetchNextPage: fetchMore,
+        data = {}, fetchNextPage: fetchMore,
         hasNextPage: canFetchMore, isFetching, isFetchingNextPage: isFetchingMore
     } = useInfiniteQuery(key, ({ pageParam = null }) => fetcher(pageParam), {
         getNextPageParam: getFetchMore
     });
-    // console.log(testte);
-    const photoGroupArray = testte.pages;
-    const photoArray = testte.pages?.flatMap(flatMapPhotos) ?? [];
-
-    // - Old Data
-    // --- Photos
-    // const {
-    //     data: photoGroupArray = [], fetchMore,
-    //     canFetchMore, isFetching, isFetchingMore
-    // } = useInfiniteQuery(key, fetcher, { getFetchMore });
-    
-    // const photoArray = photoGroupArray.flatMap(flatMapPhotos);
+    const photoGroupArray = data.pages;
+    const photoArray = data.pages?.flatMap(flatMapPhotos) ?? [];
 
     // --- Photo
     const [photo, setPhoto] = useState(null);

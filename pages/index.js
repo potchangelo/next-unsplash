@@ -4,23 +4,15 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Search } from 'react-feather';
 import { useQuery } from 'react-query';
-import { getPhotos2, getPhotos, getRandomPhoto, getTopics } from '../api';
+import { getPhotos, getRandomPhoto, getTopics } from '../api';
 import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
 import { Modal, Masonry, MasonryItem, Section } from '../layouts/';
 import { usePhotos } from '../helpers/hooks';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
-// - New get next page param
 function getNextPageParam(lastPage = {}, _) {
     const { photos = [] } = lastPage;
-    const count = photos.length;
-    if (count < 12) return false;
-    return photos[count - 1].id;
-}
-
-function getFetchMore(lastGroup = {}, _) {
-    const { photos = [] } = lastGroup;
     const count = photos.length;
     if (count < 12) return false;
     return photos[count - 1].id;
@@ -40,7 +32,7 @@ export default function HomePage(props) {
     const {
         photoArray, photo,
         canFetchMore, isFetching, isFetchingMore
-    } = usePhotos('photos', getPhotos2, getNextPageParam, flatMapPhotos);
+    } = usePhotos('photos', getPhotos, getNextPageParam, flatMapPhotos);
 
     // --- Random photo
     const { data: randomPhotoResponse = {} } = useQuery(

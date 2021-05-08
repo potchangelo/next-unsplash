@@ -42,7 +42,7 @@ export default function PhotoPage(props) {
 export async function getStaticPaths() {
     let photosJson = {};
     try {
-        photosJson = await getPhotos(null);
+        photosJson = await getPhotos();
     }
     catch (error) {
         console.error(error);
