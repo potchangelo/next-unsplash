@@ -32,10 +32,14 @@ export default function HomePage(props) {
     const {
         photoArray, photo,
         canFetchMore, isFetching, isFetchingMore
-    } = usePhotos('photos', getPhotos, getNextPageParam, flatMapPhotos);
+    } = usePhotos(
+        'photos', getPhotos, getNextPageParam, flatMapPhotos
+    );
 
     // --- Random photo
-    const { data: randomPhotoResponse = {} } = useQuery(
+    const {
+        data: randomPhotoResponse = {}
+    } = useQuery(
         'random-photo', getRandomPhoto
     );
     const { photo: randomPhoto } = randomPhotoResponse;

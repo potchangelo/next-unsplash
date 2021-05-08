@@ -19,7 +19,7 @@ export default async function(req, res) {
     }
 
     try {
-        const resJson = await getPhoto(null, uid);
+        const resJson = await getPhoto(uid);
         photo = resJson?.photo;
         if (!photo) throw new Error('Photo not found');
         const fetchedRes = await fetch(photo.url[`${sizeTitle}`]);

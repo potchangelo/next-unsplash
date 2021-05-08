@@ -61,7 +61,7 @@ export async function getStaticProps(context) {
 
     let photoJson = {};
     try {
-        photoJson = await getPhoto(null, uid);
+        photoJson = await getPhoto(uid);
     }
     catch (error) {
         console.error(error);

@@ -46,7 +46,7 @@ function usePhotos(key, fetcher, getFetchMore, flatMapPhotos) {
 
     const loadPhoto = useCallback(async (uid) => {
         try {
-            const { photo, errorCode } = await getPhoto(null, uid);
+            const { photo, errorCode } = await getPhoto(uid);
             if (!!errorCode) throw new Error(errorCode);
             setPhoto(photo);
         }
