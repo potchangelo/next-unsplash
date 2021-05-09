@@ -6,12 +6,30 @@ import AppHeaderSearchTypes from './_AppHeaderSearchTypes';
 import AppHeaderTopics from './_AppHeaderTopics';
 import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
 import { useDropdown } from '../helpers/hooks';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+
+const searchPathRE = /^\/search\/\w+\/\[q\]/;
 
 function AppHeader(props) {
-    const { topicArray, isShowSearchTypes } = props;
+    const { topicArray } = props;
+
+    const router = useRouter();
+    const { pathname, query } = router;
+
+    const qInitial = query?.q ?? '';
+    const [q, setQ] = useState(qInitial);
     const { dropdownActive, toggleDropdown } = useDropdown();
 
-    const searchTypesElement = isShowSearchTypes ? <AppHeaderSearchTypes /> : null;
+    function onSearchSubmit(event) {
+        event.preventDefault();
+        router.push(`/search/photos/${q}`);
+    }
+
+    let searchTypesElement = null;
+    if (searchPathRE.test(pathname)) {
+        searchTypesElement = <AppHeaderSearchTypes />;
+    }
 
     return (
         <header className={style.main}>
@@ -30,12 +48,20 @@ function AppHeader(props) {
                 <div className={style.itemExpand}>
                     <div className={style.searchOuter}>
                         <div className={`field ${style.searchInner}`}>
-                            <div className="control has-icons-left">
-                                <input className="input is-rounded" type="text" placeholder="Search photos (coming soon...)" />
-                                <span className="icon is-left">
-                                    <Search size={18} />
-                                </span>
-                            </div>
+                            <form action="#" onSubmit={onSearchSubmit}>
+                                <div className="control has-icons-left">
+                                    <input 
+                                        className="input is-rounded" 
+                                        type="search" 
+                                        placeholder="Search photos (coming soon...)" 
+                                        value={q}
+                                        onChange={event => setQ(event.target.value)}
+                                    />
+                                    <span className="icon is-left">
+                                        <Search size={18} />
+                                    </span>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -80,13 +106,11 @@ function AppHeader(props) {
 }
 
 AppHeader.propTypes = {
-    topicArray: PropTypes.arrayOf(PropTypes.object),
-    isShowSearchTypes: PropTypes.bool
+    topicArray: PropTypes.arrayOf(PropTypes.object)
 };
 
 AppHeader.defaultProps = {
-    topicArray: [],
-    isShowSearchTypes: false
+    topicArray: []
 };
 
 export default AppHeader;

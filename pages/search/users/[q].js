@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useQuery } from 'react-query';
-import { searchPhotos, searchUsers } from '../../../api';
-import { AppHeader, AppFooter, AppLoading, UserSearchItem } from '../../../components';
+import { searchUsers } from '../../../api';
+import { AppHeader, AppFooter, UserSearchItem } from '../../../components';
 import { Section } from '../../../layouts';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
@@ -14,7 +14,6 @@ export default function SearchPhotosPage(props) {
     // --- Users
     const { data = {} } = useQuery(['search-users', q], () => searchUsers(q));
     const { users } = data;
-    console.log(users)
 
     // - Elements
     // --- Meta
