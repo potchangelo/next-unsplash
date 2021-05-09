@@ -1,6 +1,7 @@
 import Head from 'next/head';
-import { searchPhotos } from '../../../api';
-import { AppHeader, AppFooter, AppLoading } from '../../../components';
+import { useQuery } from 'react-query';
+import { searchPhotos, searchUsers } from '../../../api';
+import { AppHeader, AppFooter, AppLoading, UserSearchItem } from '../../../components';
 import { Section } from '../../../layouts';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
@@ -10,12 +11,26 @@ export default function SearchPhotosPage(props) {
     // --- Search query
     const { q = '' } = props;
 
+    // --- Users
+    const { data = {} } = useQuery(['search-users', q], () => searchUsers(q));
+    const { users } = data;
+    console.log(users)
+
     // - Elements
     // --- Meta
     const title = q.charAt(0).toUpperCase() + q.slice(1);
     let headTitle = `${title} users | ${publicTitle}`;;
     let headDescription = `User of ${q} on Unsplash-Cloned`;
     let headUrl = `${process.env.NEXT_PUBLIC_HOST}/search/users/${q}`;
+
+    // --- Users
+    let userElements = users?.map(user => {
+        return (
+            <div key={user.uid} className="column is-6-tablet is-4-desktop">
+                <UserSearchItem user={user} />
+            </div>
+        );
+    });
 
     return (
         <>
@@ -33,8 +48,10 @@ export default function SearchPhotosPage(props) {
             <Section type="top">
                 <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold">{title}</h2>
             </Section>
-            <Section type="photos">
-                
+            <Section>
+                <div className="columns is-multiline">
+                    {userElements}
+                </div>
             </Section>
             <AppFooter />
         </>

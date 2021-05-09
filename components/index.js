@@ -6,3 +6,4 @@ export { default as Credit } from './_Credit';
 export { default as PhotoItem } from './_PhotoItem';
 export { default as PhotoPost } from './_PhotoPost';
 export { default as TopicItem } from './_TopicItem';
+export { default as UserSearchItem } from './_UserSearchItem';

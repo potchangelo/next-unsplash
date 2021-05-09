@@ -5,4 +5,10 @@ async function searchPhotos(q, beforeId) {
     return await res.json();
 }
 
-export { searchPhotos };
+async function searchUsers(q) {
+    let url = `${process.env.NEXT_PUBLIC_API_HOST}/search/users?q=${q}`;
+    const res = await fetch(url);
+    return await res.json();
+}
+
+export { searchPhotos, searchUsers };
