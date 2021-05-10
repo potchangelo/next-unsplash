@@ -18,18 +18,16 @@ export default function SearchPhotosPage(props) {
     // - Elements
     // --- Meta
     const title = q.charAt(0).toUpperCase() + q.slice(1);
-    let headTitle = `${title} users | ${publicTitle}`;;
+    let headTitle = `${title} users | ${publicTitle}`;
     let headDescription = `User of ${q} on Unsplash-Cloned`;
     let headUrl = `${process.env.NEXT_PUBLIC_HOST}/search/users/${q}`;
 
     // --- Users
-    let userElements = users?.map(user => {
-        return (
-            <div key={user.uid} className="column is-6-tablet is-4-desktop">
-                <UserSearchItem user={user} />
-            </div>
-        );
-    });
+    let userElements = users?.map(user => (
+        <div key={user.uid} className="column is-6-tablet is-4-desktop">
+            <UserSearchItem user={user} />
+        </div>
+    ));
 
     return (
         <>
@@ -43,7 +41,7 @@ export default function SearchPhotosPage(props) {
                 <meta name="twitter:url" content={headUrl} />
                 <title>{headTitle}</title>
             </Head>
-            <AppHeader isShowSearchTypes={true} />
+            <AppHeader />
             <Section type="top">
                 <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold">{title}</h2>
             </Section>

@@ -27,8 +27,7 @@ export default function TopicPage(props) {
     
     // --- Photos
     const {
-        photoArray, photo, 
-        canFetchMore, isFetching, isFetchingMore
+        photoArray, photo, hasNextPage, isFetching, isFetchingNextPage
     } = usePhotos(
         ['topic-photos', topic?.slug, true],
         (pageParam) => getTopic(topic?.slug, true, pageParam), 
@@ -82,8 +81,8 @@ export default function TopicPage(props) {
                 </Masonry>
             </Section>
             <AppLoading
-                isShow={canFetchMore}
-                isSpinning={isFetching || isFetchingMore}
+                isShow={hasNextPage}
+                isSpinning={isFetching || isFetchingNextPage}
             />
             <AppFooter />
             {photoModal}

@@ -15,7 +15,7 @@ const menuContentArray = [
 function PhotoDownloadButton(props) {
     // - Data
     const { photo, buttonStyle, text } = props;
-    const { dropdownActive, toggleDropdown } = useDropdown();
+    const { isDropdownActive, toggleDropdown } = useDropdown();
 
     if (!photo) return null;
 
@@ -62,7 +62,7 @@ function PhotoDownloadButton(props) {
     });
 
     return (
-        <Dropdown active={dropdownActive}>
+        <Dropdown isActive={isDropdownActive}>
             <div className="buttons has-addons mb-0">
                 <a
                     className={buttonClass}

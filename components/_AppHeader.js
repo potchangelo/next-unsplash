@@ -20,7 +20,7 @@ function AppHeader(props) {
     
     const q = query?.q ?? '';
     const [qValue, setQValue] = useState(q);
-    const { dropdownActive, toggleDropdown } = useDropdown();
+    const { isDropdownActive, toggleDropdown } = useDropdown();
 
     useEffect(() => {
         setQValue(q);
@@ -82,7 +82,7 @@ function AppHeader(props) {
                 </div>
                 <div className={`${style.item} is-hidden-tablet`}>
                     <div className={` ${style.link}`} onClick={toggleDropdown}>
-                        <Dropdown active={dropdownActive}>
+                        <Dropdown isActive={isDropdownActive}>
                             <span className="icon">
                                 <Menu size={22} />
                             </span>

@@ -1,5 +1,5 @@
-import style from './css/user.module.scss';
 import Head from 'next/head';
+import style from './css/user.module.scss';
 import { getUser, getRandomUsers } from '../api';
 import { AppHeader, AppFooter, AppNotFound, AppLoading, PhotoItem, PhotoPost, Credit } from '../components';
 import { usePhotos } from '../helpers/hooks';
@@ -28,8 +28,7 @@ export default function UserPage(props) {
 
     // --- Photos
     const {
-        photoArray, photo, 
-        canFetchMore, isFetching, isFetchingMore
+        photoArray, photo, hasNextPage, isFetching, isFetchingNextPage
     } = usePhotos(
         ['user-photos', user?.username, true], 
         (pageParam) => getUser(user?.username, true, pageParam), 
@@ -114,8 +113,8 @@ export default function UserPage(props) {
                 </Masonry>
             </Section>
             <AppLoading
-                isShow={canFetchMore}
-                isSpinning={isFetching || isFetchingMore}
+                isShow={hasNextPage}
+                isSpinning={isFetching || isFetchingNextPage}
             />
             <AppFooter />
             {photoModal}

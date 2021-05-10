@@ -4,16 +4,16 @@ import { useInfiniteQuery } from 'react-query';
 import { superStopPropagation } from './functions';
 import { getPhoto } from '../api';
 
-function usePhotos(key, fetcher, getFetchMore, flatMapPhotos) {
+function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos) {
     // - New data infinite
     const {
-        data = {}, fetchNextPage: fetchMore,
-        hasNextPage: canFetchMore, isFetching, isFetchingNextPage: isFetchingMore
-    } = useInfiniteQuery(key, ({ pageParam = null }) => fetcher(pageParam), {
-        getNextPageParam: getFetchMore
-    });
+        data = {}, fetchNextPage,
+        hasNextPage, isFetching, isFetchingNextPage
+    } = useInfiniteQuery(
+        key, ({ pageParam = null }) => fetcher(pageParam), { getNextPageParam }
+    );
     const photoGroupArray = data.pages;
-    const photoArray = data.pages?.flatMap(flatMapPhotos) ?? [];
+    const photoArray = photoGroupArray?.flatMap(flatMapPhotos) ?? [];
 
     // --- Photo
     const [photo, setPhoto] = useState(null);
@@ -32,17 +32,17 @@ function usePhotos(key, fetcher, getFetchMore, flatMapPhotos) {
 
         // --- Condition
         const canFetch = (
-            canFetchMore && !isFetching && 
-            !isFetchingMore && !isFetchSuspendedRef.current
+            hasNextPage && !isFetching &&
+            !isFetchingNextPage && !isFetchSuspendedRef.current
         );
         const isScrollReached = scrollBottom > docBottom - 700;
 
         // --- Fetch
         if (canFetch && isScrollReached) {
             isFetchSuspendedRef.current = true;
-            fetchMore()
+            fetchNextPage()
         };
-    }, [canFetchMore, isFetching, isFetchingMore]);
+    }, [hasNextPage, isFetching, isFetchingNextPage]);
 
     const loadPhoto = useCallback(async (uid) => {
         try {
@@ -76,16 +76,16 @@ function usePhotos(key, fetcher, getFetchMore, flatMapPhotos) {
         }
     }, [photoGroupArray]);
 
-    return { photoArray, photo, canFetchMore, isFetching, isFetchingMore };
+    return { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage };
 }
 
 function useDropdown() {
     // - Data
-    const [active, setActive] = useState(false);
+    const [isActive, setActive] = useState(false);
 
     // - Functions
-    function toggleDropdown(e) {
-        superStopPropagation(e);
+    function toggleDropdown(event) {
+        superStopPropagation(event);
         setActive(prev => !prev);
     }
 
@@ -95,18 +95,18 @@ function useDropdown() {
 
     // - Effects
     useEffect(() => {
-        if (active) {
-            document.addEventListener('click', onClickDocument);
+        if (isActive) {
+            document.addEventListener('click', onClickDocument, { capture: true });
         }
         else {
-            document.removeEventListener('click', onClickDocument);
+            document.removeEventListener('click', onClickDocument, { capture: true });
         }
         return () => {
-            document.removeEventListener('click', onClickDocument);
+            document.removeEventListener('click', onClickDocument, { capture: true });
         }
-    }, [active]);
+    }, [isActive]);
 
-    return { dropdownActive: active, toggleDropdown };
+    return { isDropdownActive: isActive, toggleDropdown };
 }
 
 export { usePhotos, useDropdown };

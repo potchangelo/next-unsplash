@@ -1,10 +1,10 @@
-import style from './css/home.module.scss';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Search } from 'react-feather';
 import { useQuery } from 'react-query';
+import style from './css/home.module.scss';
 import { getPhotos, getRandomPhoto, getTopics } from '../api';
 import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
 import { Modal, Masonry, MasonryItem, Section } from '../layouts/';
@@ -32,8 +32,7 @@ export default function HomePage(props) {
 
     // --- Photos
     const {
-        photoArray, photo,
-        canFetchMore, isFetching, isFetchingMore
+        photoArray, photo, hasNextPage, isFetching, isFetchingNextPage
     } = usePhotos(
         'photos', getPhotos, getNextPageParam, flatMapPhotos
     );
@@ -173,8 +172,8 @@ export default function HomePage(props) {
                 </Masonry>
             </Section>
             <AppLoading
-                isShow={canFetchMore}
-                isSpinning={isFetching || isFetchingMore}
+                isShow={hasNextPage}
+                isSpinning={isFetching || isFetchingNextPage}
             />
             <AppFooter />
             {photoModal}

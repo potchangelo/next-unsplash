@@ -25,8 +25,7 @@ export default function SearchPhotosPage(props) {
 
     // --- Photos
     const {
-        photoArray, photo, 
-        canFetchMore, isFetching, isFetchingMore
+        photoArray, photo, hasNextPage, isFetching, isFetchingNextPage
     } = usePhotos(
         ['search-photos', q],
         (pageParam) => searchPhotos(q, pageParam), 
@@ -73,7 +72,7 @@ export default function SearchPhotosPage(props) {
                 {headTwitterImage}
                 <title>{headTitle}</title>
             </Head>
-            <AppHeader isShowSearchTypes={true} />
+            <AppHeader />
             <Section type="top">
                 <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold">{title}</h2>
             </Section>
@@ -83,8 +82,8 @@ export default function SearchPhotosPage(props) {
                 </Masonry>
             </Section>
             <AppLoading
-                isShow={canFetchMore}
-                isSpinning={isFetching || isFetchingMore}
+                isShow={hasNextPage}
+                isSpinning={isFetching || isFetchingNextPage}
             />
             <AppFooter />
             {photoModal}
