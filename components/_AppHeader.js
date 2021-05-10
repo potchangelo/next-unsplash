@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { Menu, Search } from 'react-feather';
 import PropTypes from 'prop-types';
 import style from './css/appHeader.module.scss';
@@ -6,8 +8,7 @@ import AppHeaderSearchTypes from './_AppHeaderSearchTypes';
 import AppHeaderTopics from './_AppHeaderTopics';
 import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
 import { useDropdown } from '../helpers/hooks';
-import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { onSearchSubmit } from '../helpers/functions';
 
 const searchPathRE = /^\/search\/\w+\/\[q\]/;
 
@@ -16,15 +17,14 @@ function AppHeader(props) {
 
     const router = useRouter();
     const { pathname, query } = router;
-
-    const qInitial = query?.q ?? '';
-    const [q, setQ] = useState(qInitial);
+    
+    const q = query?.q ?? '';
+    const [qValue, setQValue] = useState(q);
     const { dropdownActive, toggleDropdown } = useDropdown();
 
-    function onSearchSubmit(event) {
-        event.preventDefault();
-        router.push(`/search/photos/${q}`);
-    }
+    useEffect(() => {
+        setQValue(q);
+    }, [q]);
 
     let searchTypesElement = null;
     if (searchPathRE.test(pathname)) {
@@ -48,14 +48,17 @@ function AppHeader(props) {
                 <div className={style.itemExpand}>
                     <div className={style.searchOuter}>
                         <div className={`field ${style.searchInner}`}>
-                            <form action="#" onSubmit={onSearchSubmit}>
+                            <form 
+                                action="#" 
+                                onSubmit={event => onSearchSubmit(event, router, qValue)}
+                            >
                                 <div className="control has-icons-left">
                                     <input 
                                         className="input is-rounded" 
                                         type="search" 
-                                        placeholder="Search photos (coming soon...)" 
-                                        value={q}
-                                        onChange={event => setQ(event.target.value)}
+                                        placeholder="Search free high-resolution photos" 
+                                        value={qValue}
+                                        onChange={event => setQValue(event.target.value)}
                                     />
                                     <span className="icon is-left">
                                         <Search size={18} />

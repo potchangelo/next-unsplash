@@ -1,7 +1,12 @@
-function superStopPropagation(e) {
-    e.stopPropagation();
-    e.nativeEvent.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
+function superStopPropagation(event) {
+    event.stopPropagation();
+    event.nativeEvent.stopPropagation();
+    event.nativeEvent.stopImmediatePropagation();
 }
 
-export { superStopPropagation };
+function onSearchSubmit(event, router, q) {
+    event.preventDefault();
+    router.push(`/search/photos/${q}`);
+}
+
+export { superStopPropagation, onSearchSubmit };

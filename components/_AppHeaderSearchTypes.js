@@ -5,13 +5,13 @@ import style from './css/appHeader.module.scss';
 
 function AppHeaderSearchTypes() {
     // - Data
-    const { asPath, query } = useRouter();
+    const { pathname, query } = useRouter();
     const { q } = query;
 
     // - Functions
     function getLinkClass(path) {
         let linkClass = style.link;
-        if (asPath.includes(path)) linkClass += ` ${style.linkActive}`;
+        if (pathname.includes(path)) linkClass += ` ${style.linkActive}`;
         return linkClass;
     }
 

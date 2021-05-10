@@ -8,6 +8,8 @@ import { getPhotos, getRandomPhoto, getTopics } from '../api';
 import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
 import { Modal, Masonry, MasonryItem, Section } from '../layouts/';
 import { usePhotos } from '../helpers/hooks';
+import { onSearchSubmit } from '../helpers/functions';
+import { useState } from 'react';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -43,6 +45,9 @@ export default function HomePage(props) {
         'random-photo', getRandomPhoto
     );
     const { photo: randomPhoto } = randomPhotoResponse;
+
+    // --- Search
+    const [qValue, setQValue] = useState('');
 
     const router = useRouter();
 
@@ -125,16 +130,23 @@ export default function HomePage(props) {
                             <p className="is-size-6-mobile is-size-5-tablet has-text-weight-medium">
                                 Built by Next.js, for educational purpose only
                             </p>
-                            <div className="control has-icons-left is-hidden-mobile">
-                                <input
-                                    className="input is-medium"
-                                    type="text"
-                                    placeholder="Search photos (coming soon...)"
-                                />
-                                <span className="icon is-left">
-                                    <Search size={18} />
-                                </span>
-                            </div>
+                            <form 
+                                action="#"
+                                onSubmit={event => onSearchSubmit(event, router, qValue)}
+                            >
+                                <div className="control has-icons-left is-hidden-mobile">
+                                    <input
+                                        className="input is-medium"
+                                        type="search"
+                                        placeholder="Search free high-resolution photos"
+                                        value={qValue}
+                                        onChange={event => setQValue(event.target.value)}
+                                    />
+                                    <span className="icon is-left">
+                                        <Search size={18} />
+                                    </span>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div className={style.heroFooter}>
