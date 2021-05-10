@@ -139,6 +139,7 @@ export default function HomePage(props) {
                                         type="search"
                                         placeholder="Search free high-resolution photos"
                                         value={qValue}
+                                        onClick={event => {console.log(event)}}
                                         onChange={event => setQValue(event.target.value)}
                                     />
                                     <button className={`button is-ghost ${style.heroSearchButton}`} type="submit">

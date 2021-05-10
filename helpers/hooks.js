@@ -4,6 +4,14 @@ import { useInfiniteQuery } from 'react-query';
 import { superStopPropagation } from './functions';
 import { getPhoto } from '../api';
 
+/**
+ * 
+ * @param {(string|array)} key 
+ * @param {function} fetcher 
+ * @param {function} getNextPageParam 
+ * @param {function} flatMapPhotos 
+ * @returns {{ photoArray: Object[], photo: (Object|null), hasNextPage: boolean, isFetching: boolean, isFetchingNextPage: boolean }} Object of fetched data and status
+ */
 function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos) {
     // - New data infinite
     const {
@@ -79,6 +87,10 @@ function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos) {
     return { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage };
 }
 
+/**
+ * Hook for toggle dropdown components
+ * @returns {{ isDropdownActive: boolean, toggleDropdown: function }} Object of state and function
+ */
 function useDropdown() {
     // - Data
     const [isActive, setActive] = useState(false);
@@ -96,13 +108,13 @@ function useDropdown() {
     // - Effects
     useEffect(() => {
         if (isActive) {
-            document.addEventListener('click', onClickDocument, { capture: true });
+            document.addEventListener('click', onClickDocument);
         }
         else {
-            document.removeEventListener('click', onClickDocument, { capture: true });
+            document.removeEventListener('click', onClickDocument);
         }
         return () => {
-            document.removeEventListener('click', onClickDocument, { capture: true });
+            document.removeEventListener('click', onClickDocument);
         }
     }, [isActive]);
 
