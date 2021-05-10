@@ -2,6 +2,7 @@ import style from './css/home.module.scss';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { Search } from 'react-feather';
 import { useQuery } from 'react-query';
 import { getPhotos, getRandomPhoto, getTopics } from '../api';
@@ -9,7 +10,6 @@ import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../compo
 import { Modal, Masonry, MasonryItem, Section } from '../layouts/';
 import { usePhotos } from '../helpers/hooks';
 import { onSearchSubmit } from '../helpers/functions';
-import { useState } from 'react';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -134,17 +134,19 @@ export default function HomePage(props) {
                                 action="#"
                                 onSubmit={event => onSearchSubmit(event, router, qValue)}
                             >
-                                <div className="control has-icons-left is-hidden-mobile">
+                                <div className="control is-hidden-mobile">
                                     <input
-                                        className="input is-medium"
+                                        className={`input is-medium ${style.heroSearchInput}`}
                                         type="search"
                                         placeholder="Search free high-resolution photos"
                                         value={qValue}
                                         onChange={event => setQValue(event.target.value)}
                                     />
-                                    <span className="icon is-left">
-                                        <Search size={18} />
-                                    </span>
+                                    <button className={`button is-ghost ${style.heroSearchButton}`} type="submit">
+                                        <span className="icon is-left">
+                                            <Search size={20} strokeWidth={2.5} />
+                                        </span>
+                                    </button>
                                 </div>
                             </form>
                         </div>

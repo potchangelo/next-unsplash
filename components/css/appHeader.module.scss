@@ -58,6 +58,23 @@
     max-width: 600px;
 }
 
+.searchInput {
+    padding-left: 44px !important;
+}
+
+.searchButton {
+    color: $grey !important;
+    box-shadow: none !important;
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    bottom: 0px;
+
+    &:hover {
+        color: $grey-darker !important;
+    }
+}
+
 // - Link
 .link {
     color: $grey;

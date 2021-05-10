@@ -51,6 +51,24 @@
     margin-bottom: 12px;
 }
 
+.heroSearchInput {
+    padding-left: 48px !important;
+}
+
+.heroSearchButton {
+    color: $grey !important;
+    box-shadow: none !important;
+    height: auto;
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    bottom: 0px;
+
+    &:hover {
+        color: $grey-darker !important;
+    }
+}
+
 // - Responsive
 @include from($tablet) {
     .heroBody {

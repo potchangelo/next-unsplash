@@ -52,17 +52,19 @@ function AppHeader(props) {
                                 action="#" 
                                 onSubmit={event => onSearchSubmit(event, router, qValue)}
                             >
-                                <div className="control has-icons-left">
+                                <div className="control">
                                     <input 
-                                        className="input is-rounded" 
+                                        className={`input is-rounded ${style.searchInput}`} 
                                         type="search" 
                                         placeholder="Search free high-resolution photos" 
                                         value={qValue}
                                         onChange={event => setQValue(event.target.value)}
                                     />
-                                    <span className="icon is-left">
-                                        <Search size={18} />
-                                    </span>
+                                    <button className={`button is-ghost ${style.searchButton}`} type="submit">
+                                        <span className="icon is-left">
+                                            <Search size={18} strokeWidth={2.5} />
+                                        </span>
+                                    </button>
                                 </div>
                             </form>
                         </div>
