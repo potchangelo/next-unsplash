@@ -1,3 +1,4 @@
+import { MenuIcon, SearchIcon } from '@heroicons/react/solid'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -60,6 +61,9 @@ function AppHeader(props) {
                                         onChange={event => setQValue(event.target.value)}
                                     />
                                     <button className={`button is-ghost ${style.searchButton}`} type="submit">
+                                        <span className="icon is-left">
+                                            <SearchIcon width={20} height={20} />
+                                        </span>
                                         {/* <FontAwesomeIcon icon={faBars} size="5x" fixedWidth rotation={90} /> */}
                                     </button>
                                 </div>
@@ -81,7 +85,7 @@ function AppHeader(props) {
                     <div className={` ${style.link}`} onClick={toggleDropdown}>
                         <Dropdown isActive={isDropdownActive}>
                             <span className="icon">
-                                {/* <Menu /> */}
+                                <MenuIcon />
                             </span>
                             <DropdownMenu>
                                 <DropdownItem
