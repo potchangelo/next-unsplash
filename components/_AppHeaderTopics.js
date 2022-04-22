@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'react-feather';
 import PropTypes from 'prop-types';
 import style from './css/appHeader.module.scss';
 
@@ -91,12 +90,12 @@ function AppHeaderTopics(props) {
                 </div>
                 <div className={scrollLeftClass} onClick={_ => onScrollClick('left')}>
                     <span className="icon has-text-grey">
-                        <ChevronLeft width={22} strokeWidth={2.5} />
+                        {/* <ChevronLeft width={22} strokeWidth={2.5} /> */}
                     </span>
                 </div>
                 <div className={scrollRightClass} onClick={_ => onScrollClick('right')}>
                     <span className="icon has-text-grey">
-                        <ChevronRight width={22} strokeWidth={2.5} />
+                        {/* <ChevronRight width={22} strokeWidth={2.5} /> */}
                     </span>
                 </div>
             </div>

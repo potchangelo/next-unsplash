@@ -1,4 +1,3 @@
-import { Loader } from 'react-feather';
 import PropTypes from 'prop-types';
 import style from './css/appLoading.module.scss';
 
@@ -12,7 +11,7 @@ function AppLoading(props) {
     return (
         <div className={`${style.main}`}>
             <span className={iconClass}>
-                <Loader size={36} />
+                {/* <Loader size={36} /> */}
             </span>
         </div>
     );

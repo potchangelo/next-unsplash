@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { Search } from 'react-feather';
 import { useQuery } from 'react-query';
 import style from './css/home.module.scss';
 import { getPhotos, getRandomPhoto, getTopics } from '../api';
@@ -144,7 +143,7 @@ export default function HomePage(props) {
                                     />
                                     <button className={`button is-ghost ${style.heroSearchButton}`} type="submit">
                                         <span className="icon is-left">
-                                            <Search size={20} strokeWidth={2.5} />
+                                            {/* <Search size={20} strokeWidth={2.5} /> */}
                                         </span>
                                     </button>
                                 </div>

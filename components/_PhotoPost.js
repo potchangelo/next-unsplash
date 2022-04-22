@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { X } from 'react-feather';
 import PropTypes from 'prop-types';
 import style from './css/photoPost.module.scss';
 import PhotoPostFigure from './_PhotoPostFigure';
@@ -34,7 +33,7 @@ function PhotoPost(props) {
         closeButton = (
             <div className={style.close} onClick={_ => router.back()}>
                 <span className="icon">
-                    <X size={24} strokeWidth={2} />
+                    {/* <X size={24} strokeWidth={2} /> */}
                 </span>
             </div>
         );

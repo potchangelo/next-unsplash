@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Menu, Search } from 'react-feather';
 import PropTypes from 'prop-types';
 import style from './css/appHeader.module.scss';
 import AppHeaderSearchTypes from './_AppHeaderSearchTypes';
@@ -61,9 +60,7 @@ function AppHeader(props) {
                                         onChange={event => setQValue(event.target.value)}
                                     />
                                     <button className={`button is-ghost ${style.searchButton}`} type="submit">
-                                        <span className="icon is-left">
-                                            <Search size={18} strokeWidth={2.5} />
-                                        </span>
+                                        {/* <FontAwesomeIcon icon={faBars} size="5x" fixedWidth rotation={90} /> */}
                                     </button>
                                 </div>
                             </form>
@@ -84,7 +81,7 @@ function AppHeader(props) {
                     <div className={` ${style.link}`} onClick={toggleDropdown}>
                         <Dropdown isActive={isDropdownActive}>
                             <span className="icon">
-                                <Menu size={22} />
+                                {/* <FontAwesomeIcon icon={faBars} rotate={90} /> */}
                             </span>
                             <DropdownMenu>
                                 <DropdownItem

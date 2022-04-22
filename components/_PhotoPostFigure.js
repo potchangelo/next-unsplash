@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Minimize2, Maximize2 } from 'react-feather';
 import PropTypes from 'prop-types';
 import style from './css/photoPost.module.scss';
 
@@ -27,7 +26,7 @@ function PhotoPostFigure(props) {
     }
 
     // - Elements
-    const zoomSvg = isZoomed ? <Minimize2 size={24} /> : <Maximize2 size={24} />;
+    const zoomSvg = isZoomed ? <div>minimize</div> : <div>maximize</div>;
 
     return (
         <div className={style.figureCover}>

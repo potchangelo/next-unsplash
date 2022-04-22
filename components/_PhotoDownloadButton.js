@@ -1,4 +1,3 @@
-import { ChevronDown } from 'react-feather';
 import PropTypes from 'prop-types';
 import style from './css/photoDownload.module.scss';
 import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
@@ -77,7 +76,7 @@ function PhotoDownloadButton(props) {
                     onClick={toggleDropdown}
                 >
                     <span className="icon">
-                        <ChevronDown size={20} strokeWidth={3} />
+                        {/* <ChevronDown size={20} strokeWidth={3} /> */}
                     </span>
                 </button>
             </div>
