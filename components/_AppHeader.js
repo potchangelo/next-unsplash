@@ -81,7 +81,7 @@ function AppHeader(props) {
                     <div className={` ${style.link}`} onClick={toggleDropdown}>
                         <Dropdown isActive={isDropdownActive}>
                             <span className="icon">
-                                {/* <FontAwesomeIcon icon={faBars} rotate={90} /> */}
+                                {/* <Menu /> */}
                             </span>
                             <DropdownMenu>
                                 <DropdownItem
