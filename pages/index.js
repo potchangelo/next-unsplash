@@ -31,15 +31,15 @@ function flatMapPhotos(page) {
 export default function HomePage(props) {
   // - Data
   // --- Topics
-  const { topicArray } = props;
+  const { topicArray, photos } = props;
 
   // --- Photos
-  const { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage } = usePhotos(
-    'photos',
-    getPhotos,
-    getNextPageParam,
-    flatMapPhotos
-  );
+  // const { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage } = usePhotos(
+  //   'photos',
+  //   getPhotos,
+  //   getNextPageParam,
+  //   flatMapPhotos
+  // );
 
   // --- Random photo
   const { data: randomPhotoResponse = {} } = useQuery('random-photo', getRandomPhoto);
@@ -57,13 +57,13 @@ export default function HomePage(props) {
   let headUrl = process.env.NEXT_PUBLIC_HOST;
   let headOgImage = null,
     headTwitterImage = null;
-  if (!!photo) {
-    headTitle = `Photo by ${photo.user?.displayName} | ${publicTitle}`;
-    headDescription = `Download this photo by ${photo.user?.displayName} on ${publicTitle}`;
-    headUrl += `/photos/${photo.uid}`;
-    headOgImage = <meta property="og:image" content={photo.url?.large} key="og-image" />;
-    headTwitterImage = <meta name="twitter:image" content={photo.url?.large} key="twitter-image" />;
-  }
+  // if (!!photo) {
+  //   headTitle = `Photo by ${photo.user?.displayName} | ${publicTitle}`;
+  //   headDescription = `Download this photo by ${photo.user?.displayName} on ${publicTitle}`;
+  //   headUrl += `/photos/${photo.uid}`;
+  //   headOgImage = <meta property="og:image" content={photo.url?.large} key="og-image" />;
+  //   headTwitterImage = <meta name="twitter:image" content={photo.url?.large} key="twitter-image" />;
+  // }
 
   // --- Random photo
   let randomPhotoElement = null,
@@ -95,8 +95,7 @@ export default function HomePage(props) {
   }
 
   // --- Photos
-  // console.log(photoArray);
-  const photoElements = photoArray.map(photo => (
+  const photoElements = photos.map(photo => (
     <MasonryItem key={photo.uid} height={photo.height}>
       <PhotoItem photo={photo} />
     </MasonryItem>
@@ -104,13 +103,13 @@ export default function HomePage(props) {
 
   // --- Modal
   let photoModal = null;
-  if (!!photo) {
-    photoModal = (
-      <Modal>
-        <PhotoPost photo={photo} isModal={true} />
-      </Modal>
-    );
-  }
+  // if (!!photo) {
+  //   photoModal = (
+  //     <Modal>
+  //       <PhotoPost photo={photo} isModal={true} />
+  //     </Modal>
+  //   );
+  // }
 
   return (
     <>
@@ -168,7 +167,7 @@ export default function HomePage(props) {
       <Section type="photos">
         <Masonry>{photoElements}</Masonry>
       </Section>
-      <AppLoading isShow={hasNextPage} isSpinning={isFetching || isFetchingNextPage} />
+      {/* <AppLoading isShow={hasNextPage} isSpinning={isFetching || isFetchingNextPage} /> */}
       <AppFooter />
       {photoModal}
     </>
@@ -176,13 +175,16 @@ export default function HomePage(props) {
 }
 
 export async function getStaticProps() {
+  let photosJson = {};
   let topicsJson = {};
   try {
+    photosJson = await getPhotos();
     topicsJson = await getTopics();
   } catch (error) {
     console.error(error);
   }
 
+  const { photos } = photosJson;
   const { topics: topicArray = [], errorCode = null } = topicsJson;
-  return { props: { topicArray, errorCode } };
+  return { props: { photos, topicArray, errorCode } };
 }
