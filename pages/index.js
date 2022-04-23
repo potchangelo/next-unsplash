@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -6,9 +7,12 @@ import { useQuery } from 'react-query';
 import style from './css/home.module.scss';
 import { getPhotos, getRandomPhoto, getTopics } from '../api';
 import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
-import { Modal, Masonry, MasonryItem, Section } from '../layouts/';
+import { MasonryItem, Modal, Section } from '../layouts/';
 import { usePhotos } from '../helpers/hooks';
 import { onSearchSubmit } from '../helpers/functions';
+
+const Masonry = dynamic(() => import('../layouts/_Masonry'), { ssr: false })
+// const MasonryItem = dynamic(() => import('../layouts/_MasonryItem'), { ssr: false })
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -91,6 +95,7 @@ export default function HomePage(props) {
   }
 
   // --- Photos
+  // console.log(photoArray);
   const photoElements = photoArray.map(photo => (
     <MasonryItem key={photo.uid} height={photo.height}>
       <PhotoItem photo={photo} />
