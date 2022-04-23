@@ -12,7 +12,7 @@ import { getPhoto } from '../api';
  * @param {function} flatMapPhotos
  * @returns {{ photoArray: Object[], photo: (Object|null), hasNextPage: boolean, isFetching: boolean, isFetchingNextPage: boolean }} Object of fetched data and status
  */
-function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos) {
+function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos, initialData) {
   // - New data infinite
   const {
     data = {},
@@ -20,7 +20,14 @@ function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos) {
     hasNextPage,
     isFetching,
     isFetchingNextPage,
-  } = useInfiniteQuery(key, ({ pageParam = null }) => fetcher(pageParam), { getNextPageParam });
+  } = useInfiniteQuery(
+    key, 
+    ({ pageParam = null }) => fetcher(pageParam), { getNextPageParam },
+    {
+      
+    }
+  );
+  console.log(data)
   const photoGroupArray = data.pages;
   const photoArray = photoGroupArray?.flatMap(flatMapPhotos) ?? [];
 
