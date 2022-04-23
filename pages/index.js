@@ -92,7 +92,7 @@ export default function HomePage(props) {
 
   // --- Photos
   const photoElements = photoArray.map(photo => (
-    <MasonryItem key={photo.uid}>
+    <MasonryItem key={photo.uid} height={photo.height}>
       <PhotoItem photo={photo} />
     </MasonryItem>
   ));

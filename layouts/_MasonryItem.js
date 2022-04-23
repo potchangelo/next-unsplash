@@ -1,29 +1,15 @@
-import PropTypes from 'prop-types';
-import style from './css/masonry.module.scss';
-
-function MasonryItem(props) {
-  // - Props
-  const { isLoading, itemStyles, children } = props;
-
-  // - Attributes
-  let itemClass = style.item;
-  if (isLoading === true) itemClass += ` ${style.itemLoading}`;
-
+/**
+ * @param {object} props
+ * @param {number} props.height
+ * @param {import("react").CSSProperties} props.itemStyle
+ */
+ function _MasonryItem(props) {
+  const { itemStyle, children } = props;
   return (
-    <div className={itemClass} style={itemStyles}>
-      <div className="masonry_item_content">{children}</div>
+    <div style={itemStyle} data-testid="masonry-item">
+      <div>{children}</div>
     </div>
   );
 }
 
-MasonryItem.propTypes = {
-  isLoading: PropTypes.bool,
-  itemStyles: PropTypes.object,
-};
-
-MasonryItem.defaultProps = {
-  isLoading: false,
-  itemStyles: {},
-};
-
-export default MasonryItem;
+export default _MasonryItem;
