@@ -1,21 +1,21 @@
-@import "../../css/vars";
-@import "~bulma/bulma.sass";
+@import '../../css/vars';
+@import '~bulma/bulma.sass';
 
 html.disable_scroll {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 #modal_portal {
-    display: none;
-    position: fixed;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    z-index: -10;
+  display: none;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: -10;
 }
 
 #modal_portal.appeared {
-    display: block;
-    z-index: $custom-z-index-modal;
+  display: block;
+  z-index: $custom-z-index-modal;
 }

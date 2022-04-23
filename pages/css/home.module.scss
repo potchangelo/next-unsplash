@@ -1,91 +1,91 @@
-@import "../../css/vars";
+@import '../../css/vars';
 
 // - Hero
 .hero {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 
 .heroBack {
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .heroMain {
-    background-image: linear-gradient(
-        180deg,
-        rgba($black,.50) 0,
-        rgba($black,.47) 25%,
-        rgba($black,.45) 50%,
-        rgba($black,.55) 75%,
-        rgba($black,.65)
-    );
-    position: relative;
+  background-image: linear-gradient(
+    180deg,
+    rgba($black, 0.5) 0,
+    rgba($black, 0.47) 25%,
+    rgba($black, 0.45) 50%,
+    rgba($black, 0.55) 75%,
+    rgba($black, 0.65)
+  );
+  position: relative;
 }
 
 .heroBody {
-    padding: 64px 16px 16px;
+  padding: 64px 16px 16px;
 }
 
 .heroContent {
-    text-shadow: 0px 0px 8px rgba($black, 0.3);
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+  text-shadow: 0px 0px 8px rgba($black, 0.3);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .heroFooter {
-    padding: 16px 16px 24px;
+  padding: 16px 16px 24px;
 }
 
 .heroFooterItem:not(:last-child) {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .heroSearchInput {
-    padding-left: 48px !important;
+  padding-left: 48px !important;
 }
 
 .heroSearchButton {
-    color: $grey !important;
-    box-shadow: none !important;
-    height: auto;
-    position: absolute;
-    top: 0px;
-    left: 4px;
-    bottom: 0px;
+  color: $grey !important;
+  box-shadow: none !important;
+  height: auto;
+  position: absolute;
+  top: 0px;
+  left: 4px;
+  bottom: 0px;
 
-    &:hover {
-        color: $grey-darker !important;
-    }
+  &:hover {
+    color: $grey-darker !important;
+  }
 }
 
 // - Responsive
 @include from($tablet) {
-    .heroBody {
-        padding: 160px 16px 144px;
-    }
+  .heroBody {
+    padding: 160px 16px 144px;
+  }
 
-    .heroFooter {
-        display: flex;
-        justify-content: space-between;
-        padding: 0px;
-    }
+  .heroFooter {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px;
+  }
 
-    .heroFooterItem {
-        padding: 16px;
-    }
+  .heroFooterItem {
+    padding: 16px;
+  }
 
-    .heroFooterItem:not(:last-child) {
-        margin-bottom: 0px;
-    }
+  .heroFooterItem:not(:last-child) {
+    margin-bottom: 0px;
+  }
 }

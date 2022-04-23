@@ -1,15 +1,15 @@
-@import "../../css/vars";
+@import '../../css/vars';
 
 .main {
-    display: inline-grid;
-    grid-template-columns: auto auto;
-    gap: 10px;
-    align-items: center;
-    pointer-events: auto;
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+  align-items: center;
+  pointer-events: auto;
 }
 
 .avatar {
-    border: 1px solid $grey-lighter;
-    border-radius: 50%;
-    width: 36px;
+  border: 1px solid $grey-lighter;
+  border-radius: 50%;
+  width: 36px;
 }

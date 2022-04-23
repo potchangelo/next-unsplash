@@ -1,25 +1,25 @@
-@import "../../css/vars";
+@import '../../css/vars';
 
 .main {
-    max-width: none;
+  max-width: none;
 }
 
 .avatar {
-    background-color: $grey-light;
-    border-radius: 50%;
-    width: 160px;
-    height: 160px;
+  background-color: $grey-light;
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
 }
 
 @include from($tablet) {
-    .main {
-        max-width: 760px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .avatar {
-        width: 160px;
-        height: 160px;
-    }
+  .main {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .avatar {
+    width: 160px;
+    height: 160px;
+  }
 }

@@ -3,29 +3,26 @@ import style from './css/dropdown.module.scss';
 import { superStopPropagation } from '../helpers/functions';
 
 function DropdownMenu(props) {
-    const { caretOffsetLeft, caretOffsetRight, children } = props;
+  const { caretOffsetLeft, caretOffsetRight, children } = props;
 
-    const caretStyle = {}
-    if (!!caretOffsetLeft) {
-        caretStyle.left = `${caretOffsetLeft}px`;
-    }
-    else if (!!caretOffsetRight) {
-        caretStyle.right = `${caretOffsetRight}px`;
-    }
+  const caretStyle = {};
+  if (!!caretOffsetLeft) {
+    caretStyle.left = `${caretOffsetLeft}px`;
+  } else if (!!caretOffsetRight) {
+    caretStyle.right = `${caretOffsetRight}px`;
+  }
 
-    return (
-        <div className={style.menu} onClick={superStopPropagation}>
-            <div className={style.caret} style={caretStyle} />
-            <div className={style.content}>
-                {children}
-            </div>
-        </div>
-    );
+  return (
+    <div className={style.menu} onClick={superStopPropagation}>
+      <div className={style.caret} style={caretStyle} />
+      <div className={style.content}>{children}</div>
+    </div>
+  );
 }
 
 DropdownMenu.propTypes = {
-    caretOffsetLeft: PropTypes.number,
-    caretOffsetRight: PropTypes.number
+  caretOffsetLeft: PropTypes.number,
+  caretOffsetRight: PropTypes.number,
 };
 
 export default DropdownMenu;

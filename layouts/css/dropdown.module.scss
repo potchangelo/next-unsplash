@@ -1,86 +1,80 @@
-@import "../../css/vars";
+@import '../../css/vars';
 
 // - Dropdown
 .main {
-    display: inline-flex;
-    position: relative;
+  display: inline-flex;
+  position: relative;
 }
 
 // - Menu
 .menu {
-    opacity: 0;
-    visibility: hidden;
-    display: block;
-    width: max-content;
-    min-width: 100px;
-    padding-top: 4px;
-    position: absolute;
-    top: calc(100% + 6px);
-    z-index: 20;
-    transform: scale(0.01);
-    transform-origin: top right;
-    transition: 
-        opacity 0.075s ease-out,
-        visibility 0.01s linear 0.151s, 
-        transform 0.15s ease-out;
+  opacity: 0;
+  visibility: hidden;
+  display: block;
+  width: max-content;
+  min-width: 100px;
+  padding-top: 4px;
+  position: absolute;
+  top: calc(100% + 6px);
+  z-index: 20;
+  transform: scale(0.01);
+  transform-origin: top right;
+  transition: opacity 0.075s ease-out, visibility 0.01s linear 0.151s, transform 0.15s ease-out;
 }
 
 // - Content
 .caret {
-    background-color: $black-bis;
-    border-radius: 2px;
-    width: 14px;
-    height: 14px;
-    position: absolute;
-    bottom: calc(100% - 14px);
-    right: 6px;
-    transform: rotate(45deg);
+  background-color: $black-bis;
+  border-radius: 2px;
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  bottom: calc(100% - 14px);
+  right: 6px;
+  transform: rotate(45deg);
 }
 
 .content {
-    color: $white;
-    background-color: $black-bis;
-    border-radius: 4px;
-    box-shadow: 0px 2px 4px 0px rgba($black, 0.15);
-    padding: 8px 0px;
-    position: relative;
+  color: $white;
+  background-color: $black-bis;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px 0px rgba($black, 0.15);
+  padding: 8px 0px;
+  position: relative;
 }
 
 // - Item
 .item {
-    color: white;
-    font-size: 14px;
-    display: block;
-    padding: 6px 16px;
-    position: relative;
+  color: white;
+  font-size: 14px;
+  display: block;
+  padding: 6px 16px;
+  position: relative;
 }
 
 .line {
-    background-color: $grey-dark;
-    height: 1px;
-    margin-top: 8px;
-    margin-bottom: 8px;
+  background-color: $grey-dark;
+  height: 1px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 // - State
 .main {
-    &.active .menu {
-        opacity: 1;
-        visibility: visible;
-        transform: scale(1);
-        transition: 
-            opacity 0.15s ease-out 0.15s,
-            visibility 0.01s, 
-            transform 0.3s cubic-bezier(0.000, 0.000, 0.405, 1.370) 0.011s;
-    }
+  &.active .menu {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    transition: opacity 0.15s ease-out 0.15s, visibility 0.01s, transform 0.3s cubic-bezier(0, 0, 0.405, 1.37) 0.011s;
+  }
 
-    &.left .menu {
-        left: 0px;
-        right: auto;
-    }
-    
-    &.right .menu {
-        left: auto;
-        right: 0px;
-    }
+  &.left .menu {
+    left: 0px;
+    right: auto;
+  }
+
+  &.right .menu {
+    left: auto;
+    right: 0px;
+  }
 }

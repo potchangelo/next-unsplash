@@ -1,12 +1,12 @@
 .layout {
-	position: relative;
+  position: relative;
 }
 
 .item {
-	position: absolute;
-	transition: left 0.3s ease-out, top 0.3s ease-out, opacity 0.01s 0.31s;
+  position: absolute;
+  transition: left 0.3s ease-out, top 0.3s ease-out, opacity 0.01s 0.31s;
 }
 
 .itemLoading {
-	opacity: 0;
+  opacity: 0;
 }

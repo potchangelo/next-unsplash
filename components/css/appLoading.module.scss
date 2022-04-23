@@ -1,23 +1,23 @@
 // - Loader
 .main {
-    text-align: center;
-    padding-bottom: 64px;
+  text-align: center;
+  padding-bottom: 64px;
 }
 
 .isSpinning {
-    animation-name: spinning;
-    animation-duration: 2s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-play-state: running;
+  animation-name: spinning;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
 }
 
 @keyframes spinning {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
 
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }
