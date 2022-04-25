@@ -16,22 +16,22 @@ const Masonry = dynamic(() => import('../layouts/_Masonry'), { ssr: false })
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
-function getNextPageParam(lastPage = {}, _) {
-  const { photos = [] } = lastPage;
-  const count = photos.length;
-  if (count < 12) return false;
-  return photos[count - 1].id;
-}
+// function getNextPageParam(lastPage = {}, _) {
+//   const { photos = [] } = lastPage;
+//   const count = photos.length;
+//   if (count < 12) return false;
+//   return photos[count - 1].id;
+// }
 
-function flatMapPhotos(page) {
-  const { photos = [] } = page;
-  return photos;
-}
+// function flatMapPhotos(page) {
+//   const { photos = [] } = page;
+//   return photos;
+// }
 
 export default function HomePage(props) {
   // - Data
   // --- Topics
-  const { topicArray, photos } = props;
+  const { topicArray, photos, randomPhoto } = props;
 
   // --- Photos
   // const { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage } = usePhotos(
@@ -42,8 +42,10 @@ export default function HomePage(props) {
   // );
 
   // --- Random photo
-  const { data: randomPhotoResponse = {} } = useQuery('random-photo', getRandomPhoto);
-  const { photo: randomPhoto } = randomPhotoResponse;
+  const { data: randomPhotoResponse = {} } = useQuery('random-photo', getRandomPhoto, {
+    initialData: { photo: randomPhoto }
+  });
+  const { photo: randomPhoto2 } = randomPhotoResponse;
 
   // --- Search
   const [qValue, setQValue] = useState('');
@@ -68,9 +70,9 @@ export default function HomePage(props) {
   // --- Random photo
   let randomPhotoElement = null,
     randomUserElement = null;
-  if (!!randomPhoto) {
+  if (!!randomPhoto2) {
     const { pathname, query } = router;
-    const { uid, url, user } = randomPhoto;
+    const { uid, url, user } = randomPhoto2;
     randomPhotoElement = (
       <div className={style.heroBack}>
         <img src={url?.medium} alt="Random photo" />
@@ -176,15 +178,18 @@ export default function HomePage(props) {
 
 export async function getStaticProps() {
   let photosJson = {};
+  let randomPhotoJson = {};
   let topicsJson = {};
   try {
     photosJson = await getPhotos();
+    randomPhotoJson = await getRandomPhoto();
     topicsJson = await getTopics();
   } catch (error) {
     console.error(error);
   }
 
   const { photos } = photosJson;
+  const { photo: randomPhoto } = randomPhotoJson;
   const { topics: topicArray = [], errorCode = null } = topicsJson;
-  return { props: { photos, topicArray, errorCode } };
+  return { props: { photos, randomPhoto, topicArray, errorCode } };
 }
