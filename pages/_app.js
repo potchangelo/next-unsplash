@@ -1,17 +1,20 @@
 import './css/global.scss';
 import Head from 'next/head';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { useRef } from 'react';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 function App({ Component, pageProps }) {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 1000 * 60 * 60,
-        refetchOnWindowFocus: false,
-        refetchOnReconnect: false,
+  const queryClient = useRef(
+    new QueryClient({
+      defaultOptions: {
+        queries: {
+          staleTime: 1000 * 60 * 60,
+          refetchOnWindowFocus: false,
+          refetchOnReconnect: false,
+        },
       },
-    },
-  });
+    })
+  );
   return (
     <>
       <Head>
@@ -32,8 +35,10 @@ function App({ Component, pageProps }) {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" key="mask-icon" />
         <link rel="manifest" href="/manifest.json" key="menifest" />
       </Head>
-      <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
+      <QueryClientProvider client={queryClient.current}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <Component {...pageProps} />
+        </Hydrate>
       </QueryClientProvider>
     </>
   );

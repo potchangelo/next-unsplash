@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useQuery } from 'react-query';
+import { dehydrate, QueryClient, useQuery } from 'react-query';
 import style from './css/home.module.scss';
 import { getPhotos, getRandomPhoto, getTopics } from '../api';
 import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
@@ -31,7 +31,7 @@ const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 export default function HomePage(props) {
   // - Data
   // --- Topics
-  const { topicArray, photos, randomPhoto } = props;
+  const { topicArray, photos } = props;
 
   // --- Photos
   // const { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage } = usePhotos(
@@ -42,9 +42,7 @@ export default function HomePage(props) {
   // );
 
   // --- Random photo
-  const { data: randomPhotoResponse = {} } = useQuery('random-photo', getRandomPhoto, {
-    initialData: { photo: randomPhoto }
-  });
+  const { data: randomPhotoResponse = {} } = useQuery('random-photo', getRandomPhoto);
   const { photo: randomPhoto2 } = randomPhotoResponse;
 
   // --- Search
@@ -177,19 +175,24 @@ export default function HomePage(props) {
 }
 
 export async function getStaticProps() {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery('random-photo', getRandomPhoto);
+
   let photosJson = {};
-  let randomPhotoJson = {};
   let topicsJson = {};
   try {
     photosJson = await getPhotos();
-    randomPhotoJson = await getRandomPhoto();
     topicsJson = await getTopics();
   } catch (error) {
     console.error(error);
   }
 
   const { photos } = photosJson;
-  const { photo: randomPhoto } = randomPhotoJson;
   const { topics: topicArray = [], errorCode = null } = topicsJson;
-  return { props: { photos, randomPhoto, topicArray, errorCode } };
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      photos, topicArray, errorCode
+    }
+  };
 }
