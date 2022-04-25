@@ -6,7 +6,7 @@ import style from './css/appHeader.module.scss';
 
 function AppHeaderTopics(props) {
   // - Data
-  const { topicArray } = props;
+  const { topics } = props;
   const [hasScrollLeft, setHasScrollLeft] = useState(false);
   const [hasScrollRight, setHasScrollRight] = useState(false);
   const scrollAreaRef = useRef(null);
@@ -48,7 +48,7 @@ function AppHeaderTopics(props) {
   }, [onResize]);
 
   // - Checking
-  if (topicArray.length === 0) return null;
+  if (topics.length === 0) return null;
 
   // - Attributes
   let scrollLeftClass = style.scrollLeft;
@@ -58,7 +58,7 @@ function AppHeaderTopics(props) {
   if (!hasScrollRight) scrollRightClass += ' is-hidden';
 
   // - Elements
-  const topicElements = topicArray.map(topic => {
+  const topicElements = topics.map(topic => {
     const { uid, slug, title } = topic;
     return (
       <Link key={uid} href={`/topics/${slug}`}>
@@ -107,7 +107,7 @@ function AppHeaderTopics(props) {
 }
 
 AppHeaderTopics.propTypes = {
-  topicArray: PropTypes.arrayOf(
+  topics: PropTypes.arrayOf(
     PropTypes.shape({
       uid: PropTypes.string.isRequired,
       slug: PropTypes.string.isRequired,
@@ -117,7 +117,7 @@ AppHeaderTopics.propTypes = {
 };
 
 AppHeaderTopics.defaultProps = {
-  topicArray: [],
+  topics: [],
 };
 
 export default AppHeaderTopics;

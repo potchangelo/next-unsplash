@@ -13,7 +13,7 @@ import { onSearchSubmit } from '../helpers/functions';
 const searchPathRE = /^\/search\/\w+\/\[q\]/;
 
 function AppHeader(props) {
-  const { topicArray } = props;
+  const { topics } = props;
 
   const router = useRouter();
   const { pathname, query } = router;
@@ -105,18 +105,18 @@ function AppHeader(props) {
           </div>
         </div>
       </nav>
-      <AppHeaderTopics topicArray={topicArray} />
+      <AppHeaderTopics topics={topics} />
       {searchTypesElement}
     </header>
   );
 }
 
 AppHeader.propTypes = {
-  topicArray: PropTypes.arrayOf(PropTypes.object),
+  topics: PropTypes.arrayOf(PropTypes.object),
 };
 
 AppHeader.defaultProps = {
-  topicArray: [],
+  topics: [],
 };
 
 export default AppHeader;

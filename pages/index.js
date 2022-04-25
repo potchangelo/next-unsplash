@@ -3,16 +3,16 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { dehydrate, QueryClient, useQuery } from 'react-query';
+import { dehydrate, QueryClient } from 'react-query';
 import style from './css/home.module.scss';
 import { getPhotos, getRandomPhoto, getTopics } from '../api';
 import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
 import { MasonryItem, Modal, Section } from '../layouts/';
 import { usePhotos } from '../helpers/hooks';
 import { onSearchSubmit } from '../helpers/functions';
+import { SearchIcon } from '@heroicons/react/solid';
 
-const Masonry = dynamic(() => import('../layouts/_Masonry'), { ssr: false })
-// const MasonryItem = dynamic(() => import('../layouts/_MasonryItem'), { ssr: false })
+const Masonry = dynamic(() => import('../layouts/_Masonry'), { ssr: false });
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -30,24 +30,14 @@ function flatMapPhotos(page) {
 
 export default function HomePage(props) {
   // - Data
-  // --- Topics
-  const { topicArray } = props;
-
-  // --- Photos
+  const { randomPhoto, topics } = props;
   const { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage } = usePhotos(
     'photos',
     getPhotos,
     getNextPageParam,
     flatMapPhotos
   );
-
-  // --- Random photo
-  const { data: randomPhotoResponse = {} } = useQuery('random-photo', getRandomPhoto);
-  const { photo: randomPhoto2 } = randomPhotoResponse;
-
-  // --- Search
   const [qValue, setQValue] = useState('');
-
   const router = useRouter();
 
   // - Elements
@@ -55,22 +45,22 @@ export default function HomePage(props) {
   let headTitle = publicTitle;
   let headDescription = `${publicTitle} built from Next.js by Zinglecode (for educational purpose only)`;
   let headUrl = process.env.NEXT_PUBLIC_HOST;
-  let headOgImage = null,
-    headTwitterImage = null;
-  // if (!!photo) {
-  //   headTitle = `Photo by ${photo.user?.displayName} | ${publicTitle}`;
-  //   headDescription = `Download this photo by ${photo.user?.displayName} on ${publicTitle}`;
-  //   headUrl += `/photos/${photo.uid}`;
-  //   headOgImage = <meta property="og:image" content={photo.url?.large} key="og-image" />;
-  //   headTwitterImage = <meta name="twitter:image" content={photo.url?.large} key="twitter-image" />;
-  // }
+  let headOgImage = null;
+  let headTwitterImage = null;
+  if (!!photo) {
+    headTitle = `Photo by ${photo.user?.displayName} | ${publicTitle}`;
+    headDescription = `Download this photo by ${photo.user?.displayName} on ${publicTitle}`;
+    headUrl += `/photos/${photo.uid}`;
+    headOgImage = <meta property="og:image" content={photo.url?.large} key="og-image" />;
+    headTwitterImage = <meta name="twitter:image" content={photo.url?.large} key="twitter-image" />;
+  }
 
   // --- Random photo
-  let randomPhotoElement = null,
-    randomUserElement = null;
-  if (!!randomPhoto2) {
+  let randomPhotoElement = null;
+  let randomUserElement = null;
+  if (!!randomPhoto) {
     const { pathname, query } = router;
-    const { uid, url, user } = randomPhoto2;
+    const { uid, url, user } = randomPhoto;
     randomPhotoElement = (
       <div className={style.heroBack}>
         <img src={url?.medium} alt="Random photo" />
@@ -103,13 +93,13 @@ export default function HomePage(props) {
 
   // --- Modal
   let photoModal = null;
-  // if (!!photo) {
-  //   photoModal = (
-  //     <Modal>
-  //       <PhotoPost photo={photo} isModal={true} />
-  //     </Modal>
-  //   );
-  // }
+  if (!!photo) {
+    photoModal = (
+      <Modal>
+        <PhotoPost photo={photo} isModal={true} />
+      </Modal>
+    );
+  }
 
   return (
     <>
@@ -125,13 +115,15 @@ export default function HomePage(props) {
         {headTwitterImage}
         <title>{headTitle}</title>
       </Head>
-      <AppHeader topicArray={topicArray} />
+      <AppHeader topics={topics} />
       <section className={`hero is-dark is-large ${style.hero}`}>
         {randomPhotoElement}
         <div className={style.heroMain}>
           <div className={style.heroBody}>
             <div className={`content ${style.heroContent}`}>
-              <h1 className="title is-size-4-mobile is-size-1-tablet has-text-weight-bold">Unsplash-Cloned</h1>
+              <h1 className="title is-size-4-mobile is-size-1-tablet has-text-weight-bold">
+                Unsplash-Cloned
+              </h1>
               <p className="is-size-6-mobile is-size-5-tablet has-text-weight-medium">
                 Built by Next.js, for educational purpose only
               </p>
@@ -148,7 +140,9 @@ export default function HomePage(props) {
                     onChange={event => setQValue(event.target.value)}
                   />
                   <button className={`button is-ghost ${style.heroSearchButton}`} type="submit">
-                    <span className="icon is-left">{/* <Search size={20} strokeWidth={2.5} /> */}</span>
+                    <span className="icon is-left">
+                      <SearchIcon width={24} height={24} />
+                    </span>
                   </button>
                 </div>
               </form>
@@ -157,7 +151,11 @@ export default function HomePage(props) {
           <div className={style.heroFooter}>
             <div className={`${style.heroFooterItem} is-size-7-mobile`}>{randomUserElement}</div>
             <div className={`${style.heroFooterItem} is-size-7-mobile`}>
-              <a className="has-text-white" href="https://github.com/potchangelo/next-unsplash" target="_blank">
+              <a
+                className="has-text-white"
+                href="https://github.com/potchangelo/next-unsplash"
+                target="_blank"
+              >
                 Project code on Github
               </a>
             </div>
@@ -167,7 +165,7 @@ export default function HomePage(props) {
       <Section type="photos">
         <Masonry>{photoElements}</Masonry>
       </Section>
-      {/* <AppLoading isShow={hasNextPage} isSpinning={isFetching || isFetchingNextPage} /> */}
+      <AppLoading isShow={hasNextPage} isSpinning={isFetching || isFetchingNextPage} />
       <AppFooter />
       {photoModal}
     </>
@@ -176,27 +174,22 @@ export default function HomePage(props) {
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();
-
+  let randomPhotoJson = {};
   let topicsJson = {};
+
   try {
     await queryClient.prefetchInfiniteQuery(
       'photos',
       ({ pageParam = null }) => getPhotos(pageParam)
     );
-    await queryClient.prefetchQuery(
-      'random-photo',
-      getRandomPhoto
-    );
+    randomPhotoJson = await getRandomPhoto();
     topicsJson = await getTopics();
   } catch (error) {
     console.error(error);
   }
 
-  const { topics: topicArray = [], errorCode = null } = topicsJson;
-  return {
-    props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-      topicArray, errorCode
-    }
-  };
+  const dehydratedState = JSON.parse(JSON.stringify(dehydrate(queryClient)));
+  const { photo: randomPhoto = null } = randomPhotoJson;
+  const { topics = [] } = topicsJson;
+  return { props: { dehydratedState, randomPhoto, topics } };
 }
