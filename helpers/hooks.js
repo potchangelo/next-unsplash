@@ -5,14 +5,12 @@ import { superStopPropagation } from './functions';
 import { getPhoto } from '../api';
 
 /**
- *
  * @param {(string|array)} key
  * @param {function} fetcher
  * @param {function} getNextPageParam
  * @param {function} flatMapPhotos
- * @returns {{ photoArray: Object[], photo: (Object|null), hasNextPage: boolean, isFetching: boolean, isFetchingNextPage: boolean }} Object of fetched data and status
  */
-function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos, initialData) {
+function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos) {
   // - New data infinite
   const {
     data = {},
@@ -21,11 +19,9 @@ function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos, initialData) {
     isFetching,
     isFetchingNextPage,
   } = useInfiniteQuery(
-    key, 
-    ({ pageParam = null }) => fetcher(pageParam), { getNextPageParam },
-    {
-      
-    }
+    key,
+    ({ pageParam = null }) => fetcher(pageParam),
+    { getNextPageParam }
   );
   console.log(data)
   const photoGroupArray = data.pages;

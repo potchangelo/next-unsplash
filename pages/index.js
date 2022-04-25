@@ -16,30 +16,30 @@ const Masonry = dynamic(() => import('../layouts/_Masonry'), { ssr: false })
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
-// function getNextPageParam(lastPage = {}, _) {
-//   const { photos = [] } = lastPage;
-//   const count = photos.length;
-//   if (count < 12) return false;
-//   return photos[count - 1].id;
-// }
+function getNextPageParam(lastPage = {}, _) {
+  const { photos = [] } = lastPage;
+  const count = photos.length;
+  if (count < 12) return false;
+  return photos[count - 1].id;
+}
 
-// function flatMapPhotos(page) {
-//   const { photos = [] } = page;
-//   return photos;
-// }
+function flatMapPhotos(page) {
+  const { photos = [] } = page;
+  return photos;
+}
 
 export default function HomePage(props) {
   // - Data
   // --- Topics
-  const { topicArray, photos } = props;
+  const { topicArray } = props;
 
   // --- Photos
-  // const { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage } = usePhotos(
-  //   'photos',
-  //   getPhotos,
-  //   getNextPageParam,
-  //   flatMapPhotos
-  // );
+  const { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage } = usePhotos(
+    'photos',
+    getPhotos,
+    getNextPageParam,
+    flatMapPhotos
+  );
 
   // --- Random photo
   const { data: randomPhotoResponse = {} } = useQuery('random-photo', getRandomPhoto);
@@ -95,7 +95,7 @@ export default function HomePage(props) {
   }
 
   // --- Photos
-  const photoElements = photos.map(photo => (
+  const photoElements = photoArray.map(photo => (
     <MasonryItem key={photo.uid} height={photo.height}>
       <PhotoItem photo={photo} />
     </MasonryItem>
@@ -176,23 +176,27 @@ export default function HomePage(props) {
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery('random-photo', getRandomPhoto);
 
-  let photosJson = {};
   let topicsJson = {};
   try {
-    photosJson = await getPhotos();
+    await queryClient.prefetchInfiniteQuery(
+      'photos',
+      ({ pageParam = null }) => getPhotos(pageParam)
+    );
+    await queryClient.prefetchQuery(
+      'random-photo',
+      getRandomPhoto
+    );
     topicsJson = await getTopics();
   } catch (error) {
     console.error(error);
   }
 
-  const { photos } = photosJson;
   const { topics: topicArray = [], errorCode = null } = topicsJson;
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
-      photos, topicArray, errorCode
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+      topicArray, errorCode
     }
   };
 }
