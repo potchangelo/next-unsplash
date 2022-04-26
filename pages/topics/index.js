@@ -7,7 +7,7 @@ const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
 export default function TopicsPage(props) {
   // - Data
-  const { topicArray } = props;
+  const { topics } = props;
 
   // - Elements
   // --- Meta
@@ -17,7 +17,7 @@ export default function TopicsPage(props) {
   const headUrl = `${process.env.NEXT_PUBLIC_HOST}/about`;
 
   // --- Topics
-  const topicElements = topicArray.map(topic => (
+  const topicElements = topics.map(topic => (
     <div key={topic.uid} className="column is-4">
       <TopicItem topic={topic} />
     </div>
@@ -35,7 +35,7 @@ export default function TopicsPage(props) {
         <meta name="twitter:url" content={headUrl} />
         <title>{headTitle}</title>
       </Head>
-      <AppHeader topicArray={topicArray} />
+      <AppHeader topics={topics} />
       <Section type="top">
         <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold">Topics</h2>
         <p className="subtitle is-size-6-mobile is-size-5-tablet">
@@ -58,7 +58,6 @@ export async function getStaticProps() {
   } catch (error) {
     console.error(error);
   }
-
-  const { topics: topicArray = [], errorCode = null } = topicsJson;
-  return { props: { topicArray, errorCode } };
+  const { topics = [] } = topicsJson;
+  return { props: { topics } };
 }
