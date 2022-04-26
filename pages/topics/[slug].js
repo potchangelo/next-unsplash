@@ -36,7 +36,7 @@ export default function TopicPage(props) {
   );
   const router = useRouter();
 
-  // - Extract
+  // - Fallback
   if (router.isFallback) return <div>This is fallback ...</div>;
   if (!topic) return <AppNotFound />;
   const { slug, title, description, coverUrl } = topic;

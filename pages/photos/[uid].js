@@ -10,7 +10,7 @@ export default function PhotoPage(props) {
   const { photo } = props;
   const router = useRouter();
 
-  // - Extract
+  // - Fallback
   if (router.isFallback) return <div>fallback ...</div>;
   if (!photo) return <AppNotFound />;
   const { uid, url, user } = photo;

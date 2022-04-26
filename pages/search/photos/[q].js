@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from 'react-query';
 import { searchPhotos } from '../../../api';
 import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../../../components';
@@ -31,6 +32,10 @@ export default function SearchPhotosPage(props) {
     getNextPageParam,
     flatMapPhotos
   );
+  const router = useRouter();
+
+  // - Fallback
+  if (router.isFallback) return <div>This is fallback ...</div>;
 
   // - Elements
   // --- Meta

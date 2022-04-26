@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
 import { searchUsers } from '../../../api';
 import { AppHeader, AppFooter, UserSearchItem } from '../../../components';
@@ -14,6 +15,10 @@ export default function SearchPhotosPage(props) {
     () => searchUsers(q)
   );
   const { users = [] } = data;
+  const router = useRouter();
+
+  // - Fallback
+  if (router.isFallback) return <div>This is fallback ...</div>;
 
   // - Elements
   // --- Meta

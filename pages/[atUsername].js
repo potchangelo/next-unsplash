@@ -37,7 +37,7 @@ export default function UserPage(props) {
   );
   const router = useRouter();
 
-  // - Extract
+  // - Fallback
   if (router.isFallback) return <div>This is fallback ...</div>;
   if (!user) return <AppNotFound />;
   const { username, displayName, biography, avatarUrl } = user;
