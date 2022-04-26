@@ -6,6 +6,7 @@ import { usePhotos } from '../helpers/hooks';
 import { Modal, MasonryItem, Section } from '../layouts';
 import { QueryClient } from 'react-query';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 
 const Masonry = dynamic(() => import('../layouts/_Masonry'), { ssr: false });
 
@@ -34,8 +35,10 @@ export default function UserPage(props) {
     getNextPageParam,
     flatMapPhotos
   );
+  const router = useRouter();
 
   // - Extract
+  if (router.isFallback) return <div>This is fallback ...</div>;
   if (!user) return <AppNotFound />;
   const { username, displayName, biography, avatarUrl } = user;
 
