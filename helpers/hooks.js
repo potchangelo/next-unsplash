@@ -23,7 +23,7 @@ function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos) {
     ({ pageParam = null }) => fetcher(pageParam),
     { getNextPageParam }
   );
-  console.log(data)
+
   const photoGroupArray = data.pages;
   const photoArray = photoGroupArray?.flatMap(flatMapPhotos) ?? [];
 

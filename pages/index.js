@@ -180,7 +180,7 @@ export async function getStaticProps() {
   try {
     await queryClient.prefetchInfiniteQuery(
       'photos',
-      ({ pageParam = null }) => getPhotos(pageParam)
+      _ => getPhotos()
     );
     randomPhotoJson = await getRandomPhoto();
     topicsJson = await getTopics();
