@@ -4,7 +4,7 @@ import { getUser, getRandomUsers } from '../api';
 import { AppHeader, AppFooter, AppNotFound, AppLoading, PhotoItem, PhotoPost, Credit } from '../components';
 import { usePhotos } from '../helpers/hooks';
 import { Modal, MasonryItem, Section } from '../layouts';
-import { QueryClient } from 'react-query';
+import { dehydrate, QueryClient } from 'react-query';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
@@ -150,6 +150,7 @@ export async function getStaticProps(context) {
     console.error(error);
   }
 
+  const dehydratedState = JSON.parse(JSON.stringify(dehydrate(queryClient)));
   const { user = null } = userJson;
-  return { props: { user } };
+  return { props: { dehydratedState, user } };
 }
