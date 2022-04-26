@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import { XIcon } from '@heroicons/react/solid';
 import style from './css/photoPost.module.scss';
 import PhotoPostFigure from './_PhotoPostFigure';
 import PhotoDownloadButton from './_PhotoDownloadButton';
@@ -32,8 +33,10 @@ function PhotoPost(props) {
   let closeButton = null;
   if (!!isModal) {
     closeButton = (
-      <div className={style.close} onClick={_ => router.back()}>
-        <span className="icon">{/* <X size={24} strokeWidth={2} /> */}</span>
+      <div className={style.close} onClick={router.back}>
+        <span className="icon">
+          <XIcon />
+        </span>
       </div>
     );
   }
@@ -69,7 +72,7 @@ function PhotoPost(props) {
 
   return (
     <>
-      <div className={postClass} onClick={_ => router.back()}>
+      <div className={postClass} onClick={router.back}>
         <div className={postInnerClass}>
           <ModalGuard>
             <div className={style.topbar}>

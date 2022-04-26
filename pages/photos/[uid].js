@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { getPhotos, getPhoto } from '../../api';
 import { AppHeader, AppFooter, AppNotFound, PhotoPost } from '../../components';
 
@@ -7,8 +8,10 @@ const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 export default function PhotoPage(props) {
   // - Data
   const { photo } = props;
+  const router = useRouter();
 
-  // - Checking
+  // - Extract
+  if (router.isFallback) return <div>fallback ...</div>;
   if (!photo) return <AppNotFound />;
   const { uid, url, user } = photo;
 
@@ -47,8 +50,8 @@ export async function getStaticPaths() {
     console.error(error);
   }
 
-  const { photos: photoArray = [] } = photosJson;
-  const paths = photoArray.map(photo => {
+  const { photos = [] } = photosJson;
+  const paths = photos.map(photo => {
     return { params: { uid: photo.uid } };
   });
 
@@ -65,6 +68,6 @@ export async function getStaticProps(context) {
     console.error(error);
   }
 
-  const { photo = null, errorCode = null } = photoJson;
-  return { props: { photo, errorCode } };
+  const { photo = null } = photoJson;
+  return { props: { photo } };
 }

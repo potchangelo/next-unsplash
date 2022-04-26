@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { ChevronDownIcon } from '@heroicons/react/solid';
 import style from './css/photoDownload.module.scss';
 import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
 import { useDropdown } from '../helpers/hooks';
@@ -47,7 +48,12 @@ function PhotoDownloadButton(props) {
     const whLabel = `(${width} x ${height.toFixed(0)})`;
 
     return (
-      <DropdownItem key={key} type="ext-link" href={href} linkClass="has-text-white has-text-weight-medium">
+      <DropdownItem
+        key={key}
+        type="ext-link"
+        href={href}
+        linkClass="has-text-white has-text-weight-medium"
+      >
         <span>{title[0].toUpperCase() + title.slice(1)} </span>
         <span className="has-text-grey-light">{whLabel}</span>
       </DropdownItem>
@@ -61,7 +67,9 @@ function PhotoDownloadButton(props) {
           {text}
         </a>
         <button className={`${buttonMoreClass}`} type="button" onClick={toggleDropdown}>
-          <span className="icon">{/* <ChevronDown size={20} strokeWidth={3} /> */}</span>
+          <span className="icon">
+            <ChevronDownIcon />
+          </span>
         </button>
       </div>
       <DropdownMenu caretOffsetRight={caretOffsetRight}>{dropdownItems}</DropdownMenu>
