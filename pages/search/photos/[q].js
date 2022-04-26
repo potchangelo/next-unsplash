@@ -1,8 +1,12 @@
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import { dehydrate, QueryClient } from 'react-query';
 import { searchPhotos } from '../../../api';
 import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../../../components';
 import { usePhotos } from '../../../helpers/hooks';
-import { Masonry, MasonryItem, Modal, Section } from '../../../layouts';
+import { MasonryItem, Modal, Section } from '../../../layouts';
+
+const Masonry = dynamic(() => import('../../../layouts/_Masonry'), { ssr: false });
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -20,10 +24,7 @@ function flatMapPhotos(page) {
 
 export default function SearchPhotosPage(props) {
   // - Data
-  // --- Search query
   const { q = '' } = props;
-
-  // --- Photos
   const { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage } = usePhotos(
     ['search-photos', q],
     pageParam => searchPhotos(q, pageParam),
@@ -49,7 +50,7 @@ export default function SearchPhotosPage(props) {
 
   // --- Photos
   const photoElements = photoArray.map(photo => (
-    <MasonryItem key={photo.uid}>
+    <MasonryItem key={photo.uid} height={photo.height}>
       <PhotoItem photo={photo} />
     </MasonryItem>
   ));
@@ -93,15 +94,26 @@ export default function SearchPhotosPage(props) {
 }
 
 export async function getStaticPaths() {
-  const qArray = ['on', 'from'];
-  const paths = qArray.map(q => {
+  const queries = ['on', 'from'];
+  const paths = queries.map(q => {
     return { params: { q } };
   });
-
   return { paths, fallback: true };
 }
 
 export async function getStaticProps(context) {
   const { q } = context.params;
-  return { props: { q } };
+  const queryClient = new QueryClient();
+
+  try {
+    await queryClient.prefetchInfiniteQuery(
+      ['search-photos', q],
+      _ => searchPhotos(q)
+    );
+  } catch (error) {
+    console.error(error);
+  }
+
+  const dehydratedState = JSON.parse(JSON.stringify(dehydrate(queryClient)));
+  return { props: { dehydratedState, q } };
 }
