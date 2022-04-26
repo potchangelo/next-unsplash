@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useQuery } from 'react-query';
+import { dehydrate, QueryClient, useQuery } from 'react-query';
 import { searchUsers } from '../../../api';
 import { AppHeader, AppFooter, UserSearchItem } from '../../../components';
 import { Section } from '../../../layouts';
@@ -8,12 +8,12 @@ const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
 export default function SearchPhotosPage(props) {
   // - Data
-  // --- Search query
   const { q = '' } = props;
-
-  // --- Users
-  const { data = {} } = useQuery(['search-users', q], () => searchUsers(q));
-  const { users } = data;
+  const { data = {} } = useQuery(
+    ['search-users', q],
+    () => searchUsers(q)
+  );
+  const { users = [] } = data;
 
   // - Elements
   // --- Meta
@@ -23,7 +23,7 @@ export default function SearchPhotosPage(props) {
   let headUrl = `${process.env.NEXT_PUBLIC_HOST}/search/users/${q}`;
 
   // --- Users
-  let userElements = users?.map(user => (
+  let userElements = users.map(user => (
     <div key={user.uid} className="column is-6-tablet is-4-desktop">
       <UserSearchItem user={user} />
     </div>
@@ -54,15 +54,26 @@ export default function SearchPhotosPage(props) {
 }
 
 export async function getStaticPaths() {
-  const qArray = ['on', 'from'];
-  const paths = qArray.map(q => {
+  const queries = ['on', 'from'];
+  const paths = queries.map(q => {
     return { params: { q } };
   });
-
   return { paths, fallback: true };
 }
 
 export async function getStaticProps(context) {
   const { q } = context.params;
-  return { props: { q } };
+  const queryClient = new QueryClient();
+
+  try {
+    await queryClient.prefetchQuery(
+      ['search-users', q],
+      () => searchUsers(q)
+    );
+  } catch (error) {
+    console.error(error);
+  }
+
+  const dehydratedState = JSON.parse(JSON.stringify(dehydrate(queryClient)));
+  return { props: { dehydratedState, q } };
 }
