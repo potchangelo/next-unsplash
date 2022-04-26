@@ -3,7 +3,11 @@ import style from './css/user.module.scss';
 import { getUser, getRandomUsers } from '../api';
 import { AppHeader, AppFooter, AppNotFound, AppLoading, PhotoItem, PhotoPost, Credit } from '../components';
 import { usePhotos } from '../helpers/hooks';
-import { Modal, Masonry, MasonryItem, Section } from '../layouts';
+import { Modal, MasonryItem, Section } from '../layouts';
+import { QueryClient } from 'react-query';
+import dynamic from 'next/dynamic';
+
+const Masonry = dynamic(() => import('../layouts/_Masonry'), { ssr: false });
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -23,10 +27,7 @@ function flatMapPhotos(page) {
 
 export default function UserPage(props) {
   // - Data
-  // --- User
   const { user } = props;
-
-  // --- Photos
   const { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage } = usePhotos(
     ['user-photos', user?.username, true],
     pageParam => getUser(user?.username, true, pageParam),
@@ -73,7 +74,7 @@ export default function UserPage(props) {
 
   // --- Photos
   const photoElements = photoArray.map(photo => (
-    <MasonryItem key={photo.uid}>
+    <MasonryItem key={photo.uid} height={photo.height}>
       <PhotoItem photo={photo} user={user} />
     </MasonryItem>
   ));
@@ -122,8 +123,8 @@ export async function getStaticPaths() {
     console.error(error);
   }
 
-  const { users: userArray = [] } = usersJson;
-  const paths = userArray.map(user => {
+  const { users = [] } = usersJson;
+  const paths = users.map(user => {
     return { params: { atUsername: `@${user.username}` } };
   });
 
@@ -133,14 +134,19 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const { atUsername } = context.params;
   const username = atUsername?.slice(1);
-
+  const queryClient = new QueryClient();
   let userJson = {};
+
   try {
+    await queryClient.prefetchInfiniteQuery(
+      ['user-photos', username, true],
+      _ => getUser(username, true)
+    );
     userJson = await getUser(username);
   } catch (error) {
     console.error(error);
   }
 
-  const { user = null, errorCode = null } = userJson;
-  return { props: { user, errorCode } };
+  const { user = null } = userJson;
+  return { props: { user } };
 }
