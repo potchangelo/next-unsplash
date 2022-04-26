@@ -1,8 +1,13 @@
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { dehydrate, QueryClient } from 'react-query';
 import { getTopic, getTopics } from '../../api';
 import { AppHeader, AppFooter, AppLoading, AppNotFound, PhotoItem, PhotoPost } from '../../components';
 import { usePhotos } from '../../helpers/hooks';
-import { Masonry, MasonryItem, Modal, Section } from '../../layouts';
+import { MasonryItem, Modal, Section } from '../../layouts';
+
+const Masonry = dynamic(() => import('../../layouts/_Masonry'), { ssr: false });
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -22,18 +27,17 @@ function flatMapPhotos(page) {
 
 export default function TopicPage(props) {
   // - Data
-  // --- Topic
-  const { topic, topicArray } = props;
-
-  // --- Photos
+  const { topic, topics } = props;
   const { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage } = usePhotos(
     ['topic-photos', topic?.slug, true],
     pageParam => getTopic(topic?.slug, true, pageParam),
     getNextPageParam,
     flatMapPhotos
   );
+  const router = useRouter();
 
   // - Extract
+  if (router.isFallback) return <div>This is fallback ...</div>;
   if (!topic) return <AppNotFound />;
   const { slug, title, description, coverUrl } = topic;
 
@@ -46,7 +50,7 @@ export default function TopicPage(props) {
 
   // --- Photos
   const photoElements = photoArray.map(photo => (
-    <MasonryItem key={photo.uid}>
+    <MasonryItem key={photo.uid} height={photo.height}>
       <PhotoItem photo={photo} user={photo.user} />
     </MasonryItem>
   ));
@@ -75,7 +79,7 @@ export default function TopicPage(props) {
         <meta name="twitter:image" content={headImageUrl} key="twitter-image" />
         <title>{headTitle}</title>
       </Head>
-      <AppHeader topicArray={topicArray} />
+      <AppHeader topics={topics} />
       <Section type="top">
         <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold">{title}</h2>
         <p className="subtitle is-size-6-mobile is-size-5-tablet">{description}</p>
@@ -98,27 +102,32 @@ export async function getStaticPaths() {
     console.error(error);
   }
 
-  const { topics: topicArray = [] } = topicsJson;
-  const paths = topicArray.map(topic => {
+  const { topics = [] } = topicsJson;
+  const paths = topics.map(topic => {
     return { params: { slug: topic.slug } };
   });
-
   return { paths, fallback: true };
 }
 
 export async function getStaticProps(context) {
   const { slug } = context.params;
+  const queryClient = new QueryClient();
+  let topicJson = {};
+  let allTopicsJson = {};
 
-  let topicJson = {},
-    allTopicsJson = {};
   try {
+    await queryClient.prefetchInfiniteQuery(
+      ['topic-photos', slug, true],
+      _ => getTopic(slug, true)
+    );
     topicJson = await getTopic(slug);
     allTopicsJson = await getTopics();
   } catch (error) {
     console.error(error);
   }
 
-  const { topic = null, errorCode = null } = topicJson;
-  const { topics: topicArray = [] } = allTopicsJson;
-  return { props: { topic, topicArray, errorCode } };
+  const dehydratedState = JSON.parse(JSON.stringify(dehydrate(queryClient)));
+  const { topic = null } = topicJson;
+  const { topics = [] } = allTopicsJson;
+  return { props: { dehydratedState, topic, topics } };
 }
