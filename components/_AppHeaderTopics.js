@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import style from './css/appHeader.module.scss';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 
 function AppHeaderTopics(props) {
   // - Data
@@ -86,10 +87,14 @@ function AppHeaderTopics(props) {
           <div className={style.scrollContent}>{topicElements}</div>
         </div>
         <div className={scrollLeftClass} onClick={_ => onScrollClick('left')}>
-          <span className="icon has-text-grey">{/* <ChevronLeft width={22} strokeWidth={2.5} /> */}</span>
+          <span className="icon has-text-grey">
+            <ChevronLeftIcon />
+          </span>
         </div>
         <div className={scrollRightClass} onClick={_ => onScrollClick('right')}>
-          <span className="icon has-text-grey">{/* <ChevronRight width={22} strokeWidth={2.5} /> */}</span>
+          <span className="icon has-text-grey">
+            <ChevronRightIcon />
+          </span>
         </div>
       </div>
       <div className={`${style.item}`}>
