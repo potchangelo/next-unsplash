@@ -1,7 +1,7 @@
-import style from './css/about.module.scss';
 import Head from 'next/head';
-import { AppHeader, AppFooter } from '../components';
-import { Section } from '../layouts';
+import { AppHeader, AppFooter } from 'z/components';
+import { Section } from 'z/layouts';
+import style from './css/about.module.scss';
 
 export default function AboutPage() {
   const headTitle = 'About | Unsplash-cloned';
@@ -39,8 +39,8 @@ export default function AboutPage() {
                 </a>
               </li>
               <li>
-                <a href="https://github.com/feathericons/react-feather" target="_blank">
-                  React Feather (Icons)
+                <a href="https://heroicons.com/" target="_blank">
+                  Heroicons (Icons)
                 </a>
               </li>
               <li>
