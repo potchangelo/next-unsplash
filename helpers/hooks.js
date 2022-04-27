@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
+import { getPhoto } from 'z/fetchers/photos';
 import { superStopPropagation } from './functions';
-import { getPhoto } from '../api';
 
 /**
  * @param {(string|array)} key
@@ -87,10 +87,6 @@ function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos) {
   return { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage };
 }
 
-/**
- * Hook for toggle dropdown components
- * @returns {{ isDropdownActive: boolean, toggleDropdown: function }} Object of state and function
- */
 function useDropdown() {
   // - Data
   const [isActive, setActive] = useState(false);
