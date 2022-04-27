@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
-import { searchUsers } from '../../../api';
-import { AppHeader, AppFooter, UserSearchItem } from '../../../components';
-import { Section } from '../../../layouts';
+import { AppHeader, AppFooter, UserSearchItem } from 'z/components';
+import { searchUsers } from 'z/fetchers/search';
+import { Section } from 'z/layouts';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 

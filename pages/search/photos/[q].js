@@ -2,12 +2,15 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from 'react-query';
-import { searchPhotos } from '../../../api';
-import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../../../components';
-import { usePhotos } from '../../../helpers/hooks';
-import { MasonryItem, Modal, Section } from '../../../layouts';
+import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from 'z/components';
+import { searchPhotos } from 'z/fetchers/search';
+import { usePhotos } from 'z/helpers/hooks';
+import { MasonryItem, Modal, Section } from 'z/layouts';
 
-const Masonry = dynamic(() => import('../../../layouts/_Masonry'), { ssr: false });
+const Masonry = dynamic(
+  () => import('z/layouts').then(l => l.Masonry),
+  { ssr: false }
+);
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
