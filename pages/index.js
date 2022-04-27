@@ -1,18 +1,22 @@
+import { SearchIcon } from '@heroicons/react/solid';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
+import { getPhotos, getRandomPhoto } from 'z/api/_photos';
+import { getTopics } from 'z/api/_topics';
+import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from 'z/components';
+import { usePhotos } from 'z/helpers/hooks';
+import { onSearchSubmit } from 'z/helpers/functions';
+import { MasonryItem, Modal, Section } from 'z/layouts';
 import style from './css/home.module.scss';
-import { getPhotos, getRandomPhoto, getTopics } from '../api';
-import { AppHeader, AppFooter, AppLoading, PhotoItem, PhotoPost } from '../components';
-import { MasonryItem, Modal, Section } from '../layouts/';
-import { usePhotos } from '../helpers/hooks';
-import { onSearchSubmit } from '../helpers/functions';
-import { SearchIcon } from '@heroicons/react/solid';
 
-const Masonry = dynamic(() => import('../layouts/_Masonry'), { ssr: false });
+const Masonry = dynamic(
+  () => import('z/layouts').then(l => l.Masonry),
+  { ssr: false }
+);
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
