@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "z/api/*": ["api/*"],
+      "z/fetchers/*": ["fetchers/*"],
       "z/components": ["components"],
       "z/helpers/*": ["helpers/*"],
       "z/layouts": ["layouts"]

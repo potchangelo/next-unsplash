@@ -1,22 +1,18 @@
-/**
- * API get topics
- * @returns {Promise} Promise of fetch
- */
+const apiHost = process.env.NEXT_PUBLIC_API_HOST;
+
 async function getTopics() {
-  let url = `${process.env.NEXT_PUBLIC_API_HOST}/topics`;
+  let url = `${apiHost}/topics`;
   const res = await fetch(url);
   return await res.json();
 }
 
 /**
- * API get topic
  * @param {string} slug
- * @param {boolean} includedPhotos
- * @param {(string|number)} photosBeforeId
- * @returns {Promise} Promise of fetch
+ * @param {boolean} [includedPhotos]
+ * @param {(string|number)} [photosBeforeId]
  */
 async function getTopic(slug, includedPhotos = false, photosBeforeId) {
-  let url = `${process.env.NEXT_PUBLIC_API_HOST}/topics/${slug}`;
+  let url = `${apiHost}/topics/${slug}`;
 
   const params = new URLSearchParams();
   if (includedPhotos) params.set('includedPhotos', '1');
