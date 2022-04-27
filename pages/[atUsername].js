@@ -1,14 +1,17 @@
 import Head from 'next/head';
-import style from './css/user.module.scss';
-import { getUser, getRandomUsers } from '../api';
-import { AppHeader, AppFooter, AppNotFound, AppLoading, PhotoItem, PhotoPost, Credit } from '../components';
-import { usePhotos } from '../helpers/hooks';
-import { Modal, MasonryItem, Section } from '../layouts';
-import { dehydrate, QueryClient } from 'react-query';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { dehydrate, QueryClient } from 'react-query';
+import { AppHeader, AppFooter, AppNotFound, AppLoading, PhotoItem, PhotoPost, Credit } from 'z/components';
+import { getUser, getRandomUsers } from 'z/fetchers/users';
+import { usePhotos } from 'z/helpers/hooks';
+import { Modal, MasonryItem, Section } from 'z/layouts';
+import style from './css/user.module.scss';
 
-const Masonry = dynamic(() => import('../layouts/_Masonry'), { ssr: false });
+const Masonry = dynamic(
+  () => import('z/layouts').then(l => l.Masonry),
+  { ssr: false }
+);
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
