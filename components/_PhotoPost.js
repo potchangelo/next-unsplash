@@ -1,13 +1,13 @@
+import { XIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { XIcon } from '@heroicons/react/solid';
-import style from './css/photoPost.module.scss';
-import PhotoPostFigure from './_PhotoPostFigure';
-import PhotoDownloadButton from './_PhotoDownloadButton';
-import User from './_User';
+import { ModalGuard } from 'z/layouts';
 import Credit from './_Credit';
-import { ModalGuard } from '../layouts';
+import PhotoDownloadButton from './_PhotoDownloadButton';
+import PhotoPostFigure from './_PhotoPostFigure';
+import User from './_User';
+import style from './css/photoPost.module.scss';
 
 function PhotoPost(props) {
   // - Data

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
+import { superStopPropagation } from 'z/helpers/functions';
 import style from './css/dropdown.module.scss';
-import { superStopPropagation } from '../helpers/functions';
 
 function DropdownMenu(props) {
   const { caretOffsetLeft, caretOffsetRight, children } = props;

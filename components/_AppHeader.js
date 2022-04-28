@@ -3,12 +3,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import style from './css/appHeader.module.scss';
+import { onSearchSubmit } from 'z/helpers/functions';
+import { useDropdown } from 'z/helpers/hooks';
+import { Dropdown, DropdownMenu, DropdownItem } from 'z/layouts';
 import AppHeaderSearchTypes from './_AppHeaderSearchTypes';
 import AppHeaderTopics from './_AppHeaderTopics';
-import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
-import { useDropdown } from '../helpers/hooks';
-import { onSearchSubmit } from '../helpers/functions';
+import style from './css/appHeader.module.scss';
 
 const searchPathRE = /^\/search\/\w+\/\[q\]/;
 

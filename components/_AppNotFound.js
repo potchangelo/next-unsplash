@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import style from './css/appNotFound.module.scss';
+import { Section } from 'z/layouts';
 import { AppHeader, AppFooter } from '.';
-import { Section } from '../layouts';
+import style from './css/appNotFound.module.scss';
 
 function AppNotFound() {
   const { asPath } = useRouter();

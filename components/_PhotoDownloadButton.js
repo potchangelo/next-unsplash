@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
 import { ChevronDownIcon } from '@heroicons/react/solid';
+import PropTypes from 'prop-types';
+import { useDropdown } from 'z/helpers/hooks';
+import { Dropdown, DropdownMenu, DropdownItem } from 'z/layouts';
 import style from './css/photoDownload.module.scss';
-import { Dropdown, DropdownMenu, DropdownItem } from '../layouts';
-import { useDropdown } from '../helpers/hooks';
 
 const menuContentArray = [
   { title: 'small', width: 640 },
