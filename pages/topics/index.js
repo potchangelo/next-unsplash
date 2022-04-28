@@ -1,7 +1,7 @@
 import Head from 'next/head';
-import { getTopics } from '../../api';
-import { AppHeader, AppFooter, TopicItem } from '../../components';
-import { Section } from '../../layouts';
+import { AppHeader, AppFooter, TopicItem } from 'z/components';
+import { getTopics } from 'z/fetchers/topics';
+import { Section } from 'z/layouts';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
