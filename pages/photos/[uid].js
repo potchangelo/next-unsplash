@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { getPhotos, getPhoto } from '../../api';
-import { AppHeader, AppFooter, AppNotFound, PhotoPost } from '../../components';
+import { AppHeader, AppFooter, AppNotFound, PhotoPost } from 'z/components';
+import { getPhotos, getPhoto } from 'z/fetchers/photos';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
