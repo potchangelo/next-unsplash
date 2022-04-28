@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "jsdocs/typedefs": ["jsdocs/typedefs"],
       "z/fetchers/*": ["fetchers/*"],
       "z/components": ["components"],
       "z/helpers/*": ["helpers/*"],
