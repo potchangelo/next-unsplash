@@ -26,7 +26,7 @@ function PhotoPost(props) {
   if (!photo) {
     return <div className={postClass}>No photo</div>;
   }
-  const { description, topics: topicArray = [], user } = photo;
+  const { description, topics = [], user } = photo;
 
   // - Elements
   // --- Close for modal
@@ -53,8 +53,8 @@ function PhotoPost(props) {
 
   // --- Topics
   let topicElement = null;
-  if (topicArray.length > 0) {
-    const topicTagElements = topicArray.map(topic => {
+  if (topics.length > 0) {
+    const topicTagElements = topics.map(topic => {
       const { uid, slug, title } = topic;
       return (
         <Link key={uid} href={`/topics/${slug}`}>

@@ -1,6 +1,6 @@
 import { getPhoto } from 'z/fetchers/photos';
 
-const sizeArray = [
+const sizes = [
   { title: 'small', width: '640' },
   { title: 'medium', width: '1080' },
   { title: 'large', width: '1920' },
@@ -14,7 +14,7 @@ export default async function (req, res) {
 
   // Size option
   let sizeTitle = 'original';
-  const sizeOption = sizeArray.find(size => size.width === w);
+  const sizeOption = sizes.find(size => size.width === w);
   if (!!sizeOption) {
     sizeTitle = sizeOption.title;
   }

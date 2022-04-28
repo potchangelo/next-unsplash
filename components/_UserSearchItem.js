@@ -2,7 +2,7 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import style from './css/userSearchItem.module.scss';
 
-const indexArray = [0, 1, 2];
+const indexes = [0, 1, 2];
 
 function UserSearchItem(props) {
   // - Data
@@ -16,7 +16,7 @@ function UserSearchItem(props) {
   const userAvatarUrl = avatarUrl?.small ?? '/default-avatar.png';
 
   // - Elements
-  const photoElements = indexArray.map(index => {
+  const photoElements = indexes.map(index => {
     let photoImgElement = null;
     if (index < photos?.length) {
       photoImgElement = <img src={photos[index].url.thumbnail} />;

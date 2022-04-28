@@ -24,8 +24,8 @@ function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos) {
     { getNextPageParam }
   );
 
-  const photoGroupArray = data.pages;
-  const photoArray = photoGroupArray?.flatMap(flatMapPhotos) ?? [];
+  const photosGroups = data.pages;
+  const photos = photosGroups?.flatMap(flatMapPhotos) ?? [];
 
   // --- Photo
   const [photo, setPhoto] = useState(null);
@@ -82,9 +82,9 @@ function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos) {
         isFetchSuspendedRef.current = false;
       }, 600);
     }
-  }, [photoGroupArray]);
+  }, [photosGroups]);
 
-  return { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage };
+  return { photos, photo, hasNextPage, isFetching, isFetchingNextPage };
 }
 
 function useDropdown() {

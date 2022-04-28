@@ -4,7 +4,7 @@ import { useDropdown } from 'z/helpers/hooks';
 import { Dropdown, DropdownMenu, DropdownItem } from 'z/layouts';
 import style from './css/photoDownload.module.scss';
 
-const menuContentArray = [
+const menus = [
   { title: 'small', width: 640 },
   { title: 'medium', width: 1080 },
   { title: 'large', width: 1920 },
@@ -33,7 +33,7 @@ function PhotoDownloadButton(props) {
   }
 
   // - Elements
-  const dropdownItems = menuContentArray.map((menu, index) => {
+  const dropdownItems = menus.map((menu, index) => {
     const { title, width } = menu;
     const key = `${title}-${index}`;
 

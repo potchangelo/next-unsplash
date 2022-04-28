@@ -29,7 +29,7 @@ function flatMapPhotos(page) {
 export default function SearchPhotosPage(props) {
   // - Data
   const { q = '' } = props;
-  const { photoArray, photo, hasNextPage, isFetching, isFetchingNextPage } = usePhotos(
+  const { photos, photo, hasNextPage, isFetching, isFetchingNextPage } = usePhotos(
     ['search-photos', q],
     pageParam => searchPhotos(q, pageParam),
     getNextPageParam,
@@ -57,7 +57,7 @@ export default function SearchPhotosPage(props) {
   }
 
   // --- Photos
-  const photoElements = photoArray.map(photo => (
+  const photoElements = photos.map(photo => (
     <MasonryItem key={photo.uid} height={photo.height}>
       <PhotoItem photo={photo} />
     </MasonryItem>
