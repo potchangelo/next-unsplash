@@ -1,4 +1,4 @@
-import { getPhoto } from '../../../../api';
+import { getPhoto } from 'z/fetchers/photos';
 
 const sizeArray = [
   { title: 'small', width: '640' },
