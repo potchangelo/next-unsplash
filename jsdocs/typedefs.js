@@ -1,5 +1,30 @@
 // --- Models
 /**
+ * @typedef {object} Photo
+ * @property {number} id
+ * @property {string} uid
+ * @property {number} width
+ * @property {number} height
+ * @property {string} [description]
+ * @property {Date} createdAt
+ * @property {Date} updatedAt
+ * @property {PhotoUrl} url
+ * @property {Topic[]} topics
+ */
+
+/**
+ * @typedef {object} PhotoUrl
+ * @property {string} thumbnail
+ * @property {string} small
+ * @property {string} medium
+ * @property {string} large
+ * @property {string} original
+ * @property {string} creditUser
+ * @property {string} creditUserLink
+ * @property {string} creditPhotoLink
+ */
+
+/**
  * @typedef {object} Topic
  * @property {string} uid
  * @property {string} slug
