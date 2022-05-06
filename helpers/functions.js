@@ -1,5 +1,4 @@
 /**
- * Hard stop propagation
  * @param {(import("react").TouchEvent|import("react").MouseEvent)} event
  */
 function superStopPropagation(event) {
@@ -9,7 +8,6 @@ function superStopPropagation(event) {
 }
 
 /**
- * Search submit
  * @param {(import("react").TouchEvent|import("react").MouseEvent)} event
  * @param {import("next/router").NextRouter} router
  * @param {string} q
