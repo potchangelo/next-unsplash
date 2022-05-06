@@ -5,6 +5,10 @@ import { getPhotos, getPhoto } from 'z/fetchers/photos';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').Photo} props.photo
+ */
 export default function PhotoPage(props) {
   // - Data
   const { photo } = props;

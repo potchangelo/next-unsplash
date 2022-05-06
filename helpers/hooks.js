@@ -25,10 +25,20 @@ function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos) {
   );
 
   const photosGroups = data.pages;
+
+  /**
+   * @type {import('jsdocs/typedefs').Photo[]}
+   */
   const photos = photosGroups?.flatMap(flatMapPhotos) ?? [];
 
   // --- Photo
-  const [photo, setPhoto] = useState(null);
+  const photoStates = useState(null);
+
+  /**
+   * @type {import('jsdocs/typedefs').Photo}
+   */
+  const photo = photoStates[0];
+  const setPhoto = photoStates[1];
 
   // --- Pause
   const isFetchSuspendedRef = useRef(false);

@@ -32,6 +32,11 @@ function flatMapPhotos(page) {
   return photos;
 }
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').Photo} props.randomPhoto
+ * @param {import('jsdocs/typedefs').Topic[]} props.topics
+ */
 export default function HomePage(props) {
   // - Data
   const { randomPhoto, topics } = props;
