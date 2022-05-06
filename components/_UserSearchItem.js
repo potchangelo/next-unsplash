@@ -1,9 +1,12 @@
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import style from './css/userSearchItem.module.scss';
 
 const indexes = [0, 1, 2];
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').User} props.user
+ */
 function UserSearchItem(props) {
   // - Data
   const { user } = props;
@@ -44,14 +47,5 @@ function UserSearchItem(props) {
     </Link>
   );
 }
-
-UserSearchItem.propTypes = {
-  user: PropTypes.shape({
-    displayName: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-    avatarUrl: PropTypes.object,
-    photos: PropTypes.array,
-  }),
-};
 
 export default UserSearchItem;

@@ -1,10 +1,15 @@
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import style from './css/user.module.scss';
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').User} props.user
+ * @param {string} [props.textColor]
+ * @param {boolean} [props.hideUsername]
+ */
 function User(props) {
   // - Data
-  const { user, textColor, hideUsername } = props;
+  const { user, textColor, hideUsername = false } = props;
 
   // - Extract
   if (!user) return null;
@@ -31,19 +36,5 @@ function User(props) {
     </Link>
   );
 }
-
-User.propTypes = {
-  user: PropTypes.shape({
-    displayName: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-    avatarUrl: PropTypes.object,
-  }),
-  textColor: PropTypes.string,
-  hideUsername: PropTypes.bool,
-};
-
-User.defaultProps = {
-  hideUsername: false,
-};
 
 export default User;

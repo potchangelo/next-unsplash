@@ -34,6 +34,7 @@
  * @property {Date} createdAt
  * @property {Date} updatedAt
  * @property {UserAvatarUrl} [avatarUrl]
+ * @property {Photo[]} [photos]
  */
 
 /**

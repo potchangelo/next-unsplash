@@ -7,7 +7,7 @@ import style from './css/photoItem.module.scss';
 /**
  * @param {object} props
  * @param {import('jsdocs/typedefs').Photo} props.photo
- * @param {*} [props.user]
+ * @param {import('jsdocs/typedefs').User} [props.user]
  */
 function PhotoItem(props) {
   // - Data
@@ -42,7 +42,7 @@ function PhotoItem(props) {
         <div className={style.overlay}>
           <div className={style.menu} />
           <div className={style.menu}>
-            <User user={user} textColor={'white'} hideUsername={true} />
+            <User user={user} textColor="white" hideUsername={true} />
           </div>
         </div>
       </figure>
