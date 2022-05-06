@@ -2,7 +2,6 @@ import { MenuIcon, SearchIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { onSearchSubmit } from 'z/helpers/functions';
 import { useDropdown } from 'z/helpers/hooks';
 import { Dropdown, DropdownMenu, DropdownItem } from 'z/layouts';
@@ -12,8 +11,12 @@ import style from './css/appHeader.module.scss';
 
 const searchPathRE = /^\/search\/\w+\/\[q\]/;
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').Topic[]} [props.topics]
+ */
 function AppHeader(props) {
-  const { topics } = props;
+  const { topics = [] } = props;
 
   const router = useRouter();
   const { pathname, query } = router;
@@ -104,13 +107,5 @@ function AppHeader(props) {
     </header>
   );
 }
-
-AppHeader.propTypes = {
-  topics: PropTypes.arrayOf(PropTypes.object),
-};
-
-AppHeader.defaultProps = {
-  topics: [],
-};
 
 export default AppHeader;

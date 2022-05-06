@@ -5,6 +5,10 @@ import { Section } from 'z/layouts';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').Topic[]} props.topics
+ */
 export default function TopicsPage(props) {
   // - Data
   const { topics } = props;

@@ -1,7 +1,10 @@
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import style from './css/topicItem.module.scss';
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').Topic} props.topic
+ */
 function TopicItem(props) {
   const { topic } = props;
 
@@ -22,15 +25,5 @@ function TopicItem(props) {
     </Link>
   );
 }
-
-TopicItem.propTypes = {
-  topic: PropTypes.shape({
-    uid: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    coverUrl: PropTypes.object,
-  }).isRequired,
-};
 
 export default TopicItem;

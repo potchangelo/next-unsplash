@@ -1,13 +1,16 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import style from './css/appHeader.module.scss';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').Topic[]} [props.topics]
+ */
 function AppHeaderTopics(props) {
   // - Data
-  const { topics } = props;
+  const { topics = [] } = props;
   const [hasScrollLeft, setHasScrollLeft] = useState(false);
   const [hasScrollRight, setHasScrollRight] = useState(false);
   const scrollAreaRef = useRef(null);
@@ -110,19 +113,5 @@ function AppHeaderTopics(props) {
     </nav>
   );
 }
-
-AppHeaderTopics.propTypes = {
-  topics: PropTypes.arrayOf(
-    PropTypes.shape({
-      uid: PropTypes.string.isRequired,
-      slug: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-    })
-  ),
-};
-
-AppHeaderTopics.defaultProps = {
-  topics: [],
-};
 
 export default AppHeaderTopics;

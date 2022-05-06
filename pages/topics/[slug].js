@@ -28,6 +28,11 @@ function flatMapPhotos(page) {
   return photos;
 }
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').Topic} props.topic
+ * @param {import('jsdocs/typedefs').Topic[]} props.topics
+ */
 export default function TopicPage(props) {
   // - Data
   const { topic, topics } = props;
