@@ -1,6 +1,9 @@
-import PropTypes from 'prop-types';
 import style from './css/section.module.scss';
 
+/**
+ * @param {object} props
+ * @param {string} [props.type]
+ */
 function Section(props) {
   const { type, children } = props;
 
@@ -15,9 +18,5 @@ function Section(props) {
     </section>
   );
 }
-
-Section.propTypes = {
-  type: PropTypes.string,
-};
 
 export default Section;
