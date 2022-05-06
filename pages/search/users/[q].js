@@ -7,6 +7,10 @@ import { Section } from 'z/layouts';
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
+/**
+ * @param {object} props
+ * @param {string} props.q
+ */
 export default function SearchPhotosPage(props) {
   // - Data
   const { q = '' } = props;
@@ -14,7 +18,11 @@ export default function SearchPhotosPage(props) {
     ['search-users', q],
     () => searchUsers(q)
   );
-  const { users = [] } = data;
+
+  /**
+   * @type {import('jsdocs/typedefs').User[]}
+   */
+  const users = data.users ?? [];
   const router = useRouter();
 
   // - Fallback

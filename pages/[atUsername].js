@@ -29,6 +29,10 @@ function flatMapPhotos(page) {
   return photos;
 }
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').User} props.user
+ */
 export default function UserPage(props) {
   // - Data
   const { user } = props;

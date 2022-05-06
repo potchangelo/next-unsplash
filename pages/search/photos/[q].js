@@ -26,6 +26,10 @@ function flatMapPhotos(page) {
   return photos;
 }
 
+/**
+ * @param {object} props
+ * @param {string} props.q
+ */
 export default function SearchPhotosPage(props) {
   // - Data
   const { q = '' } = props;
