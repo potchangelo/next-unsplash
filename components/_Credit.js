@@ -1,6 +1,9 @@
-import PropTypes from 'prop-types';
 import style from './css/credit.module.scss';
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').PhotoUrl} props.photoUrl
+ */
 function Credit(props) {
   const { photoUrl } = props;
   return (
@@ -22,13 +25,5 @@ function Credit(props) {
     </div>
   );
 }
-
-Credit.propTypes = {
-  photoUrl: PropTypes.shape({
-    creditPhotoLink: PropTypes.string.isRequired,
-    creditUser: PropTypes.string.isRequired,
-    creditUserLink: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default Credit;

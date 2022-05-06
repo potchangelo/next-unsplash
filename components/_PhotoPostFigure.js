@@ -1,7 +1,10 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import style from './css/photoPost.module.scss';
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').Photo} props.photo
+ */
 function PhotoPostFigure(props) {
   // - Data
   const { photo } = props;
@@ -41,14 +44,5 @@ function PhotoPostFigure(props) {
     </div>
   );
 }
-
-PhotoPostFigure.propTypes = {
-  photo: PropTypes.shape({
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    description: PropTypes.string,
-    url: PropTypes.object,
-  }).isRequired,
-};
 
 export default PhotoPostFigure;

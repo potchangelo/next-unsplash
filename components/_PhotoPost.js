@@ -1,7 +1,6 @@
 import { XIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
 import { ModalGuard } from 'z/layouts';
 import Credit from './_Credit';
 import PhotoDownloadButton from './_PhotoDownloadButton';
@@ -9,9 +8,14 @@ import PhotoPostFigure from './_PhotoPostFigure';
 import User from './_User';
 import style from './css/photoPost.module.scss';
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').Photo} props.photo
+ * @param {boolean} [props.isModal]
+ */
 function PhotoPost(props) {
   // - Data
-  const { photo, isModal } = props;
+  const { photo, isModal = false } = props;
   const router = useRouter();
 
   // - Attributes
@@ -94,18 +98,5 @@ function PhotoPost(props) {
     </>
   );
 }
-
-PhotoPost.propTypes = {
-  photo: PropTypes.shape({
-    description: PropTypes.string,
-    topics: PropTypes.arrayOf(PropTypes.object),
-    user: PropTypes.object,
-  }).isRequired,
-  isModal: PropTypes.bool,
-};
-
-PhotoPost.defaultProps = {
-  isModal: false,
-};
 
 export default PhotoPost;

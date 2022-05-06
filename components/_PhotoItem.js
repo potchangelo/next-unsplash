@@ -1,10 +1,14 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
-import style from './css/photoItem.module.scss';
 import PhotoDownloadButton from './_PhotoDownloadButton';
 import User from './_User';
+import style from './css/photoItem.module.scss';
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').Photo} props.photo
+ * @param {*} [props.user]
+ */
 function PhotoItem(props) {
   // - Data
   const { photo, user: indyUser } = props;
@@ -51,17 +55,5 @@ function PhotoItem(props) {
     </>
   );
 }
-
-PhotoItem.propTypes = {
-  photo: PropTypes.shape({
-    uid: PropTypes.string.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    description: PropTypes.string,
-    user: PropTypes.object,
-    url: PropTypes.object.isRequired,
-  }).isRequired,
-  user: PropTypes.object,
-};
 
 export default PhotoItem;

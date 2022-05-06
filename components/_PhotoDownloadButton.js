@@ -1,5 +1,4 @@
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import PropTypes from 'prop-types';
 import { useDropdown } from 'z/helpers/hooks';
 import { Dropdown, DropdownMenu, DropdownItem } from 'z/layouts';
 import style from './css/photoDownload.module.scss';
@@ -12,9 +11,15 @@ const menus = [
   { title: 'original', width: 3150 },
 ];
 
+/**
+ * @param {object} props
+ * @param {import('jsdocs/typedefs').Photo} props.photo
+ * @param {String} props.buttonStyle
+ * @param {String} props.text
+ */
 function PhotoDownloadButton(props) {
   // - Data
-  const { photo, buttonStyle, text } = props;
+  const { photo, buttonStyle, text = 'Download' } = props;
   const { isDropdownActive, toggleDropdown } = useDropdown();
 
   if (!photo) return null;
@@ -76,19 +81,5 @@ function PhotoDownloadButton(props) {
     </Dropdown>
   );
 }
-
-PhotoDownloadButton.propTypes = {
-  photo: PropTypes.shape({
-    uid: PropTypes.string.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-  }).isRequired,
-  buttonStyle: PropTypes.string,
-  text: PropTypes.string,
-};
-
-PhotoDownloadButton.defaultProps = {
-  text: 'Download',
-};
 
 export default PhotoDownloadButton;
