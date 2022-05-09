@@ -1,6 +1,10 @@
-import PropTypes from 'prop-types';
 import style from './css/dropdown.module.scss';
 
+/**
+ * @param {object} props
+ * @param {boolean} props.isActive
+ * @param {string} [props.align]
+ */
 function Dropdown(props) {
   const { isActive, align, children } = props;
 
@@ -11,10 +15,5 @@ function Dropdown(props) {
 
   return <div className={dropdownClass}>{children}</div>;
 }
-
-Dropdown.propTypes = {
-  isActive: PropTypes.bool.isRequired,
-  align: PropTypes.string,
-};
 
 export default Dropdown;

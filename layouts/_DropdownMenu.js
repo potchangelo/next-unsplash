@@ -1,7 +1,11 @@
-import PropTypes from 'prop-types';
 import { superStopPropagation } from 'z/helpers/functions';
 import style from './css/dropdown.module.scss';
 
+/**
+ * @param {object} props
+ * @param {number} [props.caretOffsetLeft]
+ * @param {number} [props.caretOffsetRight]
+ */
 function DropdownMenu(props) {
   const { caretOffsetLeft, caretOffsetRight, children } = props;
 
@@ -19,10 +23,5 @@ function DropdownMenu(props) {
     </div>
   );
 }
-
-DropdownMenu.propTypes = {
-  caretOffsetLeft: PropTypes.number,
-  caretOffsetRight: PropTypes.number,
-};
 
 export default DropdownMenu;

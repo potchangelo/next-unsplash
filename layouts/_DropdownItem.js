@@ -1,10 +1,16 @@
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import style from './css/dropdown.module.scss';
 
+/**
+ * @param {object} props
+ * @param {string} [props.type]
+ * @param {string} [props.href]
+ * @param {string} [props.linkClass]
+ * @param {string} [props.align]
+ */
 function DropdownItem(props) {
   // - Data
-  const { type, href, linkClass, align, children } = props;
+  const { type, href = '', linkClass = '', align, children } = props;
 
   // - Attributes
   let itemClass = `${style.item} `;
@@ -34,17 +40,5 @@ function DropdownItem(props) {
 
   return element;
 }
-
-DropdownItem.propTypes = {
-  type: PropTypes.string,
-  href: PropTypes.string,
-  linkClass: PropTypes.string,
-  align: PropTypes.string,
-};
-
-DropdownItem.defaultProps = {
-  href: '',
-  linkClass: '',
-};
 
 export default DropdownItem;
