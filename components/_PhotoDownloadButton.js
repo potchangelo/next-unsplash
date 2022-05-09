@@ -53,12 +53,7 @@ function PhotoDownloadButton(props) {
     const whLabel = `(${width} x ${height.toFixed(0)})`;
 
     return (
-      <DropdownItem
-        key={key}
-        type="ext-link"
-        href={href}
-        linkClass="has-text-white has-text-weight-medium"
-      >
+      <DropdownItem key={key} type="ext-link" href={href} linkClass="has-text-white has-text-weight-medium">
         <span>{title[0].toUpperCase() + title.slice(1)} </span>
         <span className="has-text-grey-light">{whLabel}</span>
       </DropdownItem>

@@ -13,10 +13,7 @@ import { onSearchSubmit } from 'z/helpers/functions';
 import { MasonryItem, Modal, Section } from 'z/layouts';
 import style from './css/home.module.scss';
 
-const Masonry = dynamic(
-  () => import('z/layouts').then(l => l.Masonry),
-  { ssr: false }
-);
+const Masonry = dynamic(() => import('z/layouts').then(l => l.Masonry), { ssr: false });
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -130,9 +127,7 @@ export default function HomePage(props) {
         <div className={style.heroMain}>
           <div className={style.heroBody}>
             <div className={`content ${style.heroContent}`}>
-              <h1 className="title is-size-4-mobile is-size-1-tablet has-text-weight-bold">
-                Unsplash-Cloned
-              </h1>
+              <h1 className="title is-size-4-mobile is-size-1-tablet has-text-weight-bold">Unsplash-Cloned</h1>
               <p className="is-size-6-mobile is-size-5-tablet has-text-weight-medium">
                 Built by Next.js, for educational purpose only
               </p>
@@ -160,11 +155,7 @@ export default function HomePage(props) {
           <div className={style.heroFooter}>
             <div className={`${style.heroFooterItem} is-size-7-mobile`}>{randomUserElement}</div>
             <div className={`${style.heroFooterItem} is-size-7-mobile`}>
-              <a
-                className="has-text-white"
-                href="https://github.com/potchangelo/next-unsplash"
-                target="_blank"
-              >
+              <a className="has-text-white" href="https://github.com/potchangelo/next-unsplash" target="_blank">
                 Project code on Github
               </a>
             </div>
@@ -187,10 +178,7 @@ export async function getStaticProps() {
   let topicsJson = {};
 
   try {
-    await queryClient.prefetchInfiniteQuery(
-      'photos',
-      _ => getPhotos()
-    );
+    await queryClient.prefetchInfiniteQuery('photos', _ => getPhotos());
     randomPhotoJson = await getRandomPhoto();
     topicsJson = await getTopics();
   } catch (error) {

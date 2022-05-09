@@ -14,10 +14,7 @@ const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 export default function SearchPhotosPage(props) {
   // - Data
   const { q = '' } = props;
-  const { data = {} } = useQuery(
-    ['search-users', q],
-    () => searchUsers(q)
-  );
+  const { data = {} } = useQuery(['search-users', q], () => searchUsers(q));
 
   /**
    * @type {import('jsdocs/typedefs').User[]}
@@ -79,10 +76,7 @@ export async function getStaticProps(context) {
   const queryClient = new QueryClient();
 
   try {
-    await queryClient.prefetchQuery(
-      ['search-users', q],
-      () => searchUsers(q)
-    );
+    await queryClient.prefetchQuery(['search-users', q], () => searchUsers(q));
   } catch (error) {
     console.error(error);
   }

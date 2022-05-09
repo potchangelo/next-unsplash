@@ -7,10 +7,7 @@ import { getTopic, getTopics } from 'z/fetchers/topics';
 import { usePhotos } from 'z/helpers/hooks';
 import { MasonryItem, Modal, Section } from 'z/layouts';
 
-const Masonry = dynamic(
-  () => import('z/layouts').then(l => l.Masonry),
-  { ssr: false }
-);
+const Masonry = dynamic(() => import('z/layouts').then(l => l.Masonry), { ssr: false });
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -124,10 +121,7 @@ export async function getStaticProps(context) {
   let allTopicsJson = {};
 
   try {
-    await queryClient.prefetchInfiniteQuery(
-      ['topic-photos', slug, true],
-      _ => getTopic(slug, true)
-    );
+    await queryClient.prefetchInfiniteQuery(['topic-photos', slug, true], _ => getTopic(slug, true));
     topicJson = await getTopic(slug);
     allTopicsJson = await getTopics();
   } catch (error) {

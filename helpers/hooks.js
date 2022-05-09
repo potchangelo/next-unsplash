@@ -18,11 +18,7 @@ function usePhotos(key, fetcher, getNextPageParam, flatMapPhotos) {
     hasNextPage,
     isFetching,
     isFetchingNextPage,
-  } = useInfiniteQuery(
-    key,
-    ({ pageParam = null }) => fetcher(pageParam),
-    { getNextPageParam }
-  );
+  } = useInfiniteQuery(key, ({ pageParam = null }) => fetcher(pageParam), { getNextPageParam });
 
   const photosGroups = data.pages;
 

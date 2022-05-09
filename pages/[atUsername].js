@@ -8,10 +8,7 @@ import { usePhotos } from 'z/helpers/hooks';
 import { Modal, MasonryItem, Section } from 'z/layouts';
 import style from './css/user.module.scss';
 
-const Masonry = dynamic(
-  () => import('z/layouts').then(l => l.Masonry),
-  { ssr: false }
-);
+const Masonry = dynamic(() => import('z/layouts').then(l => l.Masonry), { ssr: false });
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -148,10 +145,7 @@ export async function getStaticProps(context) {
   let userJson = {};
 
   try {
-    await queryClient.prefetchInfiniteQuery(
-      ['user-photos', username, true],
-      _ => getUser(username, true)
-    );
+    await queryClient.prefetchInfiniteQuery(['user-photos', username, true], _ => getUser(username, true));
     userJson = await getUser(username);
   } catch (error) {
     console.error(error);

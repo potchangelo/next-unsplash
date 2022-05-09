@@ -3,8 +3,8 @@
  */
 const nextConfig = {
   experimental: {
-    scrollRestoration: true
-  }
+    scrollRestoration: true,
+  },
 };
 
-module.exports = nextConfig
+module.exports = nextConfig;

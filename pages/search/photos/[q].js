@@ -7,10 +7,7 @@ import { searchPhotos } from 'z/fetchers/search';
 import { usePhotos } from 'z/helpers/hooks';
 import { MasonryItem, Modal, Section } from 'z/layouts';
 
-const Masonry = dynamic(
-  () => import('z/layouts').then(l => l.Masonry),
-  { ssr: false }
-);
+const Masonry = dynamic(() => import('z/layouts').then(l => l.Masonry), { ssr: false });
 
 const publicTitle = process.env.NEXT_PUBLIC_TITLE;
 
@@ -118,10 +115,7 @@ export async function getStaticProps(context) {
   const queryClient = new QueryClient();
 
   try {
-    await queryClient.prefetchInfiniteQuery(
-      ['search-photos', q],
-      _ => searchPhotos(q)
-    );
+    await queryClient.prefetchInfiniteQuery(['search-photos', q], _ => searchPhotos(q));
   } catch (error) {
     console.error(error);
   }
