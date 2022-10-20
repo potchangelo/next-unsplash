@@ -9,13 +9,13 @@ function TopicItem(props) {
   const { topic } = props;
 
   if (!topic) return null;
-  const { uid, slug, title, description, coverUrl } = topic;
+  const { uid, slug, title, description, cover } = topic;
 
   return (
     <Link key={uid} href={`/topics/${slug}`}>
       <a className={style.main}>
         <div className={style.imageCover}>
-          <img className={style.image} src={coverUrl?.small} />
+          <img className={style.image} src={cover?.small} />
         </div>
         <div className={`${style.info} content`}>
           <h6 className="title is-6">{title}</h6>

@@ -44,14 +44,14 @@ export default function TopicPage(props) {
   // - Fallback
   if (router.isFallback) return <div>This is fallback ...</div>;
   if (!topic) return <AppNotFound />;
-  const { slug, title, description, coverUrl } = topic;
+  const { slug, title, description, cover } = topic;
 
   // - Elements
   // --- Meta
   const headTitle = `${title} | ${publicTitle}`;
   const headDescription = `See the high resolution photos of ${title} on Unsplash-Cloned`;
   const headUrl = `${process.env.NEXT_PUBLIC_HOST}/topics/${slug}`;
-  const headImageUrl = coverUrl?.large;
+  const headImageUrl = cover?.large;
 
   // --- Photos
   const photoElements = photos.map(photo => (

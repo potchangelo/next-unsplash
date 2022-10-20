@@ -56,7 +56,7 @@
  * @property {boolean} isFeatured
  * @property {Date} createdAt
  * @property {Date} updatedAt
- * @property {TopicCover} coverUrl
+ * @property {TopicCover} cover
  */
 
 /**
