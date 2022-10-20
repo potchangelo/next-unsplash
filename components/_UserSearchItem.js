@@ -22,7 +22,7 @@ function UserSearchItem(props) {
   const photoElements = indexes.map(index => {
     let photoImgElement = null;
     if (index < photos?.length) {
-      photoImgElement = <img src={photos[index].url.thumbnail} />;
+      photoImgElement = <img src={photos[index].src.thumbnail} />;
     }
     return (
       <div key={`p-${index}`} className={style.photo}>

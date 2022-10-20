@@ -2,18 +2,18 @@ import style from './css/credit.module.scss';
 
 /**
  * @param {object} props
- * @param {import('jsdocs/typedefs').PhotoUrl} props.photoUrl
+ * @param {import('jsdocs/typedefs').PhotoSrc} props.photoSrc
  */
 function Credit(props) {
-  const { photoUrl } = props;
+  const { photoSrc } = props;
   return (
     <div className={style.main}>
-      <a href={photoUrl?.creditPhotoLink} target="_blank">
+      <a href={photoSrc?.creditPhotoLink} target="_blank">
         Original Photo
       </a>{' '}
       by{' '}
-      <a href={photoUrl?.creditUserLink} target="_blank">
-        {photoUrl?.creditUser}
+      <a href={photoSrc?.creditUserLink} target="_blank">
+        {photoSrc?.creditUser}
       </a>{' '}
       on{' '}
       <a

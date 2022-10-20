@@ -9,12 +9,12 @@
  * @property {Date} createdAt
  * @property {Date} updatedAt
  * @property {User} user
- * @property {PhotoUrl} url
+ * @property {PhotoSrc} src
  * @property {Topic[]} topics
  */
 
 /**
- * @typedef {object} PhotoUrl
+ * @typedef {object} PhotoSrc
  * @property {string} thumbnail
  * @property {string} small
  * @property {string} medium

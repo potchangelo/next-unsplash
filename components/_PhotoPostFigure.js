@@ -12,7 +12,7 @@ function PhotoPostFigure(props) {
 
   // - Extract
   if (!photo) return null;
-  const { width, height, description, url } = photo;
+  const { width, height, description, src } = photo;
 
   // - Attributes
   let figureClass = style.figure;
@@ -20,7 +20,7 @@ function PhotoPostFigure(props) {
     maxWidth: `calc(calc(100vh - 200px) * ${width / height})`,
   };
   const paddingBottom = `${(height / width) * 100}%`;
-  const srcset = `${url.small} 640w, ${url.medium} 1080w, ${url.large} 1920w`;
+  const srcset = `${src.small} 640w, ${src.medium} 1080w, ${src.large} 1920w`;
   let sizes = '(max-width: 640px) 640px, (max-width: 1080px) 1080px, 100vw';
   ('100vw');
   if (isZoomed) {
@@ -36,7 +36,7 @@ function PhotoPostFigure(props) {
     <div className={style.figureCover}>
       <figure className={figureClass} style={figureStyle}>
         <div style={{ paddingBottom }} />
-        <img sizes={sizes} srcSet={srcset} src={url.medium} alt={description} />
+        <img sizes={sizes} srcSet={srcset} src={src.medium} alt={description} />
         <div className={style.figureZoomArea} onClick={_ => setIsZoomed(prev => !prev)}>
           <span className={`icon has-text-white ${style.figureZoomIcon}`}>{zoomSvg}</span>
         </div>

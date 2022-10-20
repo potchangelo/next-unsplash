@@ -16,7 +16,7 @@ function PhotoItem(props) {
 
   // - Extract
   if (!photo) return null;
-  const { uid, width, height, description, user: photoUser, url } = photo;
+  const { uid, width, height, description, user: photoUser, src } = photo;
   const user = indyUser ?? photoUser;
 
   // - Attributes
@@ -36,7 +36,7 @@ function PhotoItem(props) {
           scroll={false}
         >
           <a className={style.link}>
-            <img src={url.small} alt={description} />
+            <img src={src.small} alt={description} />
           </a>
         </Link>
         <div className={style.overlay}>

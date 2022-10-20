@@ -57,8 +57,8 @@ export default function HomePage(props) {
     headTitle = `Photo by ${photo.user?.displayName} | ${publicTitle}`;
     headDescription = `Download this photo by ${photo.user?.displayName} on ${publicTitle}`;
     headUrl += `/photos/${photo.uid}`;
-    headOgImage = <meta property="og:image" content={photo.url?.large} key="og-image" />;
-    headTwitterImage = <meta name="twitter:image" content={photo.url?.large} key="twitter-image" />;
+    headOgImage = <meta property="og:image" content={photo.src?.large} key="og-image" />;
+    headTwitterImage = <meta name="twitter:image" content={photo.src?.large} key="twitter-image" />;
   }
 
   // --- Random photo
@@ -66,10 +66,10 @@ export default function HomePage(props) {
   let randomUserElement = null;
   if (!!randomPhoto) {
     const { pathname, query } = router;
-    const { uid, url, user } = randomPhoto;
+    const { uid, src, user } = randomPhoto;
     randomPhotoElement = (
       <div className={style.heroBack}>
-        <img src={url?.medium} alt="Random photo" />
+        <img src={src?.medium} alt="Random photo" />
       </div>
     );
     randomUserElement = (

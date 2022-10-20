@@ -23,7 +23,7 @@ export default async function (req, res) {
     const resJson = await getPhoto(uid);
     photo = resJson?.photo;
     if (!photo) throw new Error('Photo not found');
-    const fetchedRes = await fetch(photo.url[`${sizeTitle}`]);
+    const fetchedRes = await fetch(photo.src[`${sizeTitle}`]);
     fetchedData = await fetchedRes.arrayBuffer();
   } catch (error) {
     console.log(error.toString());
@@ -34,7 +34,7 @@ export default async function (req, res) {
 
   // No force in URL query string
   if (force !== 'true') {
-    res.redirect(photo.url?.original);
+    res.redirect(photo.src?.original);
     return;
   }
 

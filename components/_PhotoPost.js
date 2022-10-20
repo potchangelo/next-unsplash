@@ -89,7 +89,7 @@ function PhotoPost(props) {
             {descriptionElement}
             {topicElement}
             <div className={style.credit}>
-              <Credit photoUrl={photo.url} />
+              <Credit photoUrl={photo.src} />
             </div>
           </ModalGuard>
         </div>

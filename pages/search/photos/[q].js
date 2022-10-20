@@ -53,8 +53,8 @@ export default function SearchPhotosPage(props) {
     headTitle = `Photo by ${photo.user?.displayName} | ${publicTitle}`;
     headDescription = `Download this photo by ${photo.user?.displayName} on ${publicTitle}`;
     headUrl += `/photos/${photo.uid}`;
-    headOgImage = <meta property="og:image" content={photo.url?.large} key="og-image" />;
-    headTwitterImage = <meta name="twitter:image" content={photo.url?.large} key="twitter-image" />;
+    headOgImage = <meta property="og:image" content={photo.src?.large} key="og-image" />;
+    headTwitterImage = <meta name="twitter:image" content={photo.src?.large} key="twitter-image" />;
   }
 
   // --- Photos

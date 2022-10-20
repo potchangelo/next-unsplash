@@ -17,13 +17,13 @@ export default function PhotoPage(props) {
   // - Fallback
   if (router.isFallback) return <div>fallback ...</div>;
   if (!photo) return <AppNotFound />;
-  const { uid, url, user } = photo;
+  const { uid, src, user } = photo;
 
   // - Elements
   const headTitle = `Photo by ${user?.displayName} | ${publicTitle}`;
   const headDescription = `Download this photo by ${user?.displayName} on Unsplash-Cloned`;
   const headUrl = `${process.env.NEXT_PUBLIC_HOST}/photos/${uid}`;
-  const headImageUrl = url?.large;
+  const headImageUrl = src?.large;
 
   return (
     <>
