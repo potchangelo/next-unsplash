@@ -13,10 +13,11 @@ function User(props) {
 
   // - Extract
   if (!user) return null;
-  const { displayName, username, avatarUrl } = user;
+  const { displayName, username, avatar } = user;
 
   // - Attributes
-  const userAvatarUrl = avatarUrl?.small ?? '/default-avatar.png';
+  const userAvatarUrl = avatar?.small ?? '/default-avatar.png';
+
   let textColorClass = 'has-text-black-ter';
   if (textColor === 'white') textColorClass = 'has-text-white';
 

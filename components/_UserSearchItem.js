@@ -13,10 +13,10 @@ function UserSearchItem(props) {
 
   // - Extract
   if (!user) return null;
-  const { displayName, username, avatarUrl, photos } = user;
+  const { displayName, username, avatar, photos } = user;
 
   // - Attributes
-  const userAvatarUrl = avatarUrl?.small ?? '/default-avatar.png';
+  const userAvatarUrl = avatar?.small ?? '/default-avatar.png';
 
   // - Elements
   const photoElements = indexes.map(index => {

@@ -44,21 +44,21 @@ export default function UserPage(props) {
   // - Fallback
   if (router.isFallback) return <div>This is fallback ...</div>;
   if (!user) return <AppNotFound />;
-  const { username, displayName, biography, avatarUrl } = user;
+  const { username, displayName, biography, avatar } = user;
 
   // - Elements
   // --- Meta
   const headTitle = `${displayName} (@${username}) | ${publicTitle}`;
   const headDescription = `Download photos by ${displayName} on ${publicTitle}`;
   const headUrl = `${process.env.NEXT_PUBLIC_HOST}/@${username}`;
-  const headImageUrl = avatarUrl?.large ?? '/default-avatar.png';
+  const headImageUrl = avatar?.large ?? '/default-avatar.png';
 
   // --- Credit
   let creditElement = null;
-  if (!!user.avatarUrl) {
+  if (!!user.avatar) {
     creditElement = (
       <div>
-        <Credit photoUrl={user.avatarUrl} />
+        <Credit photoUrl={user.avatar} />
       </div>
     );
   }
@@ -68,7 +68,7 @@ export default function UserPage(props) {
     <div className={style.main}>
       <div className="columns is-variable is-2-mobile is-6-tablet">
         <div className="column is-narrow py-0">
-          <img className={style.avatar} src={avatarUrl?.large ?? '/default-avatar.png'} alt="Avatar" />
+          <img className={style.avatar} src={avatar?.large ?? '/default-avatar.png'} alt="Avatar" />
         </div>
         <div className="column py-0 content">
           <h2 className="title is-size-4-mobile is-size-2-tablet has-text-weight-bold my-2">{displayName}</h2>

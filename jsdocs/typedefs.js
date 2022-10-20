@@ -1,5 +1,27 @@
 // --- Models
 /**
+ * @typedef {object} User
+ * @property {string} uid
+ * @property {string} username
+ * @property {string} displayName
+ * @property {string} [biography]
+ * @property {Date} createdAt
+ * @property {Date} updatedAt
+ * @property {UserAvatar} [avatar]
+ * @property {Photo[]} [photos]
+ */
+
+/**
+ * @typedef {object} UserAvatar
+ * @property {string} small
+ * @property {string} medium
+ * @property {string} large
+ * @property {string} creditUser
+ * @property {string} creditUserLink
+ * @property {string} creditPhotoLink
+ */
+
+/**
  * @typedef {object} Photo
  * @property {number} id
  * @property {string} uid
@@ -26,28 +48,6 @@
  */
 
 /**
- * @typedef {object} User
- * @property {string} uid
- * @property {string} username
- * @property {string} displayName
- * @property {string} [biography]
- * @property {Date} createdAt
- * @property {Date} updatedAt
- * @property {UserAvatarUrl} [avatarUrl]
- * @property {Photo[]} [photos]
- */
-
-/**
- * @typedef {object} UserAvatarUrl
- * @property {string} small
- * @property {string} medium
- * @property {string} large
- * @property {string} creditUser
- * @property {string} creditUserLink
- * @property {string} creditPhotoLink
- */
-
-/**
  * @typedef {object} Topic
  * @property {string} uid
  * @property {string} slug
@@ -56,11 +56,11 @@
  * @property {boolean} isFeatured
  * @property {Date} createdAt
  * @property {Date} updatedAt
- * @property {TopicCoverUrl} coverUrl
+ * @property {TopicCover} coverUrl
  */
 
 /**
- * @typedef {object} TopicCoverUrl
+ * @typedef {object} TopicCover
  * @property {string} small
  * @property {string} medium
  * @property {string} large
