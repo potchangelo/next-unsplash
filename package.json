@@ -20,24 +20,24 @@
     "url": "https://github.com/potchangelo/next-unsplash/issues"
   },
   "license": "MIT",
-  "dependencies": {
-    "@heroicons/react": "^1.0.6",
-    "bulma": "^0.9.4",
-    "next": "^12.1.6",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-query": "^3.39.0",
-    "sass": "^1.51.0"
-  },
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
-  "devDependencies": {
+  "dependencies": {
+    "@heroicons/react": "^1.0.6",
+    "bulma": "^0.9.4",
     "eslint": "8.26.0",
     "eslint-config-next": "13.0.0",
+    "next": "^12.1.6",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-query": "^3.39.0",
+    "sass": "^1.51.0"
+  },
+  "devDependencies": {
     "prettier": "^2.6.2"
   }
 }
