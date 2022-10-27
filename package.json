@@ -32,9 +32,12 @@
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "devDependencies": {
+    "eslint": "8.26.0",
+    "eslint-config-next": "13.0.0",
     "prettier": "^2.6.2"
   }
 }
