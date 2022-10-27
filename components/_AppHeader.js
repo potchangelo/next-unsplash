@@ -76,7 +76,12 @@ function AppHeader(props) {
               <span>About</span>
             </a>
           </Link>
-          <a className={style.link} href="https://github.com/potchangelo/next-unsplash" target="_blank">
+          <a
+            className={style.link}
+            href="https://github.com/potchangelo/next-unsplash"
+            target="_blank"
+            rel="noreferrer"
+          >
             <span>Github</span>
           </a>
         </div>

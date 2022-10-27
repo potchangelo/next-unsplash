@@ -25,7 +25,7 @@ function AppNotFound() {
       <Section>
         <div className={`${style.main} content`}>
           <h2 className="title is-2">404</h2>
-          <p>Hm, the page you were looking for doesn't seem to exist anymore.</p>
+          <p>Hm, the page you were looking for doesn&apos;t seem to exist anymore.</p>
           <p className="mt-6">
             <Link href="/">
               <a className="button">Go to Homepage</a>

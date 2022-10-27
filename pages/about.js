@@ -29,27 +29,27 @@ export default function AboutPage() {
             <h4 className="title is-size-6">Stack used in the project</h4>
             <ul>
               <li>
-                <a href="https://nextjs.org/" target="_blank">
+                <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
                   Next.js (React Framework)
                 </a>
               </li>
               <li>
-                <a href="https://react-query.tanstack.com/" target="_blank">
+                <a href="https://react-query.tanstack.com/" target="_blank" rel="noreferrer">
                   React Query (Data Fetching)
                 </a>
               </li>
               <li>
-                <a href="https://heroicons.com/" target="_blank">
+                <a href="https://heroicons.com/" target="_blank" rel="noreferrer">
                   Heroicons (Icons)
                 </a>
               </li>
               <li>
-                <a href="https://bulma.io/" target="_blank">
+                <a href="https://bulma.io/" target="_blank" rel="noreferrer">
                   Bulma (CSS Frameworks)
                 </a>
               </li>
               <li>
-                <a href="https://github.com/potchangelo/express-unsplash" target="_blank">
+                <a href="https://github.com/potchangelo/express-unsplash" target="_blank" rel="noreferrer">
                   Express Unsplash-Cloned API by Zinglecode
                 </a>
               </li>
@@ -59,7 +59,7 @@ export default function AboutPage() {
             <h4 className="title is-size-6">Credits</h4>
             <ul>
               <li>
-                <a href="https://unsplash.com/" target="_blank">
+                <a href="https://unsplash.com/" target="_blank" rel="noreferrer">
                   Unsplash
                 </a>
               </li>
@@ -73,6 +73,7 @@ export default function AboutPage() {
               <a
                 href="https://unsplash.com/@tengyart?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
                 target="_blank"
+                rel="noreferrer"
               >
                 Tengyart
               </a>{' '}
@@ -80,6 +81,7 @@ export default function AboutPage() {
               <a
                 href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
                 target="_blank"
+                rel="noreferrer"
               >
                 Unsplash
               </a>

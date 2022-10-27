@@ -155,7 +155,12 @@ export default function HomePage(props) {
           <div className={style.heroFooter}>
             <div className={`${style.heroFooterItem} is-size-7-mobile`}>{randomUserElement}</div>
             <div className={`${style.heroFooterItem} is-size-7-mobile`}>
-              <a className="has-text-white" href="https://github.com/potchangelo/next-unsplash" target="_blank">
+              <a
+                className="has-text-white"
+                href="https://github.com/potchangelo/next-unsplash"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Project code on Github
               </a>
             </div>
